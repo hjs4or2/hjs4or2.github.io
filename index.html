@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>한재성 포트폴리오</title>
+  <style>
+    :root {
+      --bg: #f4efe7;
+      --paper: rgba(255, 251, 246, 0.88);
+      --ink: #1d2b2a;
+      --muted: #5d6967;
+      --line: rgba(29, 43, 42, 0.12);
+      --accent: #c35a2f;
+      --accent-deep: #8f3414;
+      --accent-soft: #f2d4c5;
+      --green: #244e46;
+      --green-soft: #d9ebe6;
+      --shadow: 0 24px 60px rgba(32, 26, 18, 0.12);
+      --radius-lg: 28px;
+      --radius-md: 20px;
+      --radius-sm: 14px;
+      --max: 1180px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      font-family: "Pretendard Variable", "Pretendard", "Noto Sans KR", sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(195, 90, 47, 0.16), transparent 32%),
+        radial-gradient(circle at 88% 8%, rgba(36, 78, 70, 0.16), transparent 26%),
+        linear-gradient(180deg, #f9f6f1 0%, var(--bg) 50%, #efe5d8 100%);
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background-image:
+        linear-gradient(rgba(29, 43, 42, 0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(29, 43, 42, 0.025) 1px, transparent 1px);
+      background-size: 28px 28px;
+      mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.45), transparent 85%);
+    }
+
+    .page {
+      width: min(calc(100% - 32px), var(--max));
+      margin: 0 auto;
+      padding: 32px 0 64px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      border-radius: 36px;
+      padding: 48px;
+      background:
+        linear-gradient(135deg, rgba(255, 250, 244, 0.92), rgba(255, 244, 236, 0.78)),
+        #fff8f2;
+      border: 1px solid rgba(255, 255, 255, 0.7);
+      box-shadow: var(--shadow);
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      right: -80px;
+      top: -90px;
+      width: 280px;
+      height: 280px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(195, 90, 47, 0.26) 0%, rgba(195, 90, 47, 0.05) 52%, transparent 72%);
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(36, 78, 70, 0.08);
+      color: var(--green);
+      font-size: 0.9rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+    }
+
+    h1,
+    h2,
+    h3 {
+      margin: 0;
+      letter-spacing: -0.03em;
+    }
+
+    h1 {
+      margin-top: 18px;
+      font-size: clamp(2.4rem, 6vw, 5.1rem);
+      line-height: 0.98;
+      max-width: 9ch;
+    }
+
+    .subtitle {
+      margin-top: 20px;
+      max-width: 760px;
+      font-size: 1.08rem;
+      color: var(--muted);
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.35fr 0.9fr;
+      gap: 24px;
+      margin-top: 32px;
+      align-items: stretch;
+    }
+
+    .hero-card,
+    .section,
+    .timeline-item,
+    .quote {
+      background: var(--paper);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.8);
+      box-shadow: var(--shadow);
+    }
+
+    .hero-card {
+      border-radius: var(--radius-lg);
+      padding: 24px;
+    }
+
+    .hero-card h2 {
+      font-size: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--accent-deep);
+    }
+
+    .hero-card p {
+      margin: 14px 0 0;
+      color: var(--muted);
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .stat {
+      padding: 16px;
+      border-radius: var(--radius-sm);
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.78), rgba(242, 212, 197, 0.38));
+      border: 1px solid var(--line);
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 1.6rem;
+      line-height: 1;
+    }
+
+    .stat span {
+      display: block;
+      margin-top: 6px;
+      font-size: 0.92rem;
+      color: var(--muted);
+    }
+
+    .contact-list,
+    .bullet-list,
+    .chips {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .contact-list li,
+    .bullet-list li {
+      padding: 10px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .contact-list li:last-child,
+    .bullet-list li:last-child {
+      border-bottom: 0;
+    }
+
+    .contact-list strong {
+      color: var(--green);
+      display: inline-block;
+      width: 86px;
+    }
+
+    .sections {
+      display: grid;
+      gap: 20px;
+      margin-top: 24px;
+    }
+
+    .section {
+      border-radius: var(--radius-lg);
+      padding: 28px;
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .section-header h2 {
+      font-size: clamp(1.5rem, 3vw, 2.1rem);
+    }
+
+    .section-header p {
+      margin: 0;
+      color: var(--muted);
+      max-width: 600px;
+      text-align: right;
+    }
+
+    .highlight-grid,
+    .project-grid,
+    .stack-grid {
+      display: grid;
+      gap: 16px;
+    }
+
+    .highlight-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .project-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .stack-grid {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .card {
+      padding: 22px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--line);
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.82), rgba(255, 247, 241, 0.75));
+    }
+
+    .card h3 {
+      font-size: 1.12rem;
+      margin-bottom: 10px;
+    }
+
+    .card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.96rem;
+    }
+
+    .project-card {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .project-card::before {
+      content: "";
+      position: absolute;
+      inset: auto auto 0 0;
+      width: 100%;
+      height: 4px;
+      background: linear-gradient(90deg, var(--accent), rgba(36, 78, 70, 0.55));
+    }
+
+    .project-meta {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 10px;
+      margin-bottom: 12px;
+      border-radius: 999px;
+      background: rgba(195, 90, 47, 0.1);
+      color: var(--accent-deep);
+      font-size: 0.85rem;
+      font-weight: 700;
+    }
+
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 16px;
+    }
+
+    .chips li {
+      padding: 8px 12px;
+      border-radius: 999px;
+      font-size: 0.9rem;
+      background: var(--green-soft);
+      color: var(--green);
+      font-weight: 600;
+    }
+
+    .timeline {
+      display: grid;
+      gap: 16px;
+      position: relative;
+    }
+
+    .timeline-item {
+      border-radius: var(--radius-md);
+      padding: 20px 22px;
+      position: relative;
+    }
+
+    .timeline-item h3 {
+      margin-bottom: 8px;
+      font-size: 1.08rem;
+    }
+
+    .timeline-item p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .timeline-item .period {
+      display: inline-block;
+      margin-bottom: 8px;
+      color: var(--accent-deep);
+      font-size: 0.88rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+    }
+
+    .quote {
+      border-radius: var(--radius-lg);
+      padding: 30px;
+      margin-top: 20px;
+      background:
+        linear-gradient(135deg, rgba(36, 78, 70, 0.95), rgba(24, 55, 50, 0.92));
+      color: #f5f6f1;
+    }
+
+    .quote p {
+      margin: 0;
+      font-size: clamp(1.2rem, 2.4vw, 1.7rem);
+      line-height: 1.45;
+      letter-spacing: -0.02em;
+    }
+
+    .quote small {
+      display: block;
+      margin-top: 16px;
+      opacity: 0.78;
+      font-size: 0.92rem;
+    }
+
+    .footer-note {
+      margin-top: 20px;
+      padding: 18px 20px;
+      border-radius: var(--radius-md);
+      background: rgba(255, 255, 255, 0.55);
+      border: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    @media (max-width: 960px) {
+      .hero {
+        padding: 30px;
+      }
+
+      .hero-grid,
+      .highlight-grid,
+      .project-grid,
+      .stack-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .section-header {
+        display: block;
+      }
+
+      .section-header p {
+        margin-top: 10px;
+        text-align: left;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .page {
+        width: min(calc(100% - 20px), var(--max));
+        padding-top: 20px;
+      }
+
+      .hero {
+        padding: 22px;
+        border-radius: 26px;
+      }
+
+      .section,
+      .hero-card,
+      .quote {
+        padding: 20px;
+      }
+
+      .stats {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <section class="hero">
+      <span class="eyebrow">Portfolio Draft · Based on monthly PPT reports</span>
+      <h1>한재성 포트폴리오</h1>
+      <p class="subtitle">
+        의료영상 데스크톱 소프트웨어 개발, 테스트 자동화, PACS/DICOM 연동, 리포트 생성,
+        릴리즈 대응 경험을 2023년 7월부터 2025년 10월까지의 월간 업무공유 자료 26개를 기준으로 재구성한 포트폴리오 초안입니다.
+      </p>
+
+      <div class="hero-grid">
+        <article class="hero-card">
+          <h2>Summary</h2>
+          <p>
+            MEDIP, DeepCatch, DeepCatch X/C/Embedded/Research/Total 계열 제품군에서 기능 개발,
+            크래시 대응, UI 개선, 자동화 테스트, 현장 이슈 대응까지 폭넓게 수행한 Windows 기반 의료영상 소프트웨어 개발자로 정리할 수 있습니다.
+          </p>
+          <div class="stats">
+            <div class="stat">
+              <strong>26</strong>
+              <span>검토한 월간 PPT 수</span>
+            </div>
+            <div class="stat">
+              <strong>28개월</strong>
+              <span>정리 기간: 2023.07 ~ 2025.10</span>
+            </div>
+            <div class="stat">
+              <strong>180+</strong>
+              <span>자료상 확인된 이슈·작업 번호</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="hero-card">
+          <h2>Profile</h2>
+          <ul class="contact-list">
+            <li><strong>이름</strong>한재성</li>
+            <li><strong>포지션</strong>의료영상 소프트웨어 개발</li>
+            <li><strong>강점</strong>문제 해결, 자동화, 제품 안정화, 고객 대응</li>
+            <li><strong>연락처</strong>이메일 / 전화 / 링크드인 직접 입력</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <div class="sections">
+      <section class="section">
+        <div class="section-header">
+          <h2>핵심 강점</h2>
+          <p>반복적으로 등장한 업무 유형을 기준으로 강점을 4개 축으로 재구성했습니다.</p>
+        </div>
+        <div class="highlight-grid">
+          <article class="card">
+            <h3>의료영상 제품 기능 개발</h3>
+            <p>Segmentation, Measurement, Radiomics, Annotation, Report, FileManager 등 사용자 접점이 큰 기능을 지속적으로 개선했습니다.</p>
+          </article>
+          <article class="card">
+            <h3>테스트 자동화와 품질 체계화</h3>
+            <p>UI Auto Test, mipAutoPilot Tester, TeamCity 연동, 팝업 제어, PACS 자동 테스트를 통해 반복 검증 체계를 확장했습니다.</p>
+          </article>
+          <article class="card">
+            <h3>PACS·DICOM·리포트 워크플로우</h3>
+            <p>업로드·다운로드, DICOM Echo, 결과 저장, 환자용 리포트, PDF 용량, 리포트 네이밍 규칙까지 임상/운영 흐름을 다뤘습니다.</p>
+          </article>
+          <article class="card">
+            <h3>배포·운영·고객 대응</h3>
+            <p>Alpha/Beta/RC/Hotfix 배포, 릴리즈 노트, 밸리데이션 문서, 원격 지원, 기관 대응까지 제품 출시 이후 단계도 담당했습니다.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section-header">
+          <h2>대표 프로젝트</h2>
+          <p>자료 흐름상 서사가 잘 드러나는 축을 골라 포트폴리오형 프로젝트로 묶었습니다.</p>
+        </div>
+        <div class="project-grid">
+          <article class="card project-card">
+            <div class="project-meta">2023.07 - 2024.01</div>
+            <h3>UI Auto Test / mipAutoPilot Tester 구축</h3>
+            <ul class="bullet-list">
+              <li>객체별 로그 기록, 키보드 매크로, 재실행 구조, 설정 파일 저장 등 UI 자동화 기반을 설계·구현.</li>
+              <li>TeamCity, TCP, HTTP 통신과 연계해 반복 테스트와 원격 제어 가능성을 확장.</li>
+              <li>PACS 자동 테스트, 팝업 제어, 강제 종료 처리 등 실제 품질 운영에 필요한 기능을 지속 보강.</li>
+            </ul>
+          </article>
+
+          <article class="card project-card">
+            <div class="project-meta">2024.03 - 2024.06</div>
+            <h3>DeepCatch X 제품화 및 인허가 대응</h3>
+            <ul class="bullet-list">
+              <li>알파·베타·RC 버전 배포와 DEV Merge, Function Level 정리, 제품명 변경 흔적 제거를 병행.</li>
+              <li>리포트 문구, 경고/에러 메시지, 기능 목록, 인허가 문서 정비 등 출시 품질을 맞추는 작업 수행.</li>
+              <li>Demo Plugin, Demo Report, Watermark, User Macro 기능 확장까지 제품 외곽 기능도 함께 정리.</li>
+            </ul>
+          </article>
+
+          <article class="card project-card">
+            <div class="project-meta">2024.09 - 2025.05</div>
+            <h3>PACS·매크로·리포트 자동화 고도화</h3>
+            <ul class="bullet-list">
+              <li>PACS 조회·다운로드 매크로, PACS Upload, 리포트 파일명 규칙, Save Analysis Image 옵션 등을 정교화.</li>
+              <li>기관별 요구사항에 맞춰 Customize Report, Annotation 결과물 업로드, DCM 항목 업로드 등 운영 기능 대응.</li>
+              <li>Macro Result, DB Macro, AutoAnalysis 연동 이슈를 정리하며 실제 사용 흐름 중심으로 개선.</li>
+            </ul>
+          </article>
+
+          <article class="card project-card">
+            <div class="project-meta">2025.06 - 2025.10</div>
+            <h3>통합 AI 모듈 운영 안정화</h3>
+            <ul class="bullet-list">
+              <li>프로그램 간 포트 충돌, 다중 AI 요청 결과 처리, 최대 분석 시간 제어, 코호스트 상태 관리 같은 운영성 문제 해결.</li>
+              <li>CUDA 버전 업데이트, 빌드 분리, 테스트 환경 구성, API 기반 업로드/환자정보 수신 등 시스템 수준 작업 진행.</li>
+              <li>BioAge 임시 리포트, 건강나이 값 추출, 제품별 Credit/AI Count 관리 등 신규 서비스 기능 대응.</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section-header">
+          <h2>경력 흐름</h2>
+          <p>월간 자료를 보면 역할이 단순 이슈 수정에서 제품 운영과 통합 대응까지 확장되는 흐름이 보입니다.</p>
+        </div>
+        <div class="timeline">
+          <article class="timeline-item">
+            <span class="period">2023.07 - 2023.12</span>
+            <h3>기능 수정과 테스트 자동화 기반 확보</h3>
+            <p>Qt 기반 UI 기능 수정, 측정/브러시/Annotation/Radiomics 관련 개선과 함께 UI Auto Test, mipAutoPilot Tester의 초기 구조를 구축.</p>
+          </article>
+          <article class="timeline-item">
+            <span class="period">2024.01 - 2024.06</span>
+            <h3>TiSepX에서 DeepCatch X로 전환, 제품화 본격화</h3>
+            <p>브랜치 마이그레이션, 리포트/설정/UI 정비, 제품 배포와 인허가 대응, Demo/Plugin 작업까지 제품 완성도를 끌어올림.</p>
+          </article>
+          <article class="timeline-item">
+            <span class="period">2024.08 - 2025.03</span>
+            <h3>Research, Embedded, C, Aorta 등 제품군 확장 대응</h3>
+            <p>리포트 규칙 변경, PACS 연동, 이미지 저장, 고객사 원격 대응, DLL 버전 반영, 멀티태스크 이슈 해결 등 제품별 운영 과제를 처리.</p>
+          </article>
+          <article class="timeline-item">
+            <span class="period">2025.04 - 2025.10</span>
+            <h3>Total 및 통합 AI 모듈 중심의 운영 안정화</h3>
+            <p>기관별 세팅, 제품군 연동, 포트 충돌, API 업로드, 다중 AI 흐름, DB 변경 반영, 테스트 환경 구축 등 시스템 레벨 업무 비중이 커짐.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section-header">
+          <h2>기술 키워드</h2>
+          <p>슬라이드 내 표현과 코드 단서를 기반으로 정리한 업무 기술 스택입니다.</p>
+        </div>
+        <div class="stack-grid">
+          <article class="card">
+            <h3>언어·프레임워크</h3>
+            <ul class="chips">
+              <li>C++</li>
+              <li>Qt Widgets</li>
+              <li>DLL Integration</li>
+              <li>Windows Desktop</li>
+            </ul>
+          </article>
+          <article class="card">
+            <h3>도메인</h3>
+            <ul class="chips">
+              <li>의료영상</li>
+              <li>DICOM</li>
+              <li>PACS</li>
+              <li>Radiomics</li>
+            </ul>
+          </article>
+          <article class="card">
+            <h3>품질·자동화</h3>
+            <ul class="chips">
+              <li>UI Auto Test</li>
+              <li>Macro</li>
+              <li>TeamCity</li>
+              <li>Regression 대응</li>
+            </ul>
+          </article>
+          <article class="card">
+            <h3>운영·배포</h3>
+            <ul class="chips">
+              <li>Alpha/Beta/RC/Hotfix</li>
+              <li>Validation 문서</li>
+              <li>원격 지원</li>
+              <li>릴리즈 노트</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <section class="quote">
+        <p>
+          단순 기능 개발에 머무르지 않고, 의료영상 제품의 테스트 체계, 현장 운영, 배포, 문서화, 고객 이슈 대응까지
+          한 사이클을 끝까지 책임질 수 있는 개발자로 포지셔닝하는 것이 이 포트폴리오의 핵심 메시지입니다.
+        </p>
+        <small>포트폴리오 서술 방향 제안</small>
+      </section>
+
+      <div class="footer-note">
+        이 초안은 월간업무공유 PPT 26개를 기준으로 재구성했습니다. 이메일, 전화번호, GitHub/Notion 링크, 실제 재직기간,
+        담당 기술 비중, 성과 수치와 같이 공개용으로 필요한 개인 정보는 본인이 추가 입력하면 됩니다.
+      </div>
+    </div>
+  </main>
+</body>
+</html>
