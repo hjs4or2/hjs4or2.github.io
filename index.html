@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>한재성 포트폴리오</title>
+  <title>포트폴리오</title>
   <style>
     :root {
       --bg: #f4efe7;
@@ -29,6 +29,7 @@
 
     html {
       scroll-behavior: smooth;
+      overflow-x: hidden;
     }
 
     body {
@@ -41,6 +42,7 @@
         linear-gradient(180deg, #f9f6f1 0%, var(--bg) 50%, #efe5d8 100%);
       min-height: 100vh;
       line-height: 1.6;
+      overflow-x: hidden;
     }
 
     body::before {
@@ -57,6 +59,7 @@
 
     .page {
       width: min(calc(100% - 32px), var(--max));
+      max-width: calc(100vw - 32px);
       margin: 0 auto;
       padding: 32px 0 64px;
       position: relative;
@@ -110,7 +113,7 @@
       margin-top: 18px;
       font-size: clamp(2.4rem, 6vw, 5.1rem);
       line-height: 0.98;
-      max-width: 9ch;
+      max-width: 15ch;
     }
 
     .subtitle {
@@ -120,12 +123,51 @@
       color: var(--muted);
     }
 
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 24px;
+    }
+
+    .pdf-link {
+      appearance: none;
+      border: 0;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 42px;
+      padding: 10px 16px;
+      border-radius: 999px;
+      background: var(--green);
+      color: #fffaf4;
+      font: inherit;
+      font-size: 0.94rem;
+      font-weight: 800;
+      text-decoration: none;
+      cursor: pointer;
+      box-shadow: 0 10px 22px rgba(36, 78, 70, 0.18);
+      transition: transform 160ms ease, background 160ms ease, box-shadow 160ms ease;
+    }
+
+    .pdf-link:hover,
+    .pdf-link:focus-visible {
+      background: var(--accent-deep);
+      transform: translateY(-1px);
+      outline: none;
+    }
+
+    .pdf-link:focus-visible {
+      box-shadow: 0 0 0 4px rgba(195, 90, 47, 0.18), 0 10px 22px rgba(36, 78, 70, 0.18);
+    }
+
     .hero-grid {
       display: grid;
       grid-template-columns: 1.35fr 0.9fr;
       gap: 24px;
       margin-top: 32px;
       align-items: stretch;
+      min-width: 0;
     }
 
     .hero-card,
@@ -141,6 +183,7 @@
     .hero-card {
       border-radius: var(--radius-lg);
       padding: 24px;
+      min-width: 0;
     }
 
     .hero-card h2 {
@@ -152,33 +195,6 @@
 
     .hero-card p {
       margin: 14px 0 0;
-      color: var(--muted);
-    }
-
-    .stats {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 12px;
-      margin-top: 18px;
-    }
-
-    .stat {
-      padding: 16px;
-      border-radius: var(--radius-sm);
-      background: linear-gradient(180deg, rgba(255, 255, 255, 0.78), rgba(242, 212, 197, 0.38));
-      border: 1px solid var(--line);
-    }
-
-    .stat strong {
-      display: block;
-      font-size: 1.6rem;
-      line-height: 1;
-    }
-
-    .stat span {
-      display: block;
-      margin-top: 6px;
-      font-size: 0.92rem;
       color: var(--muted);
     }
 
@@ -196,6 +212,25 @@
       border-bottom: 1px solid var(--line);
     }
 
+    .contact-list li {
+      display: grid;
+      grid-template-columns: 86px minmax(0, 1fr);
+      align-items: start;
+      column-gap: 0;
+      min-width: 0;
+    }
+
+    .contact-list span,
+    .bullet-list li,
+    .card p,
+    .hero-card p,
+    .section-header p,
+    .quote p {
+      min-width: 0;
+      word-break: keep-all;
+      overflow-wrap: break-word;
+    }
+
     .contact-list li:last-child,
     .bullet-list li:last-child {
       border-bottom: 0;
@@ -203,8 +238,7 @@
 
     .contact-list strong {
       color: var(--green);
-      display: inline-block;
-      width: 86px;
+      display: block;
     }
 
     .sections {
@@ -216,6 +250,7 @@
     .section {
       border-radius: var(--radius-lg);
       padding: 28px;
+      min-width: 0;
     }
 
     .section-header {
@@ -242,6 +277,7 @@
     .stack-grid {
       display: grid;
       gap: 16px;
+      min-width: 0;
     }
 
     .highlight-grid {
@@ -262,6 +298,7 @@
       border: 1px solid var(--line);
       background:
         linear-gradient(180deg, rgba(255, 255, 255, 0.82), rgba(255, 247, 241, 0.75));
+      min-width: 0;
     }
 
     .card h3 {
@@ -302,6 +339,36 @@
       font-weight: 700;
     }
 
+    .project-actions {
+      margin-top: 18px;
+    }
+
+    .project-preview-trigger {
+      appearance: none;
+      border: 0;
+      border-radius: 999px;
+      padding: 10px 14px;
+      background: var(--green);
+      color: #fffaf4;
+      font: inherit;
+      font-size: 0.92rem;
+      font-weight: 800;
+      cursor: pointer;
+      transition: transform 160ms ease, background 160ms ease, box-shadow 160ms ease;
+      box-shadow: 0 10px 22px rgba(36, 78, 70, 0.18);
+    }
+
+    .project-preview-trigger:hover,
+    .project-preview-trigger:focus-visible {
+      background: var(--accent-deep);
+      transform: translateY(-1px);
+      outline: none;
+    }
+
+    .project-preview-trigger:focus-visible {
+      box-shadow: 0 0 0 4px rgba(195, 90, 47, 0.18), 0 10px 22px rgba(36, 78, 70, 0.18);
+    }
+
     .chips {
       display: flex;
       flex-wrap: wrap;
@@ -316,6 +383,8 @@
       background: var(--green-soft);
       color: var(--green);
       font-weight: 600;
+      max-width: 100%;
+      overflow-wrap: break-word;
     }
 
     .timeline {
@@ -360,8 +429,8 @@
 
     .quote p {
       margin: 0;
-      font-size: clamp(1.2rem, 2.4vw, 1.7rem);
-      line-height: 1.45;
+      font-size: clamp(1rem, 1.8vw, 1.35rem);
+      line-height: 1.55;
       letter-spacing: -0.02em;
     }
 
@@ -369,7 +438,148 @@
       display: block;
       margin-top: 16px;
       opacity: 0.78;
+      font-size: 15px;
+    }
+
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      z-index: 20;
+      display: grid;
+      place-items: center;
+      padding: 24px;
+    }
+
+    .lightbox[aria-hidden="true"] {
+      display: none;
+    }
+
+    .lightbox-backdrop {
+      position: absolute;
+      inset: 0;
+      background: rgba(19, 28, 27, 0.68);
+      backdrop-filter: blur(8px);
+    }
+
+    .lightbox-panel {
+      position: relative;
+      width: min(980px, 100%);
+      max-height: min(760px, calc(100vh - 48px));
+      overflow: auto;
+      border-radius: var(--radius-lg);
+      background: #fffaf4;
+      border: 1px solid rgba(255, 255, 255, 0.86);
+      box-shadow: 0 32px 80px rgba(10, 16, 15, 0.34);
+    }
+
+    .lightbox-media {
+      background: #172522;
+      padding: 18px;
+    }
+
+    .lightbox-media img,
+    .lightbox-media video {
+      display: block;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      object-fit: contain;
+      border-radius: 18px;
+      background: #20332f;
+    }
+
+    .lightbox-media video {
+      max-height: 68vh;
+    }
+
+    .lightbox-empty {
+      display: grid;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      place-items: center;
+      border-radius: 18px;
+      background: #20332f;
+      color: #fffaf4;
+      font-size: 1.1rem;
+      font-weight: 700;
+    }
+
+    .lightbox-copy {
+      padding: 24px 28px 28px;
+    }
+
+    .lightbox-copy h2 {
+      font-size: clamp(1.4rem, 3vw, 2rem);
+    }
+
+    .lightbox-copy p {
+      margin: 10px 0 0;
+      color: var(--muted);
+    }
+
+    .lightbox-toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .lightbox-count {
+      color: var(--muted);
       font-size: 0.92rem;
+      font-weight: 700;
+    }
+
+    .lightbox-controls {
+      display: flex;
+      gap: 8px;
+    }
+
+    .lightbox-nav {
+      appearance: none;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      min-width: 74px;
+      padding: 9px 13px;
+      background: #fff;
+      color: var(--ink);
+      font: inherit;
+      font-size: 0.92rem;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .lightbox-nav:disabled {
+      opacity: 0.36;
+      cursor: default;
+    }
+
+    .lightbox-meta {
+      display: inline-block;
+      margin-bottom: 10px;
+      color: var(--accent-deep);
+      font-size: 0.9rem;
+      font-weight: 800;
+    }
+
+    .lightbox-close {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      width: 40px;
+      height: 40px;
+      border: 0;
+      border-radius: 50%;
+      background: rgba(255, 250, 244, 0.92);
+      color: var(--ink);
+      font-size: 1.4rem;
+      line-height: 1;
+      cursor: pointer;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.16);
+    }
+
+    body.modal-open {
+      overflow: hidden;
     }
 
     .footer-note {
@@ -407,6 +617,7 @@
     @media (max-width: 640px) {
       .page {
         width: min(calc(100% - 20px), var(--max));
+        max-width: calc(100vw - 20px);
         padding-top: 20px;
       }
 
@@ -421,8 +632,249 @@
         padding: 20px;
       }
 
-      .stats {
+      .lightbox {
+        padding: 12px;
+      }
+
+      .lightbox-panel {
+        max-height: calc(100vh - 24px);
+        border-radius: 22px;
+      }
+
+      .lightbox-media {
+        padding: 12px;
+      }
+
+      .lightbox-copy {
+        padding: 18px;
+      }
+
+      .lightbox-toolbar {
+        align-items: stretch;
+        flex-direction: column;
+      }
+
+      .lightbox-controls {
+        width: 100%;
+      }
+
+      .lightbox-nav {
+        flex: 1;
+      }
+
+    }
+
+    @page {
+      size: A4 portrait;
+      margin: 12mm;
+    }
+
+    @media print {
+      :root {
+        --paper: #ffffff;
+        --shadow: none;
+        --radius-lg: 14px;
+        --radius-md: 10px;
+        --radius-sm: 8px;
+      }
+
+      * {
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+
+      html,
+      body {
+        background: #ffffff;
+      }
+
+      body {
+        min-height: auto;
+        font-size: 10.4pt;
+        line-height: 1.45;
+      }
+
+      body::before,
+      .hero::after,
+      .lightbox,
+      .project-actions {
+        display: none !important;
+      }
+
+      .page {
+        width: 100%;
+        max-width: none;
+        padding: 0;
+      }
+
+      .hero,
+      .hero-card,
+      .section,
+      .timeline-item,
+      .quote,
+      .footer-note {
+        box-shadow: none;
+        backdrop-filter: none;
+      }
+
+      .hero {
+        padding: 16mm 14mm 12mm;
+        border-radius: 14px;
+        background: #fff8f2;
+        border: 1px solid #ead8ca;
+        break-after: page;
+      }
+
+      .eyebrow {
+        padding: 5px 9px;
+        font-size: 8.5pt;
+      }
+
+      h1 {
+        margin-top: 10px;
+        font-size: 30pt;
+        line-height: 1.05;
+        max-width: none;
+      }
+
+      .subtitle {
+        margin-top: 10px;
+        max-width: none;
+        font-size: 10.5pt;
+      }
+
+      .hero-grid {
         grid-template-columns: 1fr;
+        gap: 8px;
+        margin-top: 14px;
+      }
+
+      .hero-card,
+      .section,
+      .card,
+      .timeline-item,
+      .quote,
+      .footer-note {
+        border-color: #ded4ca;
+      }
+
+      .hero-card {
+        padding: 14px;
+      }
+
+      .hero-card p {
+        margin-top: 8px;
+      }
+
+      .sections {
+        display: block;
+        margin-top: 0;
+      }
+
+      .section {
+        padding: 14px;
+        margin: 0 0 10px;
+      }
+
+      .print-page-start {
+        break-before: page;
+        page-break-before: always;
+      }
+
+      .section-header {
+        display: block;
+        margin-bottom: 10px;
+        break-after: avoid;
+      }
+
+      .section-header h2 {
+        font-size: 17pt;
+      }
+
+      .section-header p {
+        margin-top: 4px;
+        max-width: none;
+        text-align: left;
+        font-size: 9.2pt;
+      }
+
+      .highlight-grid,
+      .project-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 9px;
+      }
+
+      .stack-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 9px;
+      }
+
+      .card,
+      .timeline-item {
+        padding: 11px 12px;
+        break-inside: avoid-page;
+        page-break-inside: avoid;
+      }
+
+      .card h3,
+      .timeline-item h3 {
+        font-size: 10.8pt;
+        margin-bottom: 5px;
+      }
+
+      .card p,
+      .timeline-item p,
+      .bullet-list li {
+        font-size: 9.2pt;
+      }
+
+      .bullet-list li,
+      .contact-list li {
+        padding: 5px 0;
+      }
+
+      .project-meta {
+        padding: 4px 7px;
+        margin-bottom: 7px;
+        font-size: 8.2pt;
+      }
+
+      .chips {
+        gap: 5px;
+        margin-top: 8px;
+      }
+
+      .chips li {
+        padding: 5px 8px;
+        font-size: 8.4pt;
+      }
+
+      .timeline {
+        gap: 9px;
+      }
+
+      .timeline-item .period {
+        margin-bottom: 4px;
+        font-size: 8.4pt;
+      }
+
+      .quote {
+        padding: 14px;
+        margin-top: 10px;
+        background: #244e46;
+        break-inside: avoid-page;
+        page-break-inside: avoid;
+      }
+
+      .quote p {
+        font-size: 12pt;
+        line-height: 1.45;
+      }
+
+      .footer-note {
+        padding: 10px 12px;
+        margin-top: 10px;
+        font-size: 8.8pt;
       }
     }
   </style>
@@ -430,43 +882,36 @@
 <body>
   <main class="page">
     <section class="hero">
-      <span class="eyebrow">Portfolio Draft · Based on monthly PPT reports</span>
+        <span class="eyebrow">의료영상 소프트웨어 개발자</span>
       <h1>한재성 포트폴리오</h1>
+      <div class="hero-actions">
+        <button type="button" class="pdf-link" data-print-page>PDF 저장</button>
+      </div>
+      <!--
       <p class="subtitle">
-        의료영상 데스크톱 소프트웨어 개발, 테스트 자동화, PACS/DICOM 연동, 리포트 생성,
-        릴리즈 대응 경험을 2023년 7월부터 2025년 10월까지의 월간 업무공유 자료 26개를 기준으로 재구성한 포트폴리오 초안입니다.
+        이 포트폴리오는 2023년 7월부터 2025년 10월까지의 월간 업무공유 자료 26건과 이슈 트래커의 완료·검토 이력을 바탕으로 작성했습니다.
+        의료영상 데스크톱 소프트웨어 개발을 중심으로 테스트 자동화, PACS/DICOM 연동, 리포트 생성, 릴리즈 대응 등 실제 수행한 업무 경험을 정리했습니다.
       </p>
+      -->
 
       <div class="hero-grid">
         <article class="hero-card">
           <h2>Summary</h2>
           <p>
-            MEDIP, DeepCatch, DeepCatch X/C/Embedded/Research/Total 계열 제품군에서 기능 개발,
-            크래시 대응, UI 개선, 자동화 테스트, 현장 이슈 대응까지 폭넓게 수행한 Windows 기반 의료영상 소프트웨어 개발자로 정리할 수 있습니다.
+            의료영상 소프트웨어 개발자로서 C++/Qt 기반 DICOM 클라이언트, PACS 연동,
+            AI 분석 결과 기반 리포트 생성, 매크로 자동화 기능을 구현해 왔습니다. DICOM/mask/AI 결과를
+            정규화해 PDF/CSV 리포트로 변환하고, Action/Command 기반 자동화 파이프라인으로
+            실제 의료 현장의 반복 처리·리포트 흐름을 안정화하는 데 집중해 왔습니다.
           </p>
-          <div class="stats">
-            <div class="stat">
-              <strong>26</strong>
-              <span>검토한 월간 PPT 수</span>
-            </div>
-            <div class="stat">
-              <strong>28개월</strong>
-              <span>정리 기간: 2023.07 ~ 2025.10</span>
-            </div>
-            <div class="stat">
-              <strong>180+</strong>
-              <span>자료상 확인된 이슈·작업 번호</span>
-            </div>
-          </div>
         </article>
 
         <article class="hero-card">
           <h2>Profile</h2>
           <ul class="contact-list">
-            <li><strong>이름</strong>한재성</li>
-            <li><strong>포지션</strong>의료영상 소프트웨어 개발</li>
-            <li><strong>강점</strong>문제 해결, 자동화, 제품 안정화, 고객 대응</li>
-            <li><strong>연락처</strong>이메일 / 전화 / 링크드인 직접 입력</li>
+            <li><strong>이름</strong><span>한재성</span></li>
+            <li><strong>포지션</strong><span>의료영상 소프트웨어 개발</span></li>
+            <li><strong>강점</strong><span>DICOM/PACS, 리포트 자동화, 매크로 아키텍처, 제품 안정화</span></li>
+            <li><strong>연락처</strong><span>010-1234-5678</span></li>
           </ul>
         </article>
       </div>
@@ -476,71 +921,145 @@
       <section class="section">
         <div class="section-header">
           <h2>핵심 강점</h2>
-          <p>반복적으로 등장한 업무 유형을 기준으로 강점을 4개 축으로 재구성했습니다.</p>
+          <p>의료영상 제품 개발에서 반복적으로 수행한 설계·자동화·운영 업무를 중심으로 정리했습니다.</p>
         </div>
         <div class="highlight-grid">
           <article class="card">
-            <h3>의료영상 제품 기능 개발</h3>
-            <p>Segmentation, Measurement, Radiomics, Annotation, Report, FileManager 등 사용자 접점이 큰 기능을 지속적으로 개선했습니다.</p>
+            <h3>의료용 애플리케이션 설계 및 개발</h3>
+            <p>C++/Qt 기반 DICOM 클라이언트에서 영상 로드, 분석 결과 표시, 3D View, HU 값 기반 정보 표시 등 의료영상 뷰어의 주요 기능을 개발·개선했습니다.</p>
           </article>
           <article class="card">
-            <h3>테스트 자동화와 품질 체계화</h3>
-            <p>UI Auto Test, mipAutoPilot Tester, TeamCity 연동, 팝업 제어, PACS 자동 테스트를 통해 반복 검증 체계를 확장했습니다.</p>
+            <h3>AI 결과 리포트 생성 파이프라인</h3>
+            <p>DICOM 메타데이터, segmentation mask, 전달받은 AI 분석 결과를 JSON·CSV로 정규화하고 QWebEngine HTML 템플릿을 PDF로 렌더링하는 리포트 흐름을 구현했습니다.</p>
           </article>
           <article class="card">
-            <h3>PACS·DICOM·리포트 워크플로우</h3>
-            <p>업로드·다운로드, DICOM Echo, 결과 저장, 환자용 리포트, PDF 용량, 리포트 네이밍 규칙까지 임상/운영 흐름을 다뤘습니다.</p>
+            <h3>매크로 자동화 아키텍처</h3>
+            <p>Command Pattern과 Action Queue를 기반으로 DICOM 로드, AI 결과 처리, layer·mesh export, 리포트 저장을 독립 Command로 분리해 순차 실행 구조를 구성했습니다.</p>
           </article>
           <article class="card">
-            <h3>배포·운영·고객 대응</h3>
-            <p>Alpha/Beta/RC/Hotfix 배포, 릴리즈 노트, 밸리데이션 문서, 원격 지원, 기관 대응까지 제품 출시 이후 단계도 담당했습니다.</p>
+            <h3>DCMTK 기반 DICOM/PACS 연동</h3>
+            <p>DCMTK를 활용해 DICOM 파일 송수신, DICOM Echo, PACS 조회·다운로드·업로드, 분석 결과 이미지 저장과 업로드 흐름을 구현했습니다.</p>
+          </article>
+          <article class="card">
+            <h3>테스트 자동화와 제품 안정화</h3>
+            <p>UI Auto Test, mipAutoPilot Tester, TeamCity 연동, 팝업 제어, PACS 자동 테스트를 통해 반복 검증 체계를 확장하고 장시간 실행 안정성을 개선했습니다.</p>
+          </article>
+          <article class="card">
+            <h3>배포·운영·고객/기관 대응</h3>
+            <p>Alpha/Beta/RC/Hotfix 배포, 릴리즈 노트, 밸리데이션 문서, 기관별 리포트 요구사항, 고객 이슈 분석과 원격 지원까지 제품 출시 이후 단계도 담당했습니다.</p>
           </article>
         </div>
       </section>
 
-      <section class="section">
+      <section class="section print-page-start">
         <div class="section-header">
-          <h2>대표 프로젝트</h2>
-          <p>자료 흐름상 서사가 잘 드러나는 축을 골라 포트폴리오형 프로젝트로 묶었습니다.</p>
+          <h2>주요 작업 사례</h2>
+          <p>긴 설명보다 실제 작업 단위가 보이도록 주요 흐름만 추렸습니다.</p>
         </div>
         <div class="project-grid">
           <article class="card project-card">
-            <div class="project-meta">2023.07 - 2024.01</div>
+            <div class="project-meta">2023.06 - 2024.01</div>
             <h3>UI Auto Test / mipAutoPilot Tester 구축</h3>
             <ul class="bullet-list">
               <li>객체별 로그 기록, 키보드 매크로, 재실행 구조, 설정 파일 저장 등 UI 자동화 기반을 설계·구현.</li>
               <li>TeamCity, TCP, HTTP 통신과 연계해 반복 테스트와 원격 제어 가능성을 확장.</li>
-              <li>PACS 자동 테스트, 팝업 제어, 강제 종료 처리 등 실제 품질 운영에 필요한 기능을 지속 보강.</li>
+              <li>PACS 자동 테스트, 팝업 제어, 강제 종료 처리를 보강해 반복 검증 시 수동 개입을 줄이고 장시간 실행 안정성을 개선.</li>
             </ul>
+            <div class="project-actions">
+              <button type="button" class="project-preview-trigger" data-project="autotest">자료 보기</button>
+            </div>
           </article>
 
           <article class="card project-card">
-            <div class="project-meta">2024.03 - 2024.06</div>
+            <div class="project-meta">2024.02 - 2024.06</div>
             <h3>DeepCatch X 제품화 및 인허가 대응</h3>
             <ul class="bullet-list">
               <li>알파·베타·RC 버전 배포와 DEV Merge, Function Level 정리, 제품명 변경 흔적 제거를 병행.</li>
               <li>리포트 문구, 경고/에러 메시지, 기능 목록, 인허가 문서 정비 등 출시 품질을 맞추는 작업 수행.</li>
-              <li>Demo Plugin, Demo Report, Watermark, User Macro 기능 확장까지 제품 외곽 기능도 함께 정리.</li>
+              <li>Demo Plugin, Demo Report, Watermark, User Macro까지 정리해 배포 전 검증과 데모 운영에 필요한 제품 외곽 기능을 안정화.</li>
             </ul>
+            <div class="project-actions">
+              <button type="button" class="project-preview-trigger" data-project="product">자료 보기</button>
+            </div>
           </article>
 
           <article class="card project-card">
             <div class="project-meta">2024.09 - 2025.05</div>
-            <h3>PACS·매크로·리포트 자동화 고도화</h3>
+            <h3>의료영상 AI 리포트·매크로 자동화</h3>
             <ul class="bullet-list">
-              <li>PACS 조회·다운로드 매크로, PACS Upload, 리포트 파일명 규칙, Save Analysis Image 옵션 등을 정교화.</li>
-              <li>기관별 요구사항에 맞춰 Customize Report, Annotation 결과물 업로드, DCM 항목 업로드 등 운영 기능 대응.</li>
-              <li>Macro Result, DB Macro, AutoAnalysis 연동 이슈를 정리하며 실제 사용 흐름 중심으로 개선.</li>
+              <li>DICOM 메타데이터, Segmentation mask, 전달받은 AI 분석 결과를 JSON·CSV·PDF 리포트로 자동 변환하는 파이프라인 구현.</li>
+              <li>QWebEngine 기반 HTML 리포트 템플릿 렌더링과 QWebEnginePage::printToPdf를 활용한 PDF export 기능 개발.</li>
+              <li>Action/Command 구조와 Queue 기반 실행 흐름으로 DICOM 로드부터 리포트 생성까지 이어지는 반복 분석 과정을 자동화.</li>
+            </ul>
+            <div class="project-actions">
+              <button type="button" class="project-preview-trigger" data-project="pacs">자료 보기</button>
+            </div>
+          </article>
+
+          <article class="card project-card">
+            <div class="project-meta">2025.06 - 2026.04</div>
+            <h3>통합 AI 연동 모듈 운영 안정화</h3>
+            <ul class="bullet-list">
+              <li>프로그램 간 포트 충돌, 다중 AI 연동 요청 결과 처리, 최대 처리 시간 제어, 코호스트 상태 관리 같은 운영성 문제 해결.</li>
+              <li>CUDA 버전 업데이트, 빌드 분리, 테스트 환경 구성, API 기반 업로드/환자정보 수신 등 시스템 수준 작업 진행.</li>
+              <li>BioAge 임시 리포트, 건강나이 값 추출, 제품별 Credit/AI Count 관리를 반영해 신규 서비스 요구사항을 기존 운영 흐름에 통합.</li>
+            </ul>
+            <div class="project-actions">
+              <button type="button" class="project-preview-trigger" data-project="ai">자료 보기</button>
+            </div>
+          </article>
+
+          <article class="card project-card">
+            <div class="project-meta">2025.07 - 2026.04</div>
+            <h3>기관별 리포트·커넥터 운영 대응</h3>
+            <ul class="bullet-list">
+              <li>제품·모듈·라이선스·분석타입 조건에 따라 리포트 템플릿을 동적으로 선택하는 ReportViewLoader 흐름 개선.</li>
+              <li>제품 및 기관에 따른 리포트의 생성·저장·업로드 흐름 개발.</li>
+              <li>CSV Export, 한국어/영문 리포트 저장·업로드를 정비해 기관별 출력·업로드 흐름의 예외 대응 범위를 확장.</li>
+            </ul>
+            <div class="project-actions">
+              <button type="button" class="project-preview-trigger" data-project="report">자료 보기</button>
+            </div>
+          </article>
+
+          <article class="card project-card">
+            <div class="project-meta">2026.04 - 진행 중</div>
+            <h3>SVN에서 GitLab으로 형상관리 마이그레이션</h3>
+            <ul class="bullet-list">
+              <li>SVN 기반 저장소와 개발 이력을 GitLab 프로젝트 체계로 이전하는 마이그레이션 작업 진행.</li>
+              <li>저장소 구조 정리, 프로젝트 단위 이관, 브랜치/권한 운영 방식 점검, GitLab 기반 협업 흐름 전환 수행.</li>
+              <li>현재 약 70% 수준까지 완료했으며, 기존 개발·배포 흐름을 유지하면서 GitLab 전환 과정의 운영 리스크를 낮추는 방향으로 진행.</li>
+            </ul>
+            <div class="project-actions">
+              <button type="button" class="project-preview-trigger" data-project="gitlab">자료 보기</button>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="section print-page-start">
+        <div class="section-header">
+          <h2>이전 개발 경험</h2>
+          <p>의료영상 소프트웨어 이전에는 미디어 서버와 장비 제어 환경에서 응용프로그램 및 통합 제어 프로그램을 개발했습니다.</p>
+        </div>
+        <div class="project-grid">
+          <article class="card project-card">
+            <div class="project-meta">아임피치 · 2020.03 - 2023.01</div>
+            <h3>ColdBootTester 개발</h3>
+            <ul class="bullet-list">
+              <li>미디어 서버 납품 전 안정성 테스트를 위한 Python/Qt 기반 응용프로그램 개발.</li>
+              <li>Serial, TCP 기반 장비 제어와 외부 프로그램 제어 흐름 구현.</li>
+              <li>WATCHOUT 프로토콜 통신을 연동해 테스트 실행과 제어 기능을 구성.</li>
             </ul>
           </article>
 
           <article class="card project-card">
-            <div class="project-meta">2025.06 - 2025.10</div>
-            <h3>통합 AI 모듈 운영 안정화</h3>
+            <div class="project-meta">아임피치 · 2020.10 - 2023.01</div>
+            <h3>통합 제어 프로그램 개발</h3>
             <ul class="bullet-list">
-              <li>프로그램 간 포트 충돌, 다중 AI 요청 결과 처리, 최대 분석 시간 제어, 코호스트 상태 관리 같은 운영성 문제 해결.</li>
-              <li>CUDA 버전 업데이트, 빌드 분리, 테스트 환경 구성, API 기반 업로드/환자정보 수신 등 시스템 수준 작업 진행.</li>
-              <li>BioAge 임시 리포트, 건강나이 값 추출, 제품별 Credit/AI Count 관리 등 신규 서비스 기능 대응.</li>
+              <li>미디어 서버, 프로젝터 및 기타 장비를 제어하기 위한 AMX 기반 통합 제어 프로그램 개발.</li>
+              <li>사용자 조작 화면을 위한 GUI 구성과 NetLinx 코드 개발 수행.</li>
+              <li>미디어 서버 및 장비 설치 환경에 맞춰 제어 동작과 운영 흐름 정리.</li>
             </ul>
           </article>
         </div>
@@ -548,73 +1067,43 @@
 
       <section class="section">
         <div class="section-header">
-          <h2>경력 흐름</h2>
-          <p>월간 자료를 보면 역할이 단순 이슈 수정에서 제품 운영과 통합 대응까지 확장되는 흐름이 보입니다.</p>
-        </div>
-        <div class="timeline">
-          <article class="timeline-item">
-            <span class="period">2023.07 - 2023.12</span>
-            <h3>기능 수정과 테스트 자동화 기반 확보</h3>
-            <p>Qt 기반 UI 기능 수정, 측정/브러시/Annotation/Radiomics 관련 개선과 함께 UI Auto Test, mipAutoPilot Tester의 초기 구조를 구축.</p>
-          </article>
-          <article class="timeline-item">
-            <span class="period">2024.01 - 2024.06</span>
-            <h3>TiSepX에서 DeepCatch X로 전환, 제품화 본격화</h3>
-            <p>브랜치 마이그레이션, 리포트/설정/UI 정비, 제품 배포와 인허가 대응, Demo/Plugin 작업까지 제품 완성도를 끌어올림.</p>
-          </article>
-          <article class="timeline-item">
-            <span class="period">2024.08 - 2025.03</span>
-            <h3>Research, Embedded, C, Aorta 등 제품군 확장 대응</h3>
-            <p>리포트 규칙 변경, PACS 연동, 이미지 저장, 고객사 원격 대응, DLL 버전 반영, 멀티태스크 이슈 해결 등 제품별 운영 과제를 처리.</p>
-          </article>
-          <article class="timeline-item">
-            <span class="period">2025.04 - 2025.10</span>
-            <h3>Total 및 통합 AI 모듈 중심의 운영 안정화</h3>
-            <p>기관별 세팅, 제품군 연동, 포트 충돌, API 업로드, 다중 AI 흐름, DB 변경 반영, 테스트 환경 구축 등 시스템 레벨 업무 비중이 커짐.</p>
-          </article>
-        </div>
-      </section>
-
-      <section class="section">
-        <div class="section-header">
-          <h2>기술 키워드</h2>
-          <p>슬라이드 내 표현과 코드 단서를 기반으로 정리한 업무 기술 스택입니다.</p>
+          <h2>기술 스택</h2>
+          <p>실무에서 주로 사용한 개발 기술과 도구입니다.</p>
         </div>
         <div class="stack-grid">
           <article class="card">
             <h3>언어·프레임워크</h3>
             <ul class="chips">
-              <li>C++</li>
-              <li>Qt Widgets</li>
-              <li>DLL Integration</li>
-              <li>Windows Desktop</li>
+              <li>C/C++</li>
+              <li>Qt</li>
+              <li>DCMTK</li>
+              <li>Visual Studio</li>
             </ul>
           </article>
           <article class="card">
-            <h3>도메인</h3>
+            <h3>도메인·연동</h3>
             <ul class="chips">
               <li>의료영상</li>
               <li>DICOM</li>
               <li>PACS</li>
-              <li>Radiomics</li>
+              <li>AI Report</li>
             </ul>
           </article>
           <article class="card">
-            <h3>품질·자동화</h3>
+            <h3>데이터베이스·성능</h3>
             <ul class="chips">
-              <li>UI Auto Test</li>
-              <li>Macro</li>
+              <li>PostgreSQL</li>
+              <li>SQL</li>
+              <li>Query Tuning</li>
+            </ul>
+          </article>
+          <article class="card">
+            <h3>개발 인프라·자동화</h3>
+            <ul class="chips">
+              <li>SVN</li>
+              <li>GitLab</li>
               <li>TeamCity</li>
-              <li>Regression 대응</li>
-            </ul>
-          </article>
-          <article class="card">
-            <h3>운영·배포</h3>
-            <ul class="chips">
-              <li>Alpha/Beta/RC/Hotfix</li>
-              <li>Validation 문서</li>
-              <li>원격 지원</li>
-              <li>릴리즈 노트</li>
+              <li>Command Pattern</li>
             </ul>
           </article>
         </div>
@@ -622,17 +1111,344 @@
 
       <section class="quote">
         <p>
-          단순 기능 개발에 머무르지 않고, 의료영상 제품의 테스트 체계, 현장 운영, 배포, 문서화, 고객 이슈 대응까지
-          한 사이클을 끝까지 책임질 수 있는 개발자로 포지셔닝하는 것이 이 포트폴리오의 핵심 메시지입니다.
+          기능 구현을 넘어, 의료영상 제품이 실제 현장에서 반복 분석·리포트 출력·PACS 업로드까지 안정적으로 이어지도록 만든 개발자입니다.<br>
+          Qt 기반 UI, DICOM/PACS 연동, AI 결과 리포트 자동화, 매크로 실행 구조, 배포 대응까지 제품 완성도를 높이는 실무 경험을 중심으로 정리하였습니다.
         </p>
-        <small>포트폴리오 서술 방향 제안</small>
+        <!-- <small>포트폴리오 서술 방향 제안</small> -->
       </section>
 
       <div class="footer-note">
-        이 초안은 월간업무공유 PPT 26개를 기준으로 재구성했습니다. 이메일, 전화번호, GitHub/Notion 링크, 실제 재직기간,
-        담당 기술 비중, 성과 수치와 같이 공개용으로 필요한 개인 정보는 본인이 추가 입력하면 됩니다.
+        의료영상 소프트웨어 개발 포트폴리오 · 2026.05.20 기준
       </div>
     </div>
+
+    <div class="lightbox" id="project-lightbox" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="lightbox-title">
+      <div class="lightbox-backdrop" data-close-lightbox></div>
+      <section class="lightbox-panel">
+        <button type="button" class="lightbox-close" aria-label="닫기" data-close-lightbox>×</button>
+        <div class="lightbox-media" id="lightbox-media"></div>
+        <div class="lightbox-copy">
+          <span class="lightbox-meta" id="lightbox-meta"></span>
+          <h2 id="lightbox-title"></h2>
+          <p id="lightbox-description"></p>
+          <div class="lightbox-toolbar">
+            <span class="lightbox-count" id="lightbox-count"></span>
+            <div class="lightbox-controls">
+              <button type="button" class="lightbox-nav" id="lightbox-prev">이전</button>
+              <button type="button" class="lightbox-nav" id="lightbox-next">다음</button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
   </main>
+
+  <script>
+    const projectPreviews = {
+      autotest: {
+        title: "UI 자동화 테스트 및 AutoPilot Tester 구축",
+        meta: "2023.07 - 2024.01",
+        accent: "#c35a2f",
+        mediaFolder: "resource/01",
+        mediaFiles: ["main.png", "01.png", "02.png", "03.png", "04.mp4", "05.mp4", "06.mp4", "07.mp4", "08.mp4", "09.gif", "10.mkv", "11.mkv"],
+        description:
+          "반복 검증이 필요한 UI 시나리오를 자동화하고, 실행 결과와 로그를 추적할 수 있는 테스트 운영 흐름을 구축했습니다.",
+        labels: ["UI Automation", "AutoPilot Tester", "TCP/IP", "TeamCity"]
+      },
+
+      product: {
+        title: "DeepCatch X 제품화 및 릴리즈 안정화",
+        meta: "2024.03 - 2024.06",
+        accent: "#244e46",
+        mediaFolder: "resource/02",
+        mediaFiles: ["main.png", "01.png", "02.png", "03.png", "04.gif", "05.gif", "06.gif"],
+        description:
+          "연구/개발 기능을 실제 배포 가능한 제품 기능으로 정리하고, 버전 관리와 기능 레벨, 검증 문서 체계를 정비했습니다.",
+        labels: ["Productization", "Validation", "Function Level", "Release"]
+      },
+
+      pacs: {
+        title: "의료영상 AI 리포트·매크로 자동화",
+        meta: "2024.09 - 2025.05",
+        accent: "#b04f25",
+        mediaFolder: "resource/03",
+        mediaFiles: ["main.gif", "01.png", "02.png", "03.png", "04.mp4", "05.mp4"],
+        description:
+          "DICOM 로드, AI 결과 처리, 결과 export, PDF 리포트 생성까지 이어지는 반복 처리 흐름을 Action/Command 구조와 Queue 기반 파이프라인으로 자동화했습니다.",
+        labels: ["Command", "Action Queue", "QWebEngine", "PDF Export"]
+      },
+
+      ai: {
+        title: "통합 AI 연동 모듈 운영 안정화",
+        meta: "2025.06 - 2026.04",
+        accent: "#315f8f",
+        mediaFolder: "resource/04",
+        mediaFiles: ["main.png", "01.mp4", "02.gif", "03.gif"],
+        description:
+          "다중 AI 연동 요청 처리, 포트 상태 확인, 처리 제한 시간, Credit 관리 등 AI 연동 실행 환경의 운영 안정성을 개선했습니다.",
+        labels: ["AI Request", "Port Check", "Timeout", "Credit"]
+      },
+
+      report: {
+        title: "기관별 리포트 및 커넥터 운영 대응",
+        meta: "2025.07 - 2026.04",
+        accent: "#7c5b2d",
+        mediaFolder: "resource/05",
+        mediaFiles: ["main.png", "01.png", "02.png", "03.png", "04.png", "05.gif", "06.gif", "07.gif"],
+        description:
+          "제품·모듈·라이선스·기관 조건에 따라 HTML/PDF 리포트 템플릿과 CSV Export, PACS 업로드 흐름을 정비했습니다.",
+        labels: ["ReportViewLoader", "Connector", "CSV Export", "PACS Upload"]
+      },
+
+      gitlab: {
+        title: "SVN에서 GitLab으로 형상관리 전환",
+        meta: "2026.04 - 진행 중",
+        accent: "#8f3414",
+        mediaFolder: "resource/06",
+        description:
+          "SVN 기반 프로젝트를 GitLab 중심으로 이전하며 저장소 구조, 권한, 브랜치 전략, CI/CD 운영 기반을 정리하고 있습니다.",
+        labels: ["SVN", "GitLab", "Repository", "CI/CD"]
+      }
+    };
+
+    const lightbox = document.querySelector("#project-lightbox");
+    const lightboxMedia = document.querySelector("#lightbox-media");
+    const lightboxMeta = document.querySelector("#lightbox-meta");
+    const lightboxTitle = document.querySelector("#lightbox-title");
+    const lightboxDescription = document.querySelector("#lightbox-description");
+    const lightboxCount = document.querySelector("#lightbox-count");
+    const lightboxPrev = document.querySelector("#lightbox-prev");
+    const lightboxNext = document.querySelector("#lightbox-next");
+    let lastFocusedTrigger = null;
+    let mediaRequestId = 0;
+    let currentMediaItems = [];
+    let currentMediaIndex = 0;
+
+    function escapeXml(value) {
+      return String(value)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;");
+    }
+
+    function makePreviewImage(project) {
+      const labels = project.labels.map(escapeXml);
+      const title = escapeXml(project.title);
+      const meta = escapeXml(project.meta);
+      const accent = escapeXml(project.accent);
+      const svg = `
+        <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675">
+          <defs>
+            <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#182927"/>
+              <stop offset="1" stop-color="#fff1e5"/>
+            </linearGradient>
+            <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+              <feDropShadow dx="0" dy="18" stdDeviation="24" flood-color="#07110f" flood-opacity="0.28"/>
+            </filter>
+          </defs>
+          <rect width="1200" height="675" fill="url(#bg)"/>
+          <rect x="74" y="66" width="1052" height="543" rx="34" fill="#fffaf4" filter="url(#shadow)"/>
+          <rect x="74" y="66" width="1052" height="68" rx="34" fill="#172522"/>
+          <circle cx="122" cy="100" r="10" fill="#f06b4f"/>
+          <circle cx="154" cy="100" r="10" fill="#e7b64f"/>
+          <circle cx="186" cy="100" r="10" fill="#61b57a"/>
+          <rect x="122" y="170" width="222" height="366" rx="22" fill="#edf2ee"/>
+          <rect x="156" y="208" width="154" height="16" rx="8" fill="${accent}" opacity="0.88"/>
+          <rect x="156" y="254" width="118" height="14" rx="7" fill="#244e46" opacity="0.34"/>
+          <rect x="156" y="292" width="146" height="14" rx="7" fill="#244e46" opacity="0.26"/>
+          <rect x="156" y="330" width="96" height="14" rx="7" fill="#244e46" opacity="0.2"/>
+          <rect x="384" y="170" width="642" height="230" rx="26" fill="#172522"/>
+          <rect x="416" y="208" width="220" height="22" rx="11" fill="${accent}"/>
+          <rect x="416" y="254" width="312" height="14" rx="7" fill="#fffaf4" opacity="0.72"/>
+          <rect x="416" y="288" width="250" height="14" rx="7" fill="#fffaf4" opacity="0.5"/>
+          <path d="M798 328 C842 246, 900 368, 960 242" fill="none" stroke="${accent}" stroke-width="12" stroke-linecap="round"/>
+          <circle cx="798" cy="328" r="14" fill="#fffaf4"/>
+          <circle cx="960" cy="242" r="14" fill="#fffaf4"/>
+          <rect x="384" y="430" width="146" height="106" rx="20" fill="#f1d8c9"/>
+          <rect x="558" y="430" width="146" height="106" rx="20" fill="#d9ebe6"/>
+          <rect x="732" y="430" width="146" height="106" rx="20" fill="#f1d8c9"/>
+          <rect x="906" y="430" width="146" height="106" rx="20" fill="#d9ebe6"/>
+          <text x="416" y="338" fill="#fffaf4" font-family="Arial, sans-serif" font-size="30" font-weight="700">${title}</text>
+          <text x="416" y="372" fill="#fffaf4" font-family="Arial, sans-serif" font-size="22" opacity="0.78">${meta}</text>
+          <text x="416" y="488" fill="#1d2b2a" font-family="Arial, sans-serif" font-size="24" font-weight="700">${labels[0]}</text>
+          <text x="590" y="488" fill="#1d2b2a" font-family="Arial, sans-serif" font-size="24" font-weight="700">${labels[1]}</text>
+          <text x="764" y="488" fill="#1d2b2a" font-family="Arial, sans-serif" font-size="24" font-weight="700">${labels[2]}</text>
+          <text x="938" y="488" fill="#1d2b2a" font-family="Arial, sans-serif" font-size="24" font-weight="700">${labels[3]}</text>
+        </svg>`;
+
+      return `data:image/svg+xml;charset=UTF-8,${encodeURIComponent(svg)}`;
+    }
+
+    function getMediaCandidates(project) {
+      const imageExtensions = ["png", "jpg", "jpeg", "webp", "gif"];
+      const videoExtensions = ["mp4", "webm", "mov", "mkv"];
+      const mediaFiles = Array.isArray(project.mediaFiles) ? project.mediaFiles : [];
+
+      if (mediaFiles.length > 0) {
+        return mediaFiles.map((file) => {
+          const extension = file.split(".").pop().toLowerCase();
+          return {
+            src: `${project.mediaFolder}/${file}`,
+            type: videoExtensions.includes(extension) ? "video" : "image"
+          };
+        });
+      }
+
+      const baseNames = [
+        "main",
+        ...Array.from({ length: 20 }, (_, index) => String(index + 1).padStart(2, "0")),
+        ...Array.from({ length: 20 }, (_, index) => String(index + 1))
+      ];
+
+      return baseNames.flatMap((baseName) => [
+        ...imageExtensions.map((extension) => ({
+          src: `${project.mediaFolder}/${baseName}.${extension}`,
+          type: "image"
+        })),
+        ...videoExtensions.map((extension) => ({
+          src: `${project.mediaFolder}/${baseName}.${extension}`,
+          type: "video"
+        }))
+      ]);
+    }
+
+    function showNoImage() {
+      const empty = document.createElement("div");
+      empty.className = "lightbox-empty";
+      empty.textContent = "No Image";
+      lightboxMedia.replaceChildren(empty);
+    }
+
+    function createMediaElement(project, candidate) {
+      const media = document.createElement(candidate.type === "video" ? "video" : "img");
+      media.src = candidate.src;
+
+      if (candidate.type === "video") {
+        media.controls = true;
+        media.playsInline = true;
+        media.preload = "metadata";
+        media.setAttribute("aria-label", `${project.title} 영상`);
+      } else {
+        media.alt = `${project.title} 이미지`;
+      }
+
+      return media;
+    }
+
+    function validateMediaCandidate(candidate) {
+      return new Promise((resolve) => {
+        const media = document.createElement(candidate.type === "video" ? "video" : "img");
+        const done = (isAvailable) => resolve(isAvailable ? candidate : null);
+
+        media.onload = () => done(true);
+        media.onloadedmetadata = () => done(true);
+        media.onerror = () => done(false);
+        media.preload = "metadata";
+        media.src = candidate.src;
+      });
+    }
+
+    function renderCurrentMedia(project) {
+      const item = currentMediaItems[currentMediaIndex];
+
+      if (!item) {
+        showNoImage();
+        lightboxCount.textContent = "";
+        lightboxPrev.disabled = true;
+        lightboxNext.disabled = true;
+        return;
+      }
+
+      lightboxMedia.replaceChildren(createMediaElement(project, item));
+      lightboxCount.textContent = `${currentMediaIndex + 1} / ${currentMediaItems.length}`;
+      lightboxPrev.disabled = currentMediaItems.length <= 1;
+      lightboxNext.disabled = currentMediaItems.length <= 1;
+    }
+
+    function loadProjectMedia(project) {
+      const requestId = ++mediaRequestId;
+      const candidates = getMediaCandidates(project);
+      currentMediaItems = [];
+      currentMediaIndex = 0;
+      lightboxMedia.replaceChildren();
+      lightboxCount.textContent = "자료 확인 중";
+      lightboxPrev.disabled = true;
+      lightboxNext.disabled = true;
+
+      Promise.all(candidates.map(validateMediaCandidate)).then((results) => {
+        if (requestId !== mediaRequestId) return;
+        currentMediaItems = results.filter(Boolean);
+        currentMediaIndex = 0;
+        renderCurrentMedia(project);
+      });
+    }
+
+    function openLightbox(projectId, trigger) {
+      const project = projectPreviews[projectId];
+      if (!project) return;
+
+      lastFocusedTrigger = trigger;
+      loadProjectMedia(project);
+      lightboxMeta.textContent = project.meta;
+      lightboxTitle.textContent = project.title;
+      lightboxDescription.textContent = project.description;
+      lightbox.dataset.projectId = projectId;
+      lightbox.setAttribute("aria-hidden", "false");
+      document.body.classList.add("modal-open");
+      lightbox.querySelector(".lightbox-close").focus();
+    }
+
+    function closeLightbox() {
+      mediaRequestId += 1;
+      lightbox.setAttribute("aria-hidden", "true");
+      delete lightbox.dataset.projectId;
+      document.body.classList.remove("modal-open");
+      lightboxMedia.replaceChildren();
+      currentMediaItems = [];
+      currentMediaIndex = 0;
+      if (lastFocusedTrigger) {
+        lastFocusedTrigger.focus();
+      }
+    }
+
+    function moveLightboxMedia(direction) {
+      if (currentMediaItems.length <= 1) return;
+      const openProjectId = lightbox.dataset.projectId;
+      const project = projectPreviews[openProjectId];
+      currentMediaIndex = (currentMediaIndex + direction + currentMediaItems.length) % currentMediaItems.length;
+      renderCurrentMedia(project);
+    }
+
+    document.querySelectorAll(".project-preview-trigger").forEach((button) => {
+      button.addEventListener("click", () => openLightbox(button.dataset.project, button));
+    });
+
+    document.querySelectorAll("[data-print-page]").forEach((button) => {
+      button.addEventListener("click", () => window.print());
+    });
+
+    document.querySelectorAll("[data-close-lightbox]").forEach((button) => {
+      button.addEventListener("click", closeLightbox);
+    });
+
+    lightboxPrev.addEventListener("click", () => moveLightboxMedia(-1));
+    lightboxNext.addEventListener("click", () => moveLightboxMedia(1));
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && lightbox.getAttribute("aria-hidden") === "false") {
+        closeLightbox();
+      }
+
+      if (event.key === "ArrowLeft" && lightbox.getAttribute("aria-hidden") === "false") {
+        moveLightboxMedia(-1);
+      }
+
+      if (event.key === "ArrowRight" && lightbox.getAttribute("aria-hidden") === "false") {
+        moveLightboxMedia(1);
+      }
+    });
+  </script>
 </body>
 </html>
