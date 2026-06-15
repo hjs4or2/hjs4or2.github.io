@@ -3,23 +3,26 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>포트폴리오</title>
+  <title>한재성 | C++/Qt Product Engineer</title>
   <style>
     :root {
-      --bg: #f5f6f3;
-      --paper: rgba(255, 255, 255, 0.92);
-      --ink: #1d2b2a;
-      --muted: #5d6967;
-      --line: rgba(29, 43, 42, 0.12);
-      --accent: #c35a2f;
-      --accent-deep: #8f3414;
-      --accent-soft: #f2d4c5;
-      --green: #244e46;
-      --green-soft: #d9ebe6;
-      --shadow: 0 18px 42px rgba(24, 33, 31, 0.12);
-      --radius-lg: 14px;
-      --radius-md: 10px;
-      --radius-sm: 8px;
+      --bg: #f4f6f2;
+      --surface: #ffffff;
+      --surface-2: #eef2ec;
+      --ink: #161a1d;
+      --ink-soft: #3d464c;
+      --muted: #69747b;
+      --line: rgba(22, 26, 29, 0.12);
+      --line-strong: rgba(22, 26, 29, 0.22);
+      --teal: #0f6f68;
+      --teal-dark: #094a45;
+      --blue: #2f6f9f;
+      --orange: #d35c2f;
+      --yellow: #e7b84e;
+      --paper: #fbfbf8;
+      --shadow: 0 24px 70px rgba(22, 26, 29, 0.12);
+      --shadow-sm: 0 14px 34px rgba(22, 26, 29, 0.09);
+      --radius: 8px;
       --max: 1180px;
     }
 
@@ -35,242 +38,679 @@
     body {
       margin: 0;
       color: var(--ink);
-      font-family: "Pretendard Variable", "Pretendard", "Noto Sans KR", sans-serif;
-      background: linear-gradient(180deg, #fafbf9 0%, var(--bg) 56%, #eef1ed 100%);
-      min-height: 100vh;
+      font-family: "Pretendard Variable", "Pretendard", "Noto Sans KR", "Segoe UI", sans-serif;
       line-height: 1.6;
+      background:
+        linear-gradient(90deg, rgba(22, 26, 29, 0.035) 1px, transparent 1px),
+        linear-gradient(rgba(22, 26, 29, 0.035) 1px, transparent 1px),
+        var(--bg);
+      background-size: 44px 44px;
+      overflow-x: hidden;
+      max-width: 100vw;
+      word-break: keep-all;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+    }
+
+    button,
+    a {
+      font: inherit;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img,
+    video {
+      max-width: 100%;
+      display: block;
+    }
+
+    .site-shell {
+      min-height: 100vh;
+      max-width: 100%;
       overflow-x: hidden;
     }
 
-    body::before {
-      content: "";
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      border-bottom: 1px solid var(--line);
+      background: rgba(244, 246, 242, 0.88);
+      backdrop-filter: blur(18px);
+    }
+
+    .topbar-inner {
+      width: min(calc(100% - 32px), var(--max));
+      margin: 0 auto;
+      min-height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 20px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0;
+      font-weight: 900;
+      letter-spacing: 0;
+    }
+
+    .brand-mark {
+      width: 34px;
+      height: 34px;
+      display: grid;
+      place-items: center;
+      color: #fff;
+      background: var(--ink);
+      border: 2px solid var(--teal);
+      border-radius: 6px;
+      box-shadow: 4px 4px 0 var(--yellow);
+      font-size: 0.78rem;
+      line-height: 1;
+    }
+
+    .brand span:last-child {
+      min-width: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .nav {
       position: fixed;
-      inset: 0;
-      pointer-events: none;
-      background-image:
-        linear-gradient(rgba(29, 43, 42, 0.025) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(29, 43, 42, 0.025) 1px, transparent 1px);
-      background-size: 28px 28px;
-      mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.45), transparent 85%);
+      top: 50%;
+      right: 16px;
+      transform: translateY(-50%);
+      z-index: 45;
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 8px;
+      width: 112px;
+      max-width: calc(100vw - 24px);
+      padding: 8px;
+      border-radius: 8px;
+      border: 1px solid rgba(22, 26, 29, 0.1);
+      background: rgba(255, 255, 255, 0.84);
+      box-shadow: 0 16px 42px rgba(22, 26, 29, 0.13);
+      backdrop-filter: blur(16px);
+    }
+
+    .nav a,
+    .print-button,
+    .project-preview-trigger,
+    .lightbox-nav,
+    .lightbox-close {
+      min-height: 40px;
+      border: 1px solid var(--line-strong);
+      border-radius: 6px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      color: var(--ink);
+      background: var(--surface);
+      cursor: pointer;
+      transition: transform 140ms ease, border-color 140ms ease, background 140ms ease, color 140ms ease;
+    }
+
+    .nav a {
+      width: 100%;
+      padding: 9px 12px;
+      font-size: 0.92rem;
+      font-weight: 800;
+    }
+
+    .print-button,
+    .project-preview-trigger,
+    .lightbox-nav {
+      padding: 9px 13px;
+      font-weight: 900;
+    }
+
+    .nav .print-button {
+      width: 100%;
+    }
+
+    .nav a:hover,
+    .nav a:focus-visible,
+    .print-button:hover,
+    .print-button:focus-visible,
+    .project-preview-trigger:hover,
+    .project-preview-trigger:focus-visible,
+    .lightbox-nav:hover:not(:disabled),
+    .lightbox-nav:focus-visible:not(:disabled),
+    .lightbox-close:hover,
+    .lightbox-close:focus-visible {
+      transform: translateY(-1px);
+      color: #fff;
+      background: var(--ink);
+      border-color: var(--ink);
+      outline: none;
     }
 
     .page {
       width: min(calc(100% - 32px), var(--max));
-      max-width: calc(100vw - 32px);
       margin: 0 auto;
-      padding: 32px 0 64px;
-      position: relative;
-      z-index: 1;
+      padding: 28px 0 70px;
+      max-width: calc(100vw - 32px);
+      overflow-x: hidden;
     }
 
     .hero {
+      min-height: 0;
+      display: grid;
+      grid-template-columns: minmax(0, 1.5fr) minmax(320px, 1fr);
+      align-items: stretch;
+      gap: 24px;
+      padding: clamp(28px, 5vw, 54px);
       position: relative;
-      overflow: visible;
-      border-radius: var(--radius-lg);
-      padding: 48px;
-      background:
-        linear-gradient(135deg, rgba(255, 250, 244, 0.92), rgba(255, 244, 236, 0.78)),
-        #fff8f2;
-      border: 1px solid rgba(255, 255, 255, 0.7);
-      box-shadow: var(--shadow);
+      overflow: hidden;
+      background: rgba(255, 255, 255, 0.88);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-sm);
     }
 
-    .eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 8px 14px;
-      border-radius: 999px;
-      background: rgba(36, 78, 70, 0.08);
-      color: var(--green);
-      font-size: 0.9rem;
-      font-weight: 700;
-      letter-spacing: 0.02em;
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0 0 auto;
+      height: 8px;
+      background: linear-gradient(90deg, var(--teal), var(--orange), var(--yellow), var(--blue));
+    }
+
+    .hero-card,
+    .section,
+    .project-card,
+    .experience-card,
+    .stack-group,
+    .signal-card {
+      background: rgba(255, 255, 255, 0.88);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .hero-card {
+      background: rgba(255, 255, 255, 0.72);
+      box-shadow: none;
+      padding: clamp(24px, 3.6vw, 34px);
+      min-width: 0;
+    }
+
+    h1,
+    h2,
+    h3,
+    p {
+      margin: 0;
     }
 
     h1,
     h2,
     h3 {
-      margin: 0;
-      letter-spacing: -0.03em;
+      text-wrap: balance;
     }
 
-    h1 {
+    p,
+    li,
+    dd {
+      line-break: strict;
+      text-wrap: pretty;
+    }
+
+    .hero-heading {
+      grid-column: 1 / -1;
+      min-width: 0;
+    }
+
+    .hero-title {
+      max-width: 920px;
+      font-size: clamp(2.7rem, 5.5vw, 4.72rem);
+      line-height: 0.92;
+      letter-spacing: 0;
+    }
+
+    .hero-title span {
+      display: block;
+    }
+
+    .hero-label {
+      color: var(--orange);
+      font-size: 0.98rem;
+      font-weight: 950;
+      letter-spacing: 0;
+      text-transform: uppercase;
+    }
+
+    .summary-text {
       margin-top: 18px;
-      font-size: clamp(2.4rem, 6vw, 5.1rem);
-      line-height: 0.98;
-      max-width: 15ch;
+      color: var(--ink-soft);
+      font-size: clamp(1rem, 1.4vw, 1.08rem);
+      line-height: 1.7;
+      font-weight: 650;
+      overflow-wrap: break-word;
+      word-break: keep-all;
     }
 
-    .subtitle {
-      margin-top: 20px;
-      max-width: 760px;
-      font-size: 1.08rem;
-      color: var(--muted);
-    }
-
-    .hero-actions {
+    .summary-actions {
       display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
       margin-top: 24px;
     }
 
-    .pdf-link {
-      appearance: none;
-      border: 0;
+    .summary-cta {
+      min-height: 46px;
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      min-height: 42px;
-      padding: 10px 16px;
-      border-radius: 999px;
-      background: var(--green);
-      color: #fffaf4;
-      font: inherit;
-      font-size: 0.94rem;
-      font-weight: 800;
-      text-decoration: none;
-      cursor: pointer;
-      box-shadow: 0 10px 22px rgba(36, 78, 70, 0.18);
-      transition: transform 160ms ease, background 160ms ease, box-shadow 160ms ease;
+      padding: 11px 15px;
+      border: 1px solid var(--ink);
+      border-radius: 6px;
+      color: #fff;
+      background: var(--ink);
+      box-shadow: 5px 5px 0 var(--orange);
+      font-weight: 950;
+      transition: transform 140ms ease, background 140ms ease, border-color 140ms ease;
     }
 
-    .pdf-link:hover,
-    .pdf-link:focus-visible {
-      background: var(--accent-deep);
+    .summary-cta:hover,
+    .summary-cta:focus-visible {
       transform: translateY(-1px);
+      background: var(--teal-dark);
+      border-color: var(--teal-dark);
       outline: none;
     }
 
-    .pdf-link:focus-visible {
-      box-shadow: 0 0 0 4px rgba(195, 90, 47, 0.18), 0 10px 22px rgba(36, 78, 70, 0.18);
-    }
-
-    .hero-grid {
+    .summary-metrics {
+      margin-top: 28px;
       display: grid;
-      grid-template-columns: 1.35fr 0.9fr;
-      gap: 24px;
-      margin-top: 32px;
-      align-items: stretch;
-      min-width: 0;
-    }
-
-    .hero-card,
-    .section,
-    .timeline-item,
-    .quote {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      border: 1px solid var(--line-strong);
+      border-radius: 8px;
+      overflow: hidden;
       background: var(--paper);
-      backdrop-filter: blur(16px);
-      border: 1px solid rgba(255, 255, 255, 0.8);
-      box-shadow: var(--shadow);
     }
 
-    .hero-card {
-      border-radius: var(--radius-lg);
-      padding: 24px;
+    .summary-metric {
       min-width: 0;
+      padding: 15px;
+      border-right: 1px solid var(--line);
     }
 
-    .hero-card h2 {
-      font-size: 1rem;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: var(--accent-deep);
+    .summary-metric:last-child {
+      border-right: 0;
     }
 
-    .hero-card p {
-      margin: 14px 0 0;
+    .summary-metric strong {
+      display: block;
+      font-size: 1.35rem;
+      line-height: 1;
+    }
+
+    .summary-metric span {
+      display: block;
+      margin-top: 7px;
       color: var(--muted);
+      font-size: 0.82rem;
+      font-weight: 800;
+      overflow-wrap: break-word;
     }
 
-    .contact-list,
-    .bullet-list,
-    .chips {
-      list-style: none;
-      padding: 0;
-      margin: 0;
+    .profile-table {
+      margin-top: 12px;
     }
 
-    .contact-list li,
-    .bullet-list li {
-      padding: 10px 0;
+    .profile-row {
+      display: grid;
+      grid-template-columns: 86px minmax(0, 1fr);
+      gap: 0;
+      padding: 13px 0;
       border-bottom: 1px solid var(--line);
     }
 
-    .contact-list li {
-      display: grid;
-      grid-template-columns: 86px minmax(0, 1fr);
-      align-items: start;
-      column-gap: 0;
-      min-width: 0;
+    .profile-row:last-child {
+      border-bottom: 0;
+      padding-bottom: 0;
     }
 
-    .contact-list span,
-    .bullet-list li,
-    .card p,
-    .hero-card p,
-    .section-header p,
-    .quote p {
-      min-width: 0;
+    .profile-row dt {
+      color: var(--teal-dark);
+      font-weight: 950;
+    }
+
+    .profile-row dd {
+      margin: 0;
+      color: var(--ink-soft);
+      font-weight: 700;
       word-break: keep-all;
       overflow-wrap: break-word;
     }
 
-    .contact-list li:last-child,
-    .bullet-list li:last-child {
-      border-bottom: 0;
-    }
-
-    .contact-list strong {
-      color: var(--green);
-      display: block;
-    }
-
     .sections {
       display: grid;
-      gap: 20px;
-      margin-top: 24px;
+      gap: 22px;
     }
 
     .section {
-      border-radius: var(--radius-lg);
-      padding: 28px;
+      padding: clamp(24px, 4vw, 36px);
       min-width: 0;
     }
 
     .section-header {
-      display: flex;
-      justify-content: space-between;
+      display: grid;
+      grid-template-columns: minmax(0, 0.72fr) minmax(280px, 0.8fr);
+      gap: 24px;
       align-items: end;
-      gap: 12px;
-      margin-bottom: 20px;
+      margin-bottom: 22px;
+      padding-bottom: 18px;
+      border-bottom: 1px solid var(--line);
     }
 
-    .section-header h2 {
-      font-size: clamp(1.5rem, 3vw, 2.1rem);
+    .section-label {
+      color: var(--orange);
+      font-size: 0.82rem;
+      font-weight: 950;
+      letter-spacing: 0;
+      text-transform: uppercase;
+    }
+
+    .section h2 {
+      margin-top: 6px;
+      font-size: clamp(1.7rem, 3.2vw, 2.7rem);
+      line-height: 1.03;
+      letter-spacing: 0;
     }
 
     .section-header p {
-      margin: 0;
+      justify-self: end;
+      max-width: 540px;
       color: var(--muted);
-      max-width: 600px;
+      font-weight: 650;
+      line-height: 1.72;
+    }
+
+    #stack .section-header p {
+      max-width: 420px;
       text-align: right;
     }
 
-    .highlight-grid,
-    .project-grid,
-    .stack-grid {
+    #experience .section-header p {
+      justify-self: end;
+      max-width: 560px;
+      text-align: right;
+    }
+
+    .signal-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+      gap: 12px;
+    }
+
+    .signal-card {
+      padding: 20px;
+      min-height: 178px;
+      box-shadow: none;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .signal-card::before {
+      content: "";
+      position: absolute;
+      inset: 0 0 auto;
+      height: 5px;
+      background: var(--teal);
+    }
+
+    .signal-card:nth-child(2)::before {
+      background: var(--orange);
+    }
+
+    .signal-card:nth-child(3)::before {
+      background: var(--blue);
+    }
+
+    .signal-card:nth-child(4)::before {
+      background: var(--yellow);
+    }
+
+    .signal-card:nth-child(5)::before {
+      background: var(--teal-dark);
+    }
+
+    .signal-card strong {
+      display: block;
+      font-size: 1.03rem;
+      line-height: 1.34;
+    }
+
+    .signal-card p {
+      margin-top: 12px;
+      color: var(--muted);
+      font-size: 0.94rem;
+      font-weight: 600;
+      line-height: 1.66;
+    }
+
+    .project-list {
       display: grid;
       gap: 16px;
+    }
+
+    .project-card {
+      display: grid;
+      grid-template-columns: minmax(250px, 0.36fr) minmax(0, 1fr);
+      gap: 0;
+      overflow: hidden;
+      box-shadow: none;
+      background: var(--surface);
       min-width: 0;
     }
 
-    .highlight-grid {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
+    .project-media {
+      min-height: 210px;
+      display: grid;
+      place-items: center;
+      padding: 12px;
+      background:
+        linear-gradient(90deg, rgba(255, 255, 255, 0.045) 1px, transparent 1px),
+        linear-gradient(rgba(255, 255, 255, 0.045) 1px, transparent 1px),
+        var(--ink);
+      background-size: 22px 22px;
+      border-right: 1px solid var(--line);
+      position: relative;
+      overflow: hidden;
     }
 
-    .project-grid {
+    .project-media img {
+      width: 100%;
+      height: clamp(132px, 15vw, 178px);
+      min-height: 0;
+      object-fit: contain;
+      object-position: center center;
+      opacity: 0.98;
+      filter: saturate(0.92) contrast(1.03);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: 6px;
+      background: #fbfbf8;
+    }
+
+    .project-media::after {
+      content: none;
+    }
+
+    .project-number {
+      position: absolute;
+      left: 14px;
+      bottom: 14px;
+      z-index: 1;
+      color: #fff;
+      font-size: 0.85rem;
+      font-weight: 950;
+      letter-spacing: 0;
+      padding: 6px 9px;
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      border-radius: 6px;
+      background: rgba(16, 20, 23, 0.82);
+      backdrop-filter: blur(8px);
+    }
+
+    .project-media-trigger {
+      position: absolute;
+      right: 14px;
+      bottom: 14px;
+      z-index: 2;
+      min-height: 36px;
+      padding: 7px 10px;
+      background: rgba(255, 255, 255, 0.94);
+      box-shadow: 0 10px 24px rgba(16, 20, 23, 0.22);
+      backdrop-filter: blur(8px);
+    }
+
+    .project-body {
+      padding: clamp(20px, 3vw, 30px);
+      display: grid;
+      align-content: start;
+      gap: 15px;
+      min-width: 0;
+    }
+
+    .project-kicker {
+      color: var(--teal-dark);
+      font-size: 0.82rem;
+      font-weight: 950;
+      text-transform: uppercase;
+    }
+
+    .project-card h3 {
+      font-size: clamp(1.3rem, 2.4vw, 2rem);
+      line-height: 1.12;
+      letter-spacing: 0;
+    }
+
+    .project-card p {
+      color: var(--ink-soft);
+      font-weight: 650;
+      word-break: keep-all;
+      overflow-wrap: break-word;
+      line-height: 1.68;
+    }
+
+    .bullet-list {
+      display: grid;
+      gap: 9px;
+      padding: 0;
+      margin: 0;
+      list-style: none;
+    }
+
+    .bullet-list li {
+      position: relative;
+      padding-left: 18px;
+      color: var(--muted);
+      font-size: 0.95rem;
+      font-weight: 600;
+      line-height: 1.62;
+    }
+
+    .bullet-list li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0.72em;
+      width: 8px;
+      height: 2px;
+      background: var(--orange);
+    }
+
+    .tag-row,
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      padding: 0;
+      margin: 0;
+      list-style: none;
+    }
+
+    .tag-row li,
+    .chips li {
+      min-height: 30px;
+      display: inline-flex;
+      align-items: center;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      padding: 5px 9px;
+      color: var(--ink-soft);
+      background: var(--surface-2);
+      font-size: 0.82rem;
+      font-weight: 850;
+    }
+
+    .flow-grid {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .flow-step {
+      min-height: 150px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 15px;
+      background: var(--paper);
+      position: relative;
+    }
+
+    .flow-step::after {
+      content: "->";
+      position: absolute;
+      right: -14px;
+      top: 18px;
+      z-index: 1;
+      color: var(--orange);
+      font-weight: 950;
+    }
+
+    .flow-step:last-child::after {
+      content: "";
+    }
+
+    .flow-step span {
+      display: block;
+      color: var(--orange);
+      font-size: 0.82rem;
+      font-weight: 950;
+    }
+
+    .flow-step strong {
+      display: block;
+      margin-top: 10px;
+      line-height: 1.25;
+    }
+
+    .flow-step p {
+      margin-top: 8px;
+      color: var(--muted);
+      font-size: 0.9rem;
+      font-weight: 600;
+      line-height: 1.58;
+    }
+
+    .experience-grid,
+    .stack-grid {
+      display: grid;
+      gap: 14px;
+    }
+
+    .experience-grid {
       grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
@@ -278,159 +718,90 @@
       grid-template-columns: repeat(4, minmax(0, 1fr));
     }
 
-    .card {
-      padding: 22px;
-      border-radius: var(--radius-md);
-      border: 1px solid var(--line);
-      background:
-        linear-gradient(180deg, rgba(255, 255, 255, 0.82), rgba(255, 247, 241, 0.75));
-      min-width: 0;
+    .experience-card,
+    .stack-group {
+      padding: 20px;
+      box-shadow: none;
     }
 
-    .card h3 {
-      font-size: 1.12rem;
-      margin-bottom: 10px;
+    .period {
+      color: var(--orange);
+      font-size: 0.84rem;
+      font-weight: 950;
     }
 
-    .card p {
-      margin: 0;
+    .experience-card h3,
+    .stack-group h3 {
+      margin-top: 8px;
+      font-size: 1.18rem;
+      line-height: 1.3;
+    }
+
+    .experience-card p {
+      margin-top: 9px;
       color: var(--muted);
-      font-size: 0.96rem;
-    }
-
-    .project-card {
-      position: relative;
-      overflow: hidden;
-    }
-
-    .project-card::before {
-      content: "";
-      position: absolute;
-      inset: auto auto 0 0;
-      width: 100%;
-      height: 4px;
-      background: linear-gradient(90deg, var(--accent), rgba(36, 78, 70, 0.55));
-    }
-
-    .project-meta {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 6px 10px;
-      margin-bottom: 12px;
-      border-radius: 999px;
-      background: rgba(195, 90, 47, 0.1);
-      color: var(--accent-deep);
-      font-size: 0.85rem;
-      font-weight: 700;
-    }
-
-    .project-actions {
-      margin-top: 18px;
-    }
-
-    .project-preview-trigger {
-      appearance: none;
-      border: 0;
-      border-radius: 999px;
-      padding: 10px 14px;
-      background: var(--green);
-      color: #fffaf4;
-      font: inherit;
-      font-size: 0.92rem;
-      font-weight: 800;
-      cursor: pointer;
-      transition: transform 160ms ease, background 160ms ease, box-shadow 160ms ease;
-      box-shadow: 0 10px 22px rgba(36, 78, 70, 0.18);
-    }
-
-    .project-preview-trigger:hover,
-    .project-preview-trigger:focus-visible {
-      background: var(--accent-deep);
-      transform: translateY(-1px);
-      outline: none;
-    }
-
-    .project-preview-trigger:focus-visible {
-      box-shadow: 0 0 0 4px rgba(195, 90, 47, 0.18), 0 10px 22px rgba(36, 78, 70, 0.18);
-    }
-
-    .chips {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-top: 16px;
-    }
-
-    .chips li {
-      padding: 8px 12px;
-      border-radius: 999px;
-      font-size: 0.9rem;
-      background: var(--green-soft);
-      color: var(--green);
       font-weight: 600;
-      max-width: 100%;
-      overflow-wrap: break-word;
+      line-height: 1.65;
     }
 
-    .timeline {
+    .stack-group .chips {
+      margin-top: 14px;
+      gap: 10px;
+    }
+
+    .stack-group .chips li {
+      min-height: 38px;
+      border-color: transparent;
+      border-radius: 999px;
+      padding: 8px 12px;
+      color: var(--teal-dark);
+      background: #d8ebe6;
+    }
+
+    .closing {
+      padding: clamp(24px, 4vw, 38px);
+      color: #fff;
+      background: var(--ink);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
       display: grid;
-      gap: 16px;
-      position: relative;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 24px;
+      align-items: center;
     }
 
-    .timeline-item {
-      border-radius: var(--radius-md);
-      padding: 20px 22px;
-      position: relative;
+    .closing h2 {
+      font-size: clamp(1.7rem, 3.5vw, 3rem);
+      line-height: 1.04;
     }
 
-    .timeline-item h3 {
-      margin-bottom: 8px;
-      font-size: 1.08rem;
+    .closing p {
+      margin-top: 12px;
+      max-width: 720px;
+      color: rgba(255, 255, 255, 0.72);
+      font-weight: 650;
+      line-height: 1.7;
     }
 
-    .timeline-item p {
-      margin: 0;
-      color: var(--muted);
-    }
-
-    .timeline-item .period {
-      display: inline-block;
-      margin-bottom: 8px;
-      color: var(--accent-deep);
-      font-size: 0.88rem;
-      font-weight: 700;
-      letter-spacing: 0.02em;
-    }
-
-    .quote {
-      border-radius: var(--radius-lg);
-      padding: 30px;
-      margin-top: 20px;
-      background:
-        linear-gradient(135deg, rgba(36, 78, 70, 0.95), rgba(24, 55, 50, 0.92));
-      color: #f5f6f1;
-    }
-
-    .quote p {
-      margin: 0;
-      font-size: clamp(1rem, 1.8vw, 1.35rem);
-      line-height: 1.55;
-      letter-spacing: -0.02em;
-    }
-
-    .quote small {
+    .closing p span {
       display: block;
-      margin-top: 16px;
-      opacity: 0.78;
-      font-size: 15px;
+    }
+
+    .closing p span + span {
+      margin-top: 4px;
+    }
+
+    .footer-note {
+      color: var(--muted);
+      font-size: 0.9rem;
+      font-weight: 700;
+      text-align: center;
     }
 
     .lightbox {
       position: fixed;
       inset: 0;
-      z-index: 20;
+      z-index: 50;
       display: grid;
       place-items: center;
       padding: 24px;
@@ -443,118 +814,116 @@
     .lightbox-backdrop {
       position: absolute;
       inset: 0;
-      background: rgba(19, 28, 27, 0.68);
-      backdrop-filter: blur(8px);
+      background: rgba(10, 14, 16, 0.72);
+      backdrop-filter: blur(12px);
     }
 
     .lightbox-panel {
       position: relative;
-      width: min(980px, 100%);
-      max-height: min(760px, calc(100vh - 48px));
-      overflow: auto;
-      border-radius: var(--radius-lg);
-      background: #fffaf4;
-      border: 1px solid rgba(255, 255, 255, 0.86);
-      box-shadow: 0 32px 80px rgba(10, 16, 15, 0.34);
+      z-index: 1;
+      width: min(1180px, calc(100vw - 28px));
+      height: min(780px, calc(100vh - 28px));
+      max-height: calc(100vh - 28px);
+      display: grid;
+      grid-template-columns: minmax(0, 1.35fr) minmax(320px, 0.68fr);
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.24);
+      border-radius: 8px;
+      background: #fbfbf8;
+      box-shadow: 0 32px 80px rgba(0, 0, 0, 0.38);
+    }
+
+    .lightbox-close {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      z-index: 2;
+      width: 42px;
+      height: 42px;
+      padding: 0;
+      color: #fff;
+      background: rgba(0, 0, 0, 0.56);
+      border-color: rgba(255, 255, 255, 0.22);
+      font-size: 1.4rem;
     }
 
     .lightbox-media-wrap {
-      background: #172522;
-      padding: 18px;
+      min-height: 0;
+      display: grid;
+      grid-template-rows: minmax(0, 1fr) auto;
+      background: #101417;
+      position: relative;
     }
 
     .lightbox-media {
-      background: #172522;
+      min-height: 0;
+      display: grid;
+      place-items: center;
+      padding: 18px;
+      overflow: auto;
+      cursor: grab;
+      touch-action: pan-y;
+      user-select: none;
+    }
+
+    .lightbox-media.is-dragging {
+      cursor: grabbing;
+    }
+
+    .lightbox-media.is-zoomed {
+      place-items: start start;
+      cursor: default;
+      touch-action: pan-x pan-y;
     }
 
     .lightbox-media img,
     .lightbox-media video {
-      display: block;
       width: 100%;
-      aspect-ratio: 16 / 9;
+      max-height: calc(100vh - 170px);
       object-fit: contain;
-      border-radius: 18px;
-      background: #20332f;
+      border-radius: 6px;
+      background: #fff;
     }
 
-    .lightbox-media video {
-      max-height: 68vh;
+    .lightbox-media img {
+      max-width: none;
+      pointer-events: none;
     }
 
     .lightbox-empty {
-      display: grid;
-      width: 100%;
       aspect-ratio: 16 / 9;
-      place-items: center;
-      border-radius: 18px;
-      background: #20332f;
-      color: #fffaf4;
-      font-size: 1.1rem;
-      font-weight: 700;
-    }
-
-    .lightbox-copy {
-      padding: 24px 28px 28px;
-    }
-
-    .lightbox-copy h2 {
-      font-size: clamp(1.4rem, 3vw, 2rem);
-    }
-
-    .lightbox-copy p {
-      margin: 10px 0 0;
-      color: var(--muted);
-    }
-
-    .lightbox-detail-list {
-      display: grid;
-      gap: 10px;
-      margin: 18px 0 0;
-      padding: 0;
-      list-style: none;
-    }
-
-    .lightbox-detail-list li {
-      padding: 12px 14px;
-      border: 1px solid var(--line);
-      border-radius: var(--radius-sm);
-      background: rgba(255, 255, 255, 0.62);
-      color: var(--ink);
-      line-height: 1.55;
-    }
-
-    .lightbox-detail-list strong {
-      display: block;
-      margin-bottom: 3px;
-      color: var(--accent-deep);
-      font-size: 0.9rem;
+      object-fit: cover;
     }
 
     .lightbox-toolbar {
       display: flex;
-      justify-content: space-between;
       align-items: center;
+      justify-content: space-between;
       gap: 12px;
-      margin-top: 12px;
+      padding: 12px 14px;
+      color: #fff;
+      border-top: 1px solid rgba(255, 255, 255, 0.14);
     }
 
     .lightbox-count {
-      color: rgba(255, 250, 244, 0.72);
-      font-size: 0.92rem;
-      font-weight: 700;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      font-size: 0.82rem;
+      font-weight: 850;
     }
 
     .lightbox-media-title {
-      display: block;
-      margin-bottom: 3px;
-      color: #fffaf4;
-      font-weight: 800;
+      max-width: 42vw;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      color: rgba(255, 255, 255, 0.92);
     }
 
     .lightbox-media-index {
-      display: block;
-      color: rgba(255, 250, 244, 0.62);
-      font-size: 0.86rem;
+      color: rgba(255, 255, 255, 0.56);
     }
 
     .lightbox-controls {
@@ -562,667 +931,866 @@
       gap: 8px;
     }
 
+    .lightbox-toolbar-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .lightbox-zoom-controls {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .lightbox-zoom-value {
+      min-width: 54px;
+      color: #fff;
+      font-size: 0.82rem;
+      font-weight: 900;
+    }
+
     .lightbox-nav {
-      appearance: none;
-      border: 1px solid var(--line);
-      border-radius: 999px;
-      min-width: 74px;
-      padding: 9px 13px;
-      background: rgba(255, 250, 244, 0.96);
-      color: #172522;
-      font: inherit;
-      font-size: 0.92rem;
-      font-weight: 800;
-      cursor: pointer;
+      min-height: 36px;
+      color: #fff;
+      background: rgba(255, 255, 255, 0.08);
+      border-color: rgba(255, 255, 255, 0.2);
     }
 
     .lightbox-nav:disabled {
-      opacity: 0.36;
-      cursor: default;
+      cursor: not-allowed;
+      opacity: 0.42;
+    }
+
+    .lightbox-zoom-controls[hidden] {
+      display: none;
+    }
+
+    .lightbox-copy {
+      min-height: 0;
+      overflow: auto;
+      padding: clamp(22px, 3vw, 34px);
+      overscroll-behavior: contain;
+      scrollbar-gutter: stable;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(15, 111, 104, 0.76) rgba(22, 26, 29, 0.08);
+    }
+
+    .lightbox-copy::-webkit-scrollbar {
+      width: 10px;
+    }
+
+    .lightbox-copy::-webkit-scrollbar-track {
+      background: rgba(22, 26, 29, 0.08);
+      border-radius: 999px;
+    }
+
+    .lightbox-copy::-webkit-scrollbar-thumb {
+      background: rgba(15, 111, 104, 0.76);
+      border-radius: 999px;
+    }
+
+    .lightbox-scroll-hint {
+      position: sticky;
+      bottom: -1px;
+      margin: 18px -2px -2px;
+      padding: 10px 12px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      color: var(--muted);
+      background: linear-gradient(180deg, rgba(251, 251, 248, 0.74), #fbfbf8 36%);
+      font-size: 0.82rem;
+      font-weight: 850;
+      text-align: center;
     }
 
     .lightbox-meta {
-      display: inline-block;
-      margin-bottom: 10px;
-      color: var(--accent-deep);
-      font-size: 0.9rem;
-      font-weight: 800;
+      display: block;
+      color: var(--orange);
+      font-size: 0.82rem;
+      font-weight: 950;
+      text-transform: uppercase;
     }
 
-    .lightbox-close {
-      position: absolute;
-      top: 16px;
-      right: 16px;
-      width: 40px;
-      height: 40px;
-      border: 0;
-      border-radius: 50%;
-      background: rgba(255, 250, 244, 0.92);
+    .lightbox-copy h2 {
+      margin-top: 8px;
+      font-size: clamp(1.45rem, 3vw, 2.3rem);
+      line-height: 1.08;
+    }
+
+    .lightbox-copy p {
+      margin-top: 14px;
+      color: var(--ink-soft);
+      font-weight: 650;
+    }
+
+    .lightbox-detail-list {
+      display: grid;
+      gap: 12px;
+      padding: 0;
+      margin: 22px 0 0;
+      list-style: none;
+    }
+
+    .lightbox-detail-list li {
+      padding: 14px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--surface-2);
+    }
+
+    .lightbox-detail-list strong {
+      display: block;
+      margin-bottom: 6px;
       color: var(--ink);
-      font-size: 1.4rem;
-      line-height: 1;
-      cursor: pointer;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.16);
+    }
+
+    .lightbox-detail-list span {
+      display: block;
+      color: var(--muted);
+      font-size: 0.92rem;
+      font-weight: 600;
     }
 
     body.modal-open {
       overflow: hidden;
     }
 
-    .footer-note {
-      margin-top: 20px;
-      padding: 18px 20px;
-      border-radius: var(--radius-md);
-      background: rgba(255, 255, 255, 0.55);
-      border: 1px solid var(--line);
-      color: var(--muted);
-      font-size: 0.92rem;
-    }
-
-    @media (max-width: 960px) {
+    @media (max-width: 1040px) {
       .hero {
-        padding: 30px;
+        grid-template-columns: 1fr;
+        min-height: 0;
       }
 
-      .hero-grid,
-      .highlight-grid,
-      .project-grid,
+      .signal-grid,
+      .flow-grid,
       .stack-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .flow-step::after {
+        content: "";
+      }
+    }
+
+    @media (max-width: 820px) {
+      .topbar-inner {
+        min-height: 64px;
+        padding: 12px 0;
+      }
+
+      .nav {
+        top: auto;
+        left: 10px;
+        right: 10px;
+        bottom: 10px;
+        transform: none;
+        width: auto;
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        align-items: stretch;
+        justify-content: stretch;
+        max-width: none;
+        gap: 5px;
+        padding: 6px;
+      }
+
+      .nav a,
+      .nav .print-button {
+        flex: 1 1 0;
+        min-width: 0;
+        width: 100%;
+        padding: 8px 6px;
+        font-size: clamp(0.68rem, 2.4vw, 0.82rem);
+        white-space: nowrap;
+      }
+
+      .section-header,
+      .project-card,
+      .experience-grid,
+      .stack-grid,
+      .closing,
+      .lightbox-panel {
         grid-template-columns: 1fr;
       }
 
-      .section-header {
-        display: block;
+      .section-header p {
+        justify-self: start;
+        max-width: none;
       }
 
-      .section-header p {
-        margin-top: 10px;
+      #stack .section-header p {
         text-align: left;
       }
-    }
 
-    @media (max-width: 640px) {
-      .page {
-        width: 100%;
-        max-width: 100%;
-        padding: 20px 10px 64px;
+      .project-media {
+        border-right: 0;
+        border-bottom: 1px solid var(--line);
+        min-height: 210px;
       }
 
-      .hero {
-        padding: 22px;
-        max-width: 100%;
-      }
-
-      .section,
-      .hero-card,
-      .quote {
-        padding: 20px;
-        max-width: 100%;
-      }
-
-      .lightbox {
-        padding: 12px;
+      .project-media img {
+        height: clamp(150px, 34vw, 210px);
       }
 
       .lightbox-panel {
-        max-height: calc(100vh - 24px);
-        border-radius: 22px;
-      }
-
-      .lightbox-media-wrap {
-        padding: 12px;
+        overflow: auto;
+        height: min(900px, calc(100vh - 20px));
       }
 
       .lightbox-copy {
-        padding: 18px;
+        max-height: min(46vh, 430px);
+      }
+
+      .lightbox-media img,
+      .lightbox-media video {
+        max-height: 54vh;
+      }
+
+      .lightbox-media-title {
+        max-width: 64vw;
       }
 
       .lightbox-toolbar {
-        align-items: stretch;
+        align-items: flex-start;
+      }
+
+      .lightbox-toolbar-actions {
         flex-direction: column;
+        align-items: flex-end;
+        gap: 8px;
       }
-
-      .lightbox-controls {
-        width: 100%;
-      }
-
-      .lightbox-nav {
-        flex: 1;
-      }
-
-      .contact-list span,
-      .bullet-list li,
-      .card p,
-      .hero-card p,
-      .section-header p,
-      .quote p {
-        word-break: normal;
-        overflow-wrap: anywhere;
-      }
-
     }
 
-    @page {
-      size: A4 portrait;
-      margin: 12mm;
+    @media (max-width: 620px) {
+      .page {
+        width: min(calc(100% - 20px), var(--max));
+        padding-top: 18px;
+        padding-bottom: 112px;
+      }
+
+      .topbar-inner {
+        width: min(calc(100% - 20px), var(--max));
+      }
+
+      .nav {
+        width: auto;
+      }
+
+      .nav a,
+      .nav .print-button {
+        min-height: 36px;
+        padding: 8px 4px;
+        font-size: 0.72rem;
+      }
+
+      .hero-card,
+      .section,
+      .closing {
+        padding: 22px;
+      }
+
+      .hero-title {
+        font-size: clamp(2.2rem, 10vw, 2.95rem);
+        line-height: 0.98;
+      }
+
+      .hero-card > *,
+      .section > *,
+      .project-body > * {
+        max-width: 100%;
+      }
+
+      .summary-text {
+        font-size: 0.98rem;
+        line-height: 1.62;
+      }
+
+      .summary-metrics {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .summary-metric {
+        border-bottom: 1px solid var(--line);
+      }
+
+      .summary-metric:nth-child(2),
+      .summary-metric:nth-child(4) {
+        border-right: 0;
+      }
+
+      .summary-metric:nth-child(3),
+      .summary-metric:nth-child(4) {
+        border-bottom: 0;
+      }
+
+      .profile-row {
+        grid-template-columns: 74px minmax(0, 1fr);
+      }
+
+      .signal-grid,
+      .flow-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .project-media {
+        min-height: 188px;
+      }
+
+      .project-media img {
+        height: 150px;
+        min-height: 0;
+      }
+
+      .lightbox {
+        padding: 10px;
+      }
     }
 
     @media print {
-      :root {
-        --paper: #ffffff;
-        --shadow: none;
-        --radius-lg: 14px;
-        --radius-md: 10px;
-        --radius-sm: 8px;
+      @page {
+        margin: 12mm;
       }
 
       * {
-        -webkit-print-color-adjust: exact;
         print-color-adjust: exact;
-      }
-
-      html,
-      body {
-        background: #ffffff;
+        -webkit-print-color-adjust: exact;
       }
 
       body {
-        min-height: auto;
-        font-size: 10.4pt;
-        line-height: 1.45;
+        background: #fff;
       }
 
-      body::before,
-      .hero::after,
-      .lightbox,
-      .project-actions {
+      .topbar,
+      .nav,
+      .summary-actions,
+      .project-preview-trigger,
+      .lightbox {
         display: none !important;
       }
 
       .page {
         width: 100%;
-        max-width: none;
         padding: 0;
+      }
+
+      .hero {
+        min-height: 0;
+        grid-template-columns: 1fr;
       }
 
       .hero,
       .hero-card,
       .section,
-      .timeline-item,
-      .quote,
-      .footer-note {
+      .project-card,
+      .experience-card,
+      .stack-group,
+      .closing {
         box-shadow: none;
-        backdrop-filter: none;
+        break-inside: avoid;
       }
 
-      .hero {
-        padding: 16mm 14mm 12mm;
-        border-radius: 14px;
-        background: #fff8f2;
-        border: 1px solid #ead8ca;
-        break-after: page;
-      }
-
-      .eyebrow {
-        padding: 5px 9px;
-        font-size: 8.5pt;
-      }
-
-      h1 {
-        margin-top: 10px;
-        font-size: 30pt;
-        line-height: 1.05;
-        max-width: none;
-      }
-
-      .subtitle {
-        margin-top: 10px;
-        max-width: none;
-        font-size: 10.5pt;
-      }
-
-      .hero-grid {
+      .project-card {
         grid-template-columns: 1fr;
-        gap: 8px;
-        margin-top: 14px;
+        overflow: hidden;
       }
 
-      .hero-card,
-      .section,
-      .card,
-      .timeline-item,
-      .quote,
-      .footer-note {
-        border-color: #ded4ca;
+      .project-media {
+        min-height: 350px;
+        padding: 16px;
+        border-right: 0;
+        border-bottom: 1px solid var(--line);
       }
 
-      .hero-card {
-        padding: 14px;
+      .project-media img {
+        width: 100%;
+        height: 320px;
+        object-fit: contain;
       }
 
-      .hero-card p {
-        margin-top: 8px;
+      .project-body {
+        padding: 18px 20px 20px;
+        gap: 10px;
       }
 
-      .sections {
-        display: block;
-        margin-top: 0;
-      }
-
-      .section {
-        padding: 14px;
-        margin: 0 0 10px;
-      }
-
-      .print-page-start {
-        break-before: page;
-        page-break-before: always;
-      }
-
-      .section-header {
-        display: block;
-        margin-bottom: 10px;
-        break-after: avoid;
-      }
-
-      .section-header h2 {
-        font-size: 17pt;
-      }
-
-      .section-header p {
-        margin-top: 4px;
-        max-width: none;
-        text-align: left;
-        font-size: 9.2pt;
-      }
-
-      .highlight-grid,
-      .project-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 9px;
-      }
-
-      .stack-grid {
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-        gap: 9px;
-      }
-
-      .card,
-      .timeline-item {
-        padding: 11px 12px;
-        break-inside: avoid-page;
-        page-break-inside: avoid;
-      }
-
-      .card h3,
-      .timeline-item h3 {
-        font-size: 10.8pt;
-        margin-bottom: 5px;
-      }
-
-      .card p,
-      .timeline-item p,
-      .bullet-list li {
-        font-size: 9.2pt;
-      }
-
-      .bullet-list li,
-      .contact-list li {
-        padding: 5px 0;
-      }
-
-      .project-meta {
-        padding: 4px 7px;
-        margin-bottom: 7px;
-        font-size: 8.2pt;
-      }
-
-      .chips {
-        gap: 5px;
-        margin-top: 8px;
-      }
-
-      .chips li {
-        padding: 5px 8px;
-        font-size: 8.4pt;
-      }
-
-      .timeline {
-        gap: 9px;
-      }
-
-      .timeline-item .period {
-        margin-bottom: 4px;
-        font-size: 8.4pt;
-      }
-
-      .quote {
-        padding: 14px;
-        margin-top: 10px;
-        background: #244e46;
-        break-inside: avoid-page;
-        page-break-inside: avoid;
-      }
-
-      .quote p {
-        font-size: 12pt;
-        line-height: 1.45;
-      }
-
-      .footer-note {
-        padding: 10px 12px;
-        margin-top: 10px;
-        font-size: 8.8pt;
+      .bullet-list {
+        gap: 6px;
       }
     }
   </style>
 </head>
 <body>
-  <main class="page">
-    <section class="hero">
-        <span class="eyebrow">의료영상 소프트웨어 개발자</span>
-      <h1>한재성 포트폴리오</h1>
-      <div class="hero-actions">
-        <button type="button" class="pdf-link" data-print-page>PDF 저장</button>
+  <div class="site-shell">
+    <header class="topbar">
+      <div class="topbar-inner">
+        <a class="brand" href="#top" aria-label="처음으로 이동">
+          <span class="brand-mark">C++</span>
+          <span>한재성 | C++ Application Engineer</span>
+        </a>
       </div>
-      <!--
-      <p class="subtitle">
-        이 포트폴리오는 2023년 7월부터 2025년 10월까지의 월간 업무공유 자료 26건과 이슈 트래커의 완료·검토 이력을 바탕으로 작성했습니다.
-        의료영상 데스크톱 소프트웨어 개발을 중심으로 테스트 자동화, PACS/DICOM 연동, 리포트 생성, 릴리즈 대응 등 실제 수행한 업무 경험을 정리했습니다.
-      </p>
-      -->
+    </header>
+    <nav class="nav" aria-label="주요 섹션">
+      <a href="#top">맨 위로</a>
+      <a href="#work">작업 사례</a>
+      <a href="#flow">개발 흐름</a>
+      <a href="#experience">경력</a>
+      <a href="#stack">스택</a>
+      <button class="print-button" type="button" data-print-page>PDF</button>
+    </nav>
 
-      <div class="hero-grid">
-        <article class="hero-card">
-          <h2>Summary</h2>
-          <p>
-            의료영상 소프트웨어 개발자로서 C++/Qt 기반 DICOM 클라이언트, PACS 연동,
-            AI 분석 결과 기반 리포트 생성, 매크로 자동화 기능을 구현해 왔습니다. DICOM/mask/AI 결과를
-            정규화해 PDF/CSV 리포트로 변환하고, Action/Command 기반 자동화 파이프라인으로
-            실제 의료 현장의 반복 처리·리포트 흐름을 안정화하는 데 집중해 왔습니다.
+    <main class="page" id="top">
+      <section class="hero" aria-label="소개">
+        <div class="hero-heading">
+          <h1 class="hero-title"><span>고객 요구를 제품으로 바꾸는</span><span>C++ 개발자</span></h1>
+        </div>
+        <article class="hero-card" aria-labelledby="summary-title">
+          <h2 class="hero-label" id="summary-title">Summary</h2>
+          <p class="summary-text">
+            의료영상 소프트웨어 개발자로서 C++/Qt 기반 DICOM 클라이언트, PACS 연동, AI 분석 결과 기반
+            리포트 생성, 매크로 자동화 기능을 구현해 왔습니다. DICOM/mask/AI 결과를 정규화해 PDF/CSV
+            리포트로 변환하고, Action/Command 기반 자동화 파이프라인으로 실제 의료 현장의 반복 처리·리포트
+            흐름을 안정화하는 데 집중해 왔습니다.
           </p>
-        </article>
-
-        <article class="hero-card">
-          <h2>Profile</h2>
-          <ul class="contact-list">
-            <li><strong>이름</strong><span>한재성</span></li>
-            <li><strong>포지션</strong><span>의료영상 소프트웨어 개발</span></li>
-            <li><strong>강점</strong><span>DICOM/PACS, 고객·기관 대응, 매크로 아키텍처, 제품 안정화</span></li>
-            <li><strong>연락처</strong><span>필요 시 별도 전달</span></li>
-          </ul>
-        </article>
-      </div>
-    </section>
-
-    <div class="sections">
-      <section class="section">
-        <div class="section-header">
-          <h2>핵심 강점</h2>
-          <p>의료영상 제품 개발에서 반복적으로 수행한 설계·자동화·운영 업무를 중심으로 정리했습니다.</p>
-        </div>
-        <div class="highlight-grid">
-          <article class="card">
-            <h3>의료용 애플리케이션 설계 및 개발</h3>
-            <p>C++/Qt 기반 DICOM 클라이언트에서 영상 로드, 분석 결과 표시, 3D View, HU 값 기반 정보 표시 등 의료영상 뷰어의 주요 기능을 개발·개선했습니다.</p>
-          </article>
-          <article class="card">
-            <h3>AI 결과 리포트 생성 파이프라인</h3>
-            <p>DICOM 메타데이터, segmentation mask, 전달받은 AI 분석 결과를 JSON·CSV로 정규화하고 QWebEngine HTML 템플릿을 PDF로 렌더링하는 리포트 흐름을 구현했습니다.</p>
-          </article>
-          <article class="card">
-            <h3>매크로 자동화 아키텍처</h3>
-            <p>Command 계열 클래스와 Action Queue를 기반으로 DICOM 로드, AI 결과 처리, layer·mesh export, 리포트 저장 단계를 분리해 순차 실행 구조를 구성했습니다.</p>
-          </article>
-          <article class="card">
-            <h3>DCMTK 기반 DICOM/PACS 연동</h3>
-            <p>DCMTK를 활용해 DICOM 파일 송수신, DICOM Echo, PACS 조회·다운로드·업로드, 분석 결과 이미지 저장과 업로드 흐름을 구현했습니다.</p>
-          </article>
-          <article class="card">
-            <h3>테스트 자동화와 제품 안정화</h3>
-            <p>UI Auto Test, mipAutoPilot Tester, TeamCity 연동, 팝업 제어, PACS 자동 테스트를 통해 반복 검증 체계를 확장하고 장시간 실행 안정성을 개선했습니다.</p>
-          </article>
-          <article class="card">
-            <h3>배포·운영·고객/기관 대응</h3>
-            <p>Alpha/Beta/RC/Hotfix 배포, 릴리즈 노트, 밸리데이션 문서, 기관별 리포트 요구사항, 고객 이슈 분석과 원격 지원까지 제품 출시 이후 단계도 담당했습니다.</p>
-          </article>
-        </div>
-      </section>
-
-      <section class="section print-page-start">
-        <div class="section-header">
-          <h2>주요 작업 사례</h2>
-          <p>긴 설명보다 실제 작업 단위가 보이도록 주요 흐름만 추렸습니다.</p>
-        </div>
-        <div class="project-grid">
-          <article class="card project-card">
-            <h3>의료영상 AI 자동화 파이프라인</h3>
-            <ul class="bullet-list">
-              <li>DICOM 로드, AI prediction, layer·mesh export, DICOM/image/PDF report 저장 단계를 Command 계열 클래스로 분리.</li>
-              <li>Action Queue 기반 실행 흐름으로 MEDIP 범용 분석 매크로와 DeepCatch X AI 분석 매크로를 순차 실행하도록 구성.</li>
-              <li>DB Macro, AutoAnalysis, 스케줄러, Macro Result 등 장시간 반복 분석에서 발생하는 예외와 실패 흐름을 보강.</li>
-            </ul>
-            <div class="project-actions">
-              <button type="button" class="project-preview-trigger" data-project="pipeline">자료 보기</button>
+          <div class="summary-actions">
+            <a class="summary-cta" href="#work">작업 사례 보기</a>
+          </div>
+          <div class="summary-metrics" aria-label="핵심 요약">
+            <div class="summary-metric">
+              <strong>6y+</strong>
+              <span>제품 개발 경험</span>
             </div>
-          </article>
-
-          <article class="card project-card">
-            <h3>AI 리포트·PACS·기관별 운영 대응</h3>
-            <ul class="bullet-list">
-              <li>DICOM 메타데이터, segmentation mask, AI 분석 결과를 JSON·CSV·PDF 리포트로 변환하는 흐름 구현.</li>
-              <li>QWebEngine HTML 템플릿 렌더링과 QWebEnginePage::printToPdf 기반 PDF export, CSV Export, PACS 업로드 흐름 정비.</li>
-              <li>ReportViewLoader 기반으로 제품·모듈·라이선스·기관 조건별 리포트 선택과 저장·업로드 예외 대응 범위를 확장.</li>
-            </ul>
-            <div class="project-actions">
-              <button type="button" class="project-preview-trigger" data-project="reportops">자료 보기</button>
+            <div class="summary-metric">
+              <strong>C++/Qt</strong>
+              <span>Windows 앱</span>
             </div>
-          </article>
-
-          <article class="card project-card">
-            <h3>제품화·운영 안정화</h3>
-            <ul class="bullet-list">
-              <li>DeepCatch X 제품화 과정에서 Alpha/Beta/RC 배포, DEV Merge, Function Level 정리, 제품명 변경 흔적 제거를 병행.</li>
-              <li>경고/에러 메시지, 리포트 문구, 기능 목록, 인허가 문서, Demo Plugin/Report/Watermark 등 배포 전 품질 항목 정비.</li>
-              <li>UI AutoTest와 Credit/AI Count 테스트를 통해 반복 검증 범위를 넓히고, 분석 실행 및 배포 과정에서 발생하는 운영 이슈에 대응.</li>
-            </ul>
-            <div class="project-actions">
-              <button type="button" class="project-preview-trigger" data-project="productops">자료 보기</button>
+            <div class="summary-metric">
+              <strong>Release</strong>
+              <span>검증/안정화</span>
             </div>
-          </article>
-
-          <article class="card project-card">
-            <h3>테스트 자동화·개발 인프라</h3>
-            <ul class="bullet-list">
-              <li>UI Auto Test와 mipAutoPilot Tester에서 객체별 로그, 키보드 매크로, 재실행 구조, 설정 파일 저장 등 자동화 기반 구현.</li>
-              <li>TeamCity와 TCP 기반 제어 흐름, 팝업 제어, 강제 종료 처리, PACS 자동 테스트를 통해 반복 검증 범위를 확장.</li>
-              <li>SVN 기반 저장소를 GitLab 프로젝트 체계로 이전하며 저장소 구조, 브랜치/권한 운영 방식, 협업 흐름 전환을 정리.</li>
-            </ul>
-            <div class="project-actions">
-              <button type="button" class="project-preview-trigger" data-project="infra">자료 보기</button>
-            </div>
-          </article>
-        </div>
-      </section>
-
-      <section class="section print-page-start">
-        <div class="section-header">
-          <h2>이전 개발 경험</h2>
-          <p>의료영상 소프트웨어 이전에는 미디어 서버와 장비 제어 환경에서 응용프로그램 및 통합 제어 프로그램을 개발했습니다.</p>
-        </div>
-        <div class="project-grid">
-          <article class="card project-card">
-            <div class="project-meta">아임피치 · 2020.03 - 2023.01</div>
-            <h3>ColdBootTester 개발</h3>
-            <ul class="bullet-list">
-              <li>미디어 서버 납품 전 안정성 테스트를 위한 Python/Qt 기반 응용프로그램 개발.</li>
-              <li>Serial, TCP 기반 장비 제어와 외부 프로그램 제어 흐름 구현.</li>
-              <li>WATCHOUT 프로토콜 통신을 연동해 테스트 실행과 제어 기능을 구성.</li>
-            </ul>
-          </article>
-
-          <article class="card project-card">
-            <div class="project-meta">아임피치 · 2020.10 - 2023.01</div>
-            <h3>통합 제어 프로그램 개발</h3>
-            <ul class="bullet-list">
-              <li>미디어 서버, 프로젝터 및 기타 장비를 제어하기 위한 AMX 기반 통합 제어 프로그램 개발.</li>
-              <li>사용자 조작 화면을 위한 GUI 구성과 NetLinx 코드 개발 수행.</li>
-              <li>미디어 서버 및 장비 설치 환경에 맞춰 제어 동작과 운영 흐름 정리.</li>
-            </ul>
-          </article>
-        </div>
-      </section>
-
-      <section class="section">
-        <div class="section-header">
-          <h2>기술 스택</h2>
-          <p>실무에서 주로 사용한 개발 기술과 도구입니다.</p>
-        </div>
-        <div class="stack-grid">
-          <article class="card">
-            <h3>언어·프레임워크</h3>
-            <ul class="chips">
-              <li>C/C++</li>
-              <li>Qt</li>
-              <li>DCMTK</li>
-              <li>Visual Studio</li>
-            </ul>
-          </article>
-          <article class="card">
-            <h3>도메인·연동</h3>
-            <ul class="chips">
-              <li>의료영상</li>
-              <li>DICOM</li>
-              <li>PACS</li>
-              <li>AI Report</li>
-            </ul>
-          </article>
-          <article class="card">
-            <h3>데이터베이스</h3>
-            <ul class="chips">
-              <li>PostgreSQL</li>
-              <li>SQL</li>
-              <li>Qt SQL</li>
-            </ul>
-          </article>
-          <article class="card">
-            <h3>개발 인프라·자동화</h3>
-            <ul class="chips">
-              <li>SVN</li>
-              <li>GitLab</li>
-              <li>TeamCity</li>
-              <li>Command 계열 구조</li>
-            </ul>
-          </article>
-        </div>
-      </section>
-
-      <section class="quote">
-        <p>
-          기능 구현을 넘어, 의료영상 제품이 실제 현장에서 반복 분석·리포트 출력·PACS 업로드까지 안정적으로 이어지도록 만든 개발자입니다.<br>
-          Qt 기반 UI, DICOM/PACS 연동, AI 결과 리포트 자동화, 매크로 실행 구조, 배포 대응까지 제품 완성도를 높이는 실무 경험을 중심으로 정리하였습니다.
-        </p>
-        <!-- <small>포트폴리오 서술 방향 제안</small> -->
-      </section>
-
-      <div class="footer-note">
-        의료영상 소프트웨어 개발 포트폴리오 · 2026.06.09 기준
-      </div>
-    </div>
-
-    <div class="lightbox" id="project-lightbox" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="lightbox-title">
-      <div class="lightbox-backdrop" data-close-lightbox></div>
-      <section class="lightbox-panel">
-        <button type="button" class="lightbox-close" aria-label="닫기" data-close-lightbox>×</button>
-        <div class="lightbox-media-wrap">
-          <div class="lightbox-media" id="lightbox-media"></div>
-          <div class="lightbox-toolbar">
-            <span class="lightbox-count" id="lightbox-count"></span>
-            <div class="lightbox-controls">
-              <button type="button" class="lightbox-nav" id="lightbox-prev">이전</button>
-              <button type="button" class="lightbox-nav" id="lightbox-next">다음</button>
+            <div class="summary-metric">
+              <strong>Field</strong>
+              <span>요구 분석</span>
             </div>
           </div>
-        </div>
-        <div class="lightbox-copy">
-          <span class="lightbox-meta" id="lightbox-meta"></span>
+        </article>
+        <article class="hero-card" aria-labelledby="profile-title">
+          <h2 class="hero-label" id="profile-title">Profile</h2>
+          <dl class="profile-table">
+            <div class="profile-row">
+              <dt>이름</dt>
+              <dd>한재성</dd>
+            </div>
+            <div class="profile-row">
+              <dt>포지션</dt>
+              <dd>의료영상 소프트웨어 개발</dd>
+            </div>
+            <div class="profile-row">
+              <dt>강점</dt>
+              <dd>DICOM/PACS, 고객·기관 대응, 매크로 아키텍처, 제품 안정화</dd>
+            </div>
+            <div class="profile-row">
+              <dt>연락처</dt>
+              <dd>필요 시 별도 전달</dd>
+            </div>
+          </dl>
+        </article>
+
+      </section>
+
+      <div class="sections">
+        <section class="section" aria-labelledby="signal-title">
+          <div class="section-header">
+            <div>
+              <span class="section-label">Core Signals</span>
+              <h2 id="signal-title">제품 완성도를 높이는 C++ 개발 역량</h2>
+            </div>
+            <p>
+              의료영상 제품 개발 과정에서 C++/Qt 기반 클라이언트 구현, 외부 시스템 연동,
+              자동화 파이프라인, 고객 이슈 분석과 릴리즈 안정화를 함께 다뤘습니다.
+            </p>
+          </div>
+          <div class="signal-grid">
+            <article class="signal-card">
+              <strong>C++/Qt 제품 클라이언트</strong>
+              <p>Windows 데스크톱 애플리케이션에서 UI, 파일 처리, 설정 기반 분기, 출력 기능을 구현했습니다.</p>
+            </article>
+            <article class="signal-card">
+              <strong>자동화 파이프라인</strong>
+              <p>Command 계열 클래스와 Action Queue로 오래 걸리는 작업을 순차 실행 구조로 분리했습니다.</p>
+            </article>
+            <article class="signal-card">
+              <strong>외부 시스템 연동</strong>
+              <p>DB 알림, 파일 송수신, 프로토콜 연동, 상태 기록처럼 제품 밖 시스템과 이어지는 흐름을 다뤘습니다.</p>
+            </article>
+            <article class="signal-card">
+              <strong>고객 이슈 분석</strong>
+              <p>현장 요청을 그대로 처리하지 않고 재현 조건, 로그, 설정 차이, 제품 개선 항목으로 정리했습니다.</p>
+            </article>
+            <article class="signal-card">
+              <strong>릴리즈 안정화</strong>
+              <p>UI 자동화 테스트, TeamCity 반복 검증, 릴리즈 문서와 제품 옵션 확인까지 배포 전 품질을 챙겼습니다.</p>
+            </article>
+          </div>
+        </section>
+
+        <section class="section" id="work" aria-labelledby="work-title">
+          <div class="section-header">
+            <div>
+              <span class="section-label">Selected Work</span>
+              <h2 id="work-title">고객 요구를 제품 개선으로 연결한 작업 사례</h2>
+            </div>
+            <p>
+              각 사례는 요구사항 분석, 구현 구조 설계, 외부 연동, 검증과 릴리즈 안정화로 이어지는
+              실제 제품 개발 흐름을 기준으로 구성했습니다.
+            </p>
+          </div>
+
+          <div class="project-list">
+            <article class="project-card">
+              <div class="project-media">
+                <img src="resource/01/00_대표_AI_자동화_파이프라인.png" alt="자동화 파이프라인 대표 자료">
+                <span class="project-number">01 / Automation</span>
+                <button type="button" class="project-preview-trigger project-media-trigger" data-project="automation">자세히 보기</button>
+              </div>
+              <div class="project-body">
+                <span class="project-kicker">C++ Structure</span>
+                <h3>C++/Qt 기반 자동화 파이프라인</h3>
+                <p>반복 분석과 결과 저장 흐름을 Command 객체와 Action Queue로 분리해 장시간 실행 가능한 구조로 정리했습니다.</p>
+                <ul class="bullet-list">
+                  <li>파일 로드, 분석 실행, 결과 export, 리포트 저장 단계를 독립 Command로 분리</li>
+                  <li>실패 가능성이 있는 지점에 상태값과 로그를 남기고 다음 작업으로 이어지는 흐름 보강</li>
+                  <li>제품, 모듈, 실행 옵션에 따라 서로 다른 처리 흐름을 설정 기반으로 분기</li>
+                </ul>
+                <ul class="tag-row">
+                  <li>C++</li><li>Qt</li><li>Command Pattern</li><li>Action Queue</li>
+                </ul>
+              </div>
+            </article>
+
+            <article class="project-card">
+              <div class="project-media">
+                <img src="resource/02/00_AI_분석_리포트_출력.png" alt="리포트 출력 대표 자료">
+                <span class="project-number">02 / Output</span>
+                <button type="button" class="project-preview-trigger project-media-trigger" data-project="reporting">자세히 보기</button>
+              </div>
+              <div class="project-body">
+                <span class="project-kicker">Data To Output</span>
+                <h3>데이터 변환 및 PDF/CSV 출력</h3>
+                <p>입력 데이터와 분석 결과를 화면, PDF, CSV 출력으로 일관되게 연결하는 리포트 흐름을 구현했습니다.</p>
+                <ul class="bullet-list">
+                  <li>QWebEngine HTML 렌더링과 QWebEnginePage::printToPdf 기반 PDF export 구현</li>
+                  <li>화면용 리포트와 저장용 리포트가 다르게 동작하지 않도록 완료 신호 기반 처리</li>
+                  <li>파일명, 저장 경로, 특수문자, 날짜 값 등 운영 환경 예외 처리</li>
+                </ul>
+                <ul class="tag-row">
+                  <li>QWebEngine</li><li>PDF</li><li>CSV</li><li>JSON</li>
+                </ul>
+              </div>
+            </article>
+
+            <article class="project-card">
+              <div class="project-media">
+                <img src="resource/03/01_PDF_PACS_DICOM_변환_업로드_흐름.png" alt="외부 시스템 연동 대표 자료">
+                <span class="project-number">03 / Integration</span>
+                <button type="button" class="project-preview-trigger project-media-trigger" data-project="integration">자세히 보기</button>
+              </div>
+              <div class="project-body">
+                <span class="project-kicker">External Systems</span>
+                <h3>외부 시스템 연동과 상태 관리</h3>
+                <p>DB 요청, 파일 송수신, PACS 업로드, command 응답 상태처럼 제품 밖 시스템과 이어지는 운영 흐름을 다뤘습니다.</p>
+                <ul class="bullet-list">
+                  <li>PostgreSQL 알림과 데이터 조회로 자동 실행 요청을 받아 처리하고 결과 상태 기록</li>
+                  <li>DCMTK 기반 DICOM 파일 송수신, Echo, 조회, 다운로드, 업로드 흐름 개발</li>
+                  <li>포트 상태, 프로그램 busy 상태, command 응답 상태 확인 로직 보강</li>
+                </ul>
+                <ul class="tag-row">
+                  <li>PostgreSQL</li><li>Qt SQL</li><li>DCMTK</li><li>TCP/IP</li>
+                </ul>
+              </div>
+            </article>
+
+            <article class="project-card">
+              <div class="project-media">
+                <img src="resource/04/00_대표_제품_안정화_기준.png" alt="고객 요구사항 분석과 제품 안정화 대표 자료">
+                <span class="project-number">04 / Field</span>
+                <button type="button" class="project-preview-trigger project-media-trigger" data-project="fieldops">자세히 보기</button>
+              </div>
+              <div class="project-body">
+                <span class="project-kicker">Field To Product</span>
+                <h3>고객 요구사항 분석과 제품 개선</h3>
+                <p>고객사/기관 요청과 운영 이슈를 단순 대응으로 끝내지 않고, 재현 가능한 조건과 제품 개선 항목으로 정리했습니다.</p>
+                <ul class="bullet-list">
+                  <li>기관별 리포트 형식, 저장 경로, 파일명, 업로드 조건을 기능 분기와 설정으로 반영</li>
+                  <li>로그, 덤프, 동작 차이, 환경 설정을 확인해 문제 원인과 재현 조건을 정리</li>
+                  <li>개선된 기능이 배포 버전에서 안정적으로 동작하도록 검증 문서와 테스트 항목으로 연결</li>
+                </ul>
+                <ul class="tag-row">
+                  <li>Requirement</li><li>Log Analysis</li><li>Product Option</li><li>Validation</li>
+                </ul>
+              </div>
+            </article>
+
+            <article class="project-card">
+              <div class="project-media">
+                <img src="resource/05/00_대표_테스트_자동화_인프라.png" alt="테스트 자동화 대표 자료">
+                <span class="project-number">05 / Quality</span>
+                <button type="button" class="project-preview-trigger project-media-trigger" data-project="quality">자세히 보기</button>
+              </div>
+              <div class="project-body">
+                <span class="project-kicker">Release Quality</span>
+                <h3>테스트 자동화와 제품 안정화</h3>
+                <p>반복 확인이 필요한 UI 동작과 연동 테스트를 자동화하고, 릴리즈 전 검증 흐름을 정리했습니다.</p>
+                <ul class="bullet-list">
+                  <li>UI Auto Test와 mipAutoPilot Tester에서 객체별 로그, 키보드 매크로, 재실행 구조 구현</li>
+                  <li>팝업, 긴 대기 상태, 강제 종료, 재시작 흐름을 보강해 장시간 테스트 안정성 개선</li>
+                  <li>TeamCity 기반 반복 검증과 SVN에서 GitLab으로의 협업 흐름 전환 지원</li>
+                </ul>
+                <ul class="tag-row">
+                  <li>UI Automation</li><li>TeamCity</li><li>GitLab</li><li>Release</li>
+                </ul>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <section class="section" id="flow" aria-labelledby="flow-title">
+          <div class="section-header">
+            <div>
+              <span class="section-label">Engineering Flow</span>
+              <h2 id="flow-title">요구에서 릴리즈까지의 개발 흐름</h2>
+            </div>
+            <p>
+              고객 요청을 재현 가능한 제품 이슈로 정리하고, 원인 분석과 구현, 검증, 배포까지
+              이어지는 흐름으로 개선 사항을 반영했습니다.
+            </p>
+          </div>
+          <div class="flow-grid">
+            <article class="flow-step">
+              <span>01</span>
+              <strong>Field Signal</strong>
+              <p>고객 요청, 로그, 환경 설정, 재현 조건을 제품 이슈로 정리</p>
+            </article>
+            <article class="flow-step">
+              <span>02</span>
+              <strong>Analyze</strong>
+              <p>파일, DB 요청, 외부 command, 사용자 옵션의 흐름과 실패 지점을 확인</p>
+            </article>
+            <article class="flow-step">
+              <span>03</span>
+              <strong>Implement</strong>
+              <p>C++/Qt 기능, 설정 분기, 출력물, 연동 로직으로 개선 사항 구현</p>
+            </article>
+            <article class="flow-step">
+              <span>04</span>
+              <strong>Verify</strong>
+              <p>자동 테스트, 수동 확인, 릴리즈 문서로 수정 결과를 검증</p>
+            </article>
+            <article class="flow-step">
+              <span>05</span>
+              <strong>Feedback</strong>
+              <p>현장 적용 후 추가 요청과 예외 케이스를 다시 제품 개선으로 연결</p>
+            </article>
+          </div>
+        </section>
+
+        <section class="section" id="experience" aria-labelledby="experience-title">
+          <div class="section-header">
+            <div>
+              <span class="section-label">Experience</span>
+              <h2 id="experience-title">경력 요약</h2>
+            </div>
+            <p>
+              의료영상 소프트웨어 개발자로 C++/Qt 제품 클라이언트, 외부 시스템 연동, 자동화,
+              고객 요구사항 분석과 릴리즈 안정화 업무를 수행했습니다.
+            </p>
+          </div>
+          <div class="experience-grid">
+            <article class="experience-card">
+              <span class="period">2023.05 - 재직중</span>
+              <h3>메디컬아이피 | Application / 대리</h3>
+              <p>C++/Qt 기반 Windows 제품 클라이언트 개발, 외부 시스템 연동, 데이터 변환 및 리포트 출력, 자동화 파이프라인, 고객사/기관 요구사항 대응, 릴리즈 안정화 업무를 수행했습니다.</p>
+            </article>
+            <article class="experience-card">
+              <span class="period">2019.10 - 2023.02</span>
+              <h3>아임피치 | R&D / 주임</h3>
+              <p>Python/Qt 기반 테스트 애플리케이션과 AMX 기반 통합 제어 프로그램을 개발하며 TCP/Serial 통신, WATCHOUT 프로토콜 연동, 장비 제어 흐름을 다뤘습니다. 외부 장비와 소프트웨어가 함께 동작하는 구조를 다루며 이후 제품 클라이언트 개발에서 연동 안정성을 고려하는 기반을 쌓았습니다.</p>
+            </article>
+          </div>
+        </section>
+
+        <section class="section" id="stack" aria-labelledby="stack-title">
+          <div class="section-header">
+            <div>
+              <h2 id="stack-title">기술 스택</h2>
+            </div>
+            <p>
+              실무에서 주로 사용한 개발 기술과 도구입니다.
+            </p>
+          </div>
+          <div class="stack-grid">
+            <article class="stack-group">
+              <h3>언어·프레임워크</h3>
+              <ul class="chips">
+                <li>C/C++</li><li>Qt</li><li>DCMTK</li><li>Visual Studio</li>
+              </ul>
+            </article>
+            <article class="stack-group">
+              <h3>도메인·연동</h3>
+              <ul class="chips">
+                <li>의료영상</li><li>DICOM</li><li>PACS</li><li>AI Report</li>
+              </ul>
+            </article>
+            <article class="stack-group">
+              <h3>데이터베이스</h3>
+              <ul class="chips">
+                <li>PostgreSQL</li><li>SQL</li><li>Qt SQL</li>
+              </ul>
+            </article>
+            <article class="stack-group">
+              <h3>개발 인프라·자동화</h3>
+              <ul class="chips">
+                <li>SVN</li><li>GitLab</li><li>TeamCity</li>
+              </ul>
+            </article>
+          </div>
+        </section>
+
+        <section class="closing" aria-label="마무리">
+          <div>
+            <h2>고객 이슈를 제품 개선으로 연결하는 C++ 개발자</h2>
+            <p>
+              <span>고객 요구를 기능으로 구현하고, 검증 가능한 배포 결과로 마무리하는 데 집중합니다.</span>
+              <span>C++/Qt 클라이언트 구현, 외부 연동, 자동화, 릴리즈 안정화까지 제품 흐름 전반을 다뤄왔습니다.</span>
+            </p>
+          </div>
+        </section>
+
+        <div class="footer-note">C++/Qt Product Client Portfolio · 2026.06.15</div>
+      </div>
+
+      <div class="lightbox" id="project-lightbox" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="lightbox-title">
+        <div class="lightbox-backdrop" data-close-lightbox></div>
+        <section class="lightbox-panel">
+          <button type="button" class="lightbox-close" aria-label="닫기" data-close-lightbox>×</button>
+          <div class="lightbox-media-wrap">
+            <div class="lightbox-media" id="lightbox-media"></div>
+            <div class="lightbox-toolbar">
+              <span class="lightbox-count" id="lightbox-count"></span>
+              <div class="lightbox-toolbar-actions">
+                <div class="lightbox-zoom-controls" id="lightbox-zoom-controls" hidden>
+                  <button type="button" class="lightbox-nav" id="lightbox-zoom-out" aria-label="이미지 축소">-</button>
+                  <button type="button" class="lightbox-nav lightbox-zoom-value" id="lightbox-zoom-reset" aria-label="배율 초기화">100%</button>
+                  <button type="button" class="lightbox-nav" id="lightbox-zoom-in" aria-label="이미지 확대">+</button>
+                </div>
+                <div class="lightbox-controls">
+                  <button type="button" class="lightbox-nav" id="lightbox-prev" aria-label="이전 자료">&lt;</button>
+                  <button type="button" class="lightbox-nav" id="lightbox-next" aria-label="다음 자료">&gt;</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="lightbox-copy">
+            <span class="lightbox-meta" id="lightbox-meta"></span>
           <h2 id="lightbox-title"></h2>
           <p id="lightbox-description"></p>
           <ul class="lightbox-detail-list" id="lightbox-details"></ul>
+          <div class="lightbox-scroll-hint">설명 영역은 스크롤해서 전체 내용을 볼 수 있습니다.</div>
         </div>
       </section>
-    </div>
-  </main>
+      </div>
+    </main>
+  </div>
 
   <script src="resource/media-manifest.js"></script>
   <script>
     const projectPreviews = {
-      pipeline: {
-        title: "의료영상 AI 자동화 파이프라인",
-        meta: "",
-        accent: "#b04f25",
+      automation: {
+        title: "C++/Qt 기반 자동화 파이프라인",
+        meta: "C++ Structure",
+        accent: "#0f6f68",
         mediaFolder: "resource/01",
         description:
-          "DICOM 로드부터 AI 분석, 결과 export, 리포트 저장까지 이어지는 반복 처리 흐름을 Command 계열 구조와 Action Queue로 자동화했습니다.",
+          "반복 실행과 실패 대응이 필요한 작업을 Command 객체와 Action Queue로 분리해 장시간 실행 가능한 자동화 흐름으로 정리했습니다.",
         details: [
-          ["Command Pattern 활용", "DICOM open, AI prediction, layer export, mesh export, image/DICOM/PDF report 저장처럼 시간이 오래 걸리거나 실패 가능성이 있는 작업을 Command 객체로 분리했습니다. 공통 실행 인터페이스를 가진 Command 계열 클래스로 요청을 캡슐화하고, Action Queue가 각 Command를 순서대로 실행하도록 구성했습니다."],
-          ["Action Queue 실행", "사용자가 UI에서 하나씩 누르던 분석 흐름을 Action Queue에 적재해 순차 실행하도록 구성했습니다. 분석 요청, 결과 대기, export, 저장 같은 단계를 큐에서 이어 붙여 장시간 반복 분석을 사람 개입 없이 처리할 수 있게 했습니다."],
-          ["DB Macro 연결", "PostgreSQL 알림으로 들어온 요청 키를 받아 환자/검사 정보를 조회하고, DB Macro Rule 설정에 따라 어떤 분석 매크로를 실행할지 결정하도록 연결했습니다. 분석 완료 후에는 PDF, DICOM, JPG 경로와 성공/실패 상태를 다시 DB에 기록하는 흐름을 만들었습니다."],
-          ["실패 흐름 처리", "파일 누락, 분석 실패, Credit 차감 실패, 리포트 저장 실패처럼 중간에 끊길 수 있는 지점을 별도로 처리했습니다. 실패 항목은 로그와 상태값으로 남기고, 가능한 경우 다음 매크로 항목으로 넘어가도록 구성해 반복 실행 안정성을 높였습니다."],
-          ["운영 설정 활용", "제품, 모듈, body type, 분석 옵션에 따라 매크로 구성이 달라지기 때문에 설정 JSON과 Function Level 조건을 함께 사용했습니다. 같은 자동화 구조 안에서 MEDIP 범용 분석과 DeepCatch X 분석 흐름을 분기할 수 있게 정리했습니다."]
+          ["Command 단위 분리", "파일 로드, 분석 실행, layer export, mesh export, image/DICOM/PDF report 저장처럼 시간이 오래 걸리거나 실패 가능성이 있는 작업을 Command 객체로 분리했습니다."],
+          ["Action Queue 실행", "각 Command를 큐에 적재하고 순차 실행하도록 구성해 사람이 UI에서 하나씩 실행하던 흐름을 자동화했습니다."],
+          ["실패 흐름 처리", "파일 누락, 분석 실패, 저장 실패, 상태 기록 실패처럼 중간에 끊길 수 있는 지점을 별도로 처리하고 로그와 상태값을 남기도록 보강했습니다."],
+          ["설정 기반 분기", "제품, 모듈, 실행 옵션에 따라 서로 다른 처리 흐름을 선택할 수 있도록 설정 구조와 조건 분기를 정리했습니다."]
         ],
-        labels: ["Command", "Action Queue", "DB Macro", "AutoAnalysis"]
+        labels: ["C++", "Qt", "Command", "Action Queue"]
       },
 
-      reportops: {
-        title: "AI 리포트·PACS·기관별 운영 대응",
-        meta: "",
-        accent: "#7c5b2d",
+      reporting: {
+        title: "데이터 변환 및 PDF/CSV 출력",
+        meta: "Data To Output",
+        accent: "#d35c2f",
         mediaFolder: "resource/02",
         description:
-          "제품·모듈·라이선스·기관 조건에 따라 HTML/PDF 리포트 템플릿과 CSV Export, PACS 업로드 흐름을 정비했습니다.",
+          "입력 데이터, 메타데이터, 분석 결과를 화면 표시와 PDF/CSV 출력으로 연결하는 제품 출력 흐름을 구현했습니다.",
         details: [
-          ["리포트 데이터 구성", "DICOM 메타데이터, segmentation mask, AI 결과 JSON, memo/image 데이터를 리포트용 로컬 데이터 폴더에 모았습니다. HTML 템플릿이 이 데이터를 읽어 화면 표시와 PDF 출력에서 같은 결과를 사용하도록 구성했습니다."],
-          ["QWebEngine PDF 출력", "QWebEngineView로 HTML 리포트를 렌더링하고 QWebEnginePage::printToPdf로 PDF를 생성했습니다. 화면용 리포트와 저장용 리포트가 다르게 동작하지 않도록 load 완료, PDF 출력 완료 신호를 기다리는 흐름을 사용했습니다."],
-          ["ReportViewLoader 분기", "제품, 모듈, 라이선스, 언어, 국가, body type 조건에 따라 어떤 리포트를 보여주고 저장하고 업로드할지 분기했습니다. 기관별 리포트가 추가되어도 공통 로딩 구조 안에서 처리되도록 ReportViewLoader 중심으로 정리했습니다."],
-          ["PACS 업로드 흐름", "리포트 이미지와 DICOM 출력물을 PACS 업로드 흐름에 연결하고, 업로드 가능한 리포트 ID와 저장 가능한 리포트 ID를 구분했습니다. 환자명 특수문자, 검사일자/처방일자, Report Description 같은 기관별 데이터 예외를 함께 처리했습니다."],
-          ["CSV/Connector 대응", "DCConnector와 CSV Export 요구사항에 맞춰 분석 결과와 환자 정보를 외부 시스템이 읽을 수 있는 형태로 정리했습니다. 한국어/영문 리포트 저장, 기관별 파일명/경로 규칙, 업로드 후 결과 경로 저장까지 운영 흐름에 맞춰 보강했습니다."]
+          ["리포트 데이터 구성", "입력 데이터, 메타데이터, 분석 결과, memo/image 데이터를 출력용 로컬 데이터 폴더에 모으고 HTML 템플릿에서 같은 데이터를 사용하도록 구성했습니다."],
+          ["QWebEngine PDF 출력", "QWebEngineView로 HTML 리포트를 렌더링하고 QWebEnginePage::printToPdf로 PDF를 생성했습니다. 화면용 리포트와 저장용 리포트가 다르게 동작하지 않도록 완료 신호를 기다리는 흐름을 사용했습니다."],
+          ["조건별 출력 분기", "제품, 모듈, 라이선스, 언어, 기관 조건에 따라 어떤 리포트를 보여주고 저장할지 분기했습니다."],
+          ["운영 예외 처리", "파일명, 저장 경로, 특수문자, 날짜 값, 설명 필드 같은 운영 환경 데이터 예외를 함께 처리했습니다."]
         ],
-        labels: ["ReportViewLoader", "Connector", "CSV Export", "PACS Upload"]
+        labels: ["QWebEngine", "PDF", "CSV", "JSON"]
       },
 
-      productops: {
-        title: "제품화·운영 안정화",
-        meta: "",
-        accent: "#244e46",
+      integration: {
+        title: "외부 시스템 연동과 상태 관리",
+        meta: "External Systems",
+        accent: "#2f6f9f",
         mediaFolder: "resource/03",
-        description:
-          "DeepCatch X 제품화, 릴리즈 대응, Function Level 정리, AI 실행 환경과 Credit/AI Count 운영 이슈를 함께 정비했습니다.",
-        details: [
-          ["제품 전환 정리", "TiSepX에서 DeepCatch X로 전환되는 과정에서 제품명, UI 문구, 리포트 문구, 경고/에러 메시지, 기능 목록을 정리했습니다. 개발용 흔적이 배포 버전에 남지 않도록 릴리즈 전 검증 항목으로 묶었습니다."],
-          ["Function Level 활용", "제품, 플러그인, 모듈, 라이선스 조건에 따라 기능 노출 여부가 달라지도록 Function Level을 정리했습니다. Demo Plugin, Demo Report, Watermark, User Macro 같은 배포 조건별 기능도 같은 기준에서 제어되도록 맞췄습니다."],
-          ["Credit/AI Count 관리", "AI 분석 실행 전 사용 가능 Count와 Credit을 확인하고, 성공/실패/취소 흐름에 따라 주문 상태를 정리하도록 연결했습니다. 분석 실패나 네트워크 실패 시 Credit 상태가 꼬이지 않도록 실패 처리와 롤백 흐름을 보강했습니다."],
-          ["NetCommand/Host 상태", "외부 요청으로 AI 분석을 실행하는 흐름에서 포트 상태, 프로그램 busy 상태, 다중 요청 결과, shutdown/option/status command를 확인했습니다. Host가 서버 요청을 받았을 때 현재 상태를 응답하고 분석 결과를 다시 전달하는 운영 흐름을 안정화했습니다."],
-          ["릴리즈 대응", "Alpha, Beta, RC, Hotfix 단계마다 기능 목록, 검증 문서, 인허가 문서, 빌드 분리, CUDA 관련 실행 환경을 확인했습니다. 기능 개발 이후 실제 배포 환경에서 동작하도록 설정, 문서, 라이선스 조건까지 함께 맞췄습니다."]
+        mediaFiles: [
+          "01_PDF_PACS_DICOM_변환_업로드_흐름.png",
+          "05_제품_옵션_구성.png",
+          "06_결과_이미지_PACS업로드.png"
         ],
-        labels: ["Productization", "Function Level", "Credit", "Release"]
+        description:
+          "DB 요청, 파일 송수신, DICOM/PACS 연동, command 응답 상태처럼 제품 밖 시스템과 이어지는 운영 흐름을 개발했습니다.",
+        details: [
+          ["DB 요청 처리", "PostgreSQL 알림으로 들어온 요청 키를 받아 데이터를 조회하고, 처리 결과 경로와 성공/실패 상태를 다시 기록하는 흐름을 만들었습니다."],
+          ["DCMTK 연동", "DCMTK 기반 DICOM 파일 송수신, DICOM Echo, PACS 조회/다운로드/업로드 흐름을 구현하고 분석 결과 이미지 업로드 흐름을 개선했습니다."],
+          ["상태 응답", "외부 요청으로 작업을 실행하는 흐름에서 포트 상태, 프로그램 busy 상태, command 응답 상태를 확인하는 로직을 보강했습니다."],
+          ["제품 설정 반영", "고객사/기관별 요구사항을 제품 설정과 기능 분기로 반영하고, 로그와 동작 이슈를 분석해 개선 방향을 정리했습니다."]
+        ],
+        labels: ["PostgreSQL", "Qt SQL", "DCMTK", "TCP/IP"]
       },
 
-      infra: {
-        title: "테스트 자동화·개발 인프라",
-        meta: "",
-        accent: "#8f3414",
+      fieldops: {
+        title: "고객 요구사항 분석과 제품 개선",
+        meta: "Field To Product",
+        accent: "#0f6f68",
         mediaFolder: "resource/04",
-        description:
-          "UI 자동화 테스트와 TeamCity 기반 반복 검증, SVN에서 GitLab으로 이어지는 개발 인프라 전환 흐름을 정리했습니다.",
-        details: [
-          ["UI 동작 기록", "테스트 대상 위젯과 동작을 객체 단위로 기록하고, 재현 가능한 형태로 로그를 남기도록 구성했습니다. 반복 실패가 발생했을 때 어느 화면, 어느 조작에서 멈췄는지 추적할 수 있게 했습니다."],
-          ["키보드 매크로/재실행", "반복 입력이 필요한 테스트를 키보드 매크로와 설정 파일로 저장하고 다시 실행할 수 있게 했습니다. 같은 시나리오를 여러 빌드에서 반복해 제품 변경에 따른 회귀 문제를 확인하는 데 활용했습니다."],
-          ["팝업/강제 종료 처리", "자동 테스트 중 예기치 않은 팝업이나 긴 대기 상태가 생기면 테스트가 멈추기 때문에 팝업 제어, 강제 종료, 재시작 흐름을 보강했습니다. 장시간 실행 중에도 다음 테스트로 넘어갈 수 있게 안정성을 높였습니다."],
-          ["TeamCity 연계", "TeamCity에서 빌드와 반복 검증을 실행할 수 있도록 테스트 실행 흐름을 정리했습니다. 사람이 직접 확인하던 UI 테스트, PACS 자동 테스트, 원격 제어 시나리오를 CI 환경에서 반복 실행 가능한 형태로 묶었습니다."],
-          ["SVN에서 GitLab 전환", "기존 SVN 저장소 구조와 개발 이력을 GitLab 프로젝트 단위로 옮기면서 브랜치, 권한, 저장소 분리 기준을 정리했습니다. 기존 개발/배포 흐름을 유지하면서 점진적으로 협업 방식을 전환하는 방향으로 진행했습니다."]
+        mediaFiles: [
+          "00_대표_제품_안정화_기준.png",
+          "03_DeepCatch_X_Validation.png"
         ],
-        labels: ["UI Automation", "TeamCity", "SVN", "GitLab"]
+        description:
+          "고객사/기관 요청과 운영 이슈를 재현 조건, 로그, 설정 차이, 제품 개선 항목으로 정리해 C++ 응용프로그램 개선과 릴리즈 검증으로 연결했습니다.",
+        details: [
+          ["요구사항 정리", "기관별 리포트 형식, 파일명, 저장 경로, 업로드 조건처럼 고객 환경마다 달라지는 요구사항을 제품 설정과 기능 분기로 정리했습니다."],
+          ["문제 원인 분석", "로그, 덤프, 동작 차이, 환경 설정을 확인해 단순 현상 보고가 아니라 재현 가능한 조건과 원인 후보를 정리했습니다."],
+          ["개발 항목 전환", "현장 요청을 그대로 처리하는 데 그치지 않고 C++/Qt 기능 수정, 예외 처리, 옵션 추가, 출력물 개선 항목으로 전환했습니다."],
+          ["검증과 공유", "수정된 기능이 배포 버전에서 안정적으로 동작하도록 테스트 항목, 검증 문서, 릴리즈 확인 범위로 연결했습니다."]
+        ],
+        labels: ["Requirement", "Log Analysis", "Product Option", "Validation"]
+      },
+
+      quality: {
+        title: "테스트 자동화와 제품 안정화",
+        meta: "Release Quality",
+        accent: "#e7b84e",
+        mediaFolder: "resource/05",
+        description:
+          "UI 자동화 테스트와 TeamCity 기반 반복 검증으로 사람이 반복 확인하던 시나리오를 릴리즈마다 재현 가능한 흐름으로 정리했습니다.",
+        details: [
+          ["UI 동작 기록", "테스트 대상 위젯과 동작을 객체 단위로 기록하고, 반복 실패가 발생했을 때 어느 화면과 조작에서 멈췄는지 추적할 수 있게 했습니다."],
+          ["키보드 매크로/재실행", "반복 입력이 필요한 테스트를 키보드 매크로와 설정 파일로 저장하고 다시 실행할 수 있게 했습니다."],
+          ["중단 흐름 보강", "예기치 않은 팝업, 긴 대기 상태, 강제 종료, 재시작 흐름을 보강해 장시간 테스트 안정성을 높였습니다."],
+          ["릴리즈 검증", "TeamCity에서 빌드와 반복 검증을 실행할 수 있도록 테스트 실행 흐름을 정리하고 릴리즈 전 기능 목록, 문서, 출력 결과를 확인했습니다."]
+        ],
+        labels: ["UI Automation", "TeamCity", "GitLab", "Release"]
       }
     };
 
@@ -1232,66 +1800,74 @@
     const lightboxTitle = document.querySelector("#lightbox-title");
     const lightboxDescription = document.querySelector("#lightbox-description");
     const lightboxDetails = document.querySelector("#lightbox-details");
+    const lightboxCopy = document.querySelector(".lightbox-copy");
     const lightboxCount = document.querySelector("#lightbox-count");
     const lightboxPrev = document.querySelector("#lightbox-prev");
     const lightboxNext = document.querySelector("#lightbox-next");
+    const lightboxZoomControls = document.querySelector("#lightbox-zoom-controls");
+    const lightboxZoomOut = document.querySelector("#lightbox-zoom-out");
+    const lightboxZoomReset = document.querySelector("#lightbox-zoom-reset");
+    const lightboxZoomIn = document.querySelector("#lightbox-zoom-in");
+
     let lastFocusedTrigger = null;
-    let mediaRequestId = 0;
     let currentMediaItems = [];
     let currentMediaIndex = 0;
+    let mediaRequestId = 0;
+    let mediaPointerStartX = 0;
+    let mediaPointerStartY = 0;
+    let mediaPointerDeltaX = 0;
+    let mediaPointerId = null;
+    let mediaWasDragged = false;
+    let mediaZoomScale = 1;
+    const mediaZoomMin = 1;
+    const mediaZoomMax = 3;
+    const mediaZoomStep = 0.25;
 
     function escapeXml(value) {
       return String(value)
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;");
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&apos;");
     }
 
     function makePreviewImage(project) {
-      const labels = project.labels.map(escapeXml);
+      const labels = (project.labels || []).map(escapeXml);
       const title = escapeXml(project.title);
-      const meta = escapeXml(project.meta);
-      const accent = escapeXml(project.accent);
+      const meta = escapeXml(project.meta || "Portfolio Preview");
+      const accent = escapeXml(project.accent || "#0f6f68");
+      while (labels.length < 4) labels.push("System");
+
       const svg = `
-        <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675">
-          <defs>
-            <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0" stop-color="#182927"/>
-              <stop offset="1" stop-color="#fff1e5"/>
-            </linearGradient>
-            <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
-              <feDropShadow dx="0" dy="18" stdDeviation="24" flood-color="#07110f" flood-opacity="0.28"/>
-            </filter>
-          </defs>
-          <rect width="1200" height="675" fill="url(#bg)"/>
-          <rect x="74" y="66" width="1052" height="543" rx="34" fill="#fffaf4" filter="url(#shadow)"/>
-          <rect x="74" y="66" width="1052" height="68" rx="34" fill="#172522"/>
-          <circle cx="122" cy="100" r="10" fill="#f06b4f"/>
-          <circle cx="154" cy="100" r="10" fill="#e7b64f"/>
-          <circle cx="186" cy="100" r="10" fill="#61b57a"/>
-          <rect x="122" y="170" width="222" height="366" rx="22" fill="#edf2ee"/>
-          <rect x="156" y="208" width="154" height="16" rx="8" fill="${accent}" opacity="0.88"/>
-          <rect x="156" y="254" width="118" height="14" rx="7" fill="#244e46" opacity="0.34"/>
-          <rect x="156" y="292" width="146" height="14" rx="7" fill="#244e46" opacity="0.26"/>
-          <rect x="156" y="330" width="96" height="14" rx="7" fill="#244e46" opacity="0.2"/>
-          <rect x="384" y="170" width="642" height="230" rx="26" fill="#172522"/>
-          <rect x="416" y="208" width="220" height="22" rx="11" fill="${accent}"/>
-          <rect x="416" y="254" width="312" height="14" rx="7" fill="#fffaf4" opacity="0.72"/>
-          <rect x="416" y="288" width="250" height="14" rx="7" fill="#fffaf4" opacity="0.5"/>
-          <path d="M798 328 C842 246, 900 368, 960 242" fill="none" stroke="${accent}" stroke-width="12" stroke-linecap="round"/>
-          <circle cx="798" cy="328" r="14" fill="#fffaf4"/>
-          <circle cx="960" cy="242" r="14" fill="#fffaf4"/>
-          <rect x="384" y="430" width="146" height="106" rx="20" fill="#f1d8c9"/>
-          <rect x="558" y="430" width="146" height="106" rx="20" fill="#d9ebe6"/>
-          <rect x="732" y="430" width="146" height="106" rx="20" fill="#f1d8c9"/>
-          <rect x="906" y="430" width="146" height="106" rx="20" fill="#d9ebe6"/>
-          <text x="416" y="338" fill="#fffaf4" font-family="Arial, sans-serif" font-size="30" font-weight="700">${title}</text>
-          <text x="416" y="372" fill="#fffaf4" font-family="Arial, sans-serif" font-size="22" opacity="0.78">${meta}</text>
-          <text x="416" y="488" fill="#1d2b2a" font-family="Arial, sans-serif" font-size="24" font-weight="700">${labels[0]}</text>
-          <text x="590" y="488" fill="#1d2b2a" font-family="Arial, sans-serif" font-size="24" font-weight="700">${labels[1]}</text>
-          <text x="764" y="488" fill="#1d2b2a" font-family="Arial, sans-serif" font-size="24" font-weight="700">${labels[2]}</text>
-          <text x="938" y="488" fill="#1d2b2a" font-family="Arial, sans-serif" font-size="24" font-weight="700">${labels[3]}</text>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675">
+          <rect width="1200" height="675" fill="#f4f6f2"/>
+          <path d="M0 96H1200" stroke="#161a1d" stroke-opacity="0.12"/>
+          <path d="M0 192H1200" stroke="#161a1d" stroke-opacity="0.08"/>
+          <path d="M0 288H1200" stroke="#161a1d" stroke-opacity="0.08"/>
+          <path d="M0 384H1200" stroke="#161a1d" stroke-opacity="0.08"/>
+          <rect x="78" y="70" width="1044" height="535" rx="18" fill="#fbfbf8" stroke="#161a1d" stroke-opacity="0.16"/>
+          <rect x="78" y="70" width="1044" height="76" rx="18" fill="#161a1d"/>
+          <circle cx="124" cy="108" r="10" fill="#d35c2f"/>
+          <circle cx="158" cy="108" r="10" fill="#e7b84e"/>
+          <circle cx="192" cy="108" r="10" fill="#0f6f68"/>
+          <rect x="128" y="194" width="260" height="336" rx="14" fill="#eef2ec" stroke="#161a1d" stroke-opacity="0.12"/>
+          <rect x="164" y="230" width="150" height="18" rx="9" fill="${accent}"/>
+          <rect x="164" y="276" width="178" height="14" rx="7" fill="#161a1d" opacity="0.36"/>
+          <rect x="164" y="314" width="132" height="14" rx="7" fill="#161a1d" opacity="0.24"/>
+          <rect x="164" y="352" width="158" height="14" rx="7" fill="#161a1d" opacity="0.24"/>
+          <rect x="430" y="194" width="640" height="210" rx="14" fill="#161a1d"/>
+          <text x="470" y="258" fill="#fbfbf8" font-family="Arial, sans-serif" font-size="34" font-weight="700">${title}</text>
+          <text x="470" y="302" fill="#fbfbf8" font-family="Arial, sans-serif" font-size="24" opacity="0.72">${meta}</text>
+          <path d="M470 348 H622 L672 314 H808 L850 348 H1010" fill="none" stroke="${accent}" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
+          <rect x="430" y="434" width="140" height="96" rx="14" fill="#eef2ec"/>
+          <rect x="596" y="434" width="140" height="96" rx="14" fill="#eef2ec"/>
+          <rect x="762" y="434" width="140" height="96" rx="14" fill="#eef2ec"/>
+          <rect x="928" y="434" width="140" height="96" rx="14" fill="#eef2ec"/>
+          <text x="456" y="490" fill="#161a1d" font-family="Arial, sans-serif" font-size="23" font-weight="700">${labels[0]}</text>
+          <text x="622" y="490" fill="#161a1d" font-family="Arial, sans-serif" font-size="23" font-weight="700">${labels[1]}</text>
+          <text x="788" y="490" fill="#161a1d" font-family="Arial, sans-serif" font-size="23" font-weight="700">${labels[2]}</text>
+          <text x="954" y="490" fill="#161a1d" font-family="Arial, sans-serif" font-size="23" font-weight="700">${labels[3]}</text>
         </svg>`;
 
       return `data:image/svg+xml;charset=UTF-8,${encodeURIComponent(svg)}`;
@@ -1300,53 +1876,30 @@
     function getMediaCandidates(project) {
       const imageExtensions = ["png", "jpg", "jpeg", "webp", "gif"];
       const videoExtensions = ["mp4", "webm", "mov", "mkv"];
-      const mediaExtensions = [...imageExtensions, ...videoExtensions];
       const mediaFiles = Array.isArray(project.mediaFiles) ? project.mediaFiles : [];
-
-      if (project.fallbackOnly) {
-        return [];
-      }
 
       if (mediaFiles.length > 0) {
         return mediaFiles.map((file) => {
           const fileName = typeof file === "string" ? file : file.file;
           const title = typeof file === "string" ? "" : file.title;
           const extension = fileName.split(".").pop().toLowerCase();
-          const mediaTitle = getMediaTitle(fileName, title);
           return {
             src: `${project.mediaFolder}/${fileName}`,
-            title: mediaTitle,
+            title: getMediaTitle(fileName, title),
             type: videoExtensions.includes(extension) ? "video" : "image"
           };
         });
       }
 
       const manifestFiles = window.portfolioMediaManifest?.[project.mediaFolder] || [];
-      if (manifestFiles.length > 0) {
-        return manifestFiles.map((fileName) => {
-          const extension = fileName.split(".").pop().toLowerCase();
-          return {
-            src: `${project.mediaFolder}/${fileName}`,
-            title: getMediaTitle(fileName, ""),
-            type: videoExtensions.includes(extension) ? "video" : "image"
-          };
-        });
-      }
-
-      const baseNames = [
-        ...Array.from({ length: 30 }, (_, index) => String(index + 1).padStart(2, "0"))
-      ];
-
-      return baseNames.flatMap((baseName) =>
-        mediaExtensions.map((extension) => {
-          const type = videoExtensions.includes(extension) ? "video" : "image";
-          return {
-            src: `${project.mediaFolder}/${baseName}.${extension}`,
-            title: "",
-            type
-          };
-        })
-      );
+      return manifestFiles.map((fileName) => {
+        const extension = fileName.split(".").pop().toLowerCase();
+        return {
+          src: `${project.mediaFolder}/${fileName}`,
+          title: getMediaTitle(fileName, ""),
+          type: videoExtensions.includes(extension) ? "video" : "image"
+        };
+      });
     }
 
     function getMediaTitle(fileName, fallbackTitle) {
@@ -1369,6 +1922,39 @@
       empty.src = makePreviewImage(project);
       empty.alt = `${project.title} 대체 프리뷰`;
       lightboxMedia.replaceChildren(empty);
+    }
+
+    function currentMediaIsZoomable() {
+      return currentMediaItems[currentMediaIndex]?.type === "image";
+    }
+
+    function setMediaZoom(scale) {
+      mediaZoomScale = Math.max(mediaZoomMin, Math.min(mediaZoomMax, scale));
+      const image = lightboxMedia.querySelector("img:not(.lightbox-empty)");
+      const zoomed = currentMediaIsZoomable() && mediaZoomScale > 1;
+
+      lightboxMedia.classList.toggle("is-zoomed", zoomed);
+
+      if (image) {
+        image.style.width = `${mediaZoomScale * 100}%`;
+        image.style.maxHeight = zoomed ? "none" : "";
+      }
+
+      lightboxZoomReset.textContent = `${Math.round(mediaZoomScale * 100)}%`;
+      lightboxZoomOut.disabled = !currentMediaIsZoomable() || mediaZoomScale <= mediaZoomMin;
+      lightboxZoomReset.disabled = !currentMediaIsZoomable() || mediaZoomScale <= mediaZoomMin;
+      lightboxZoomIn.disabled = !currentMediaIsZoomable() || mediaZoomScale >= mediaZoomMax;
+    }
+
+    function resetMediaZoom() {
+      setMediaZoom(1);
+      lightboxMedia.scrollLeft = 0;
+      lightboxMedia.scrollTop = 0;
+    }
+
+    function setZoomControlsVisible(isVisible) {
+      lightboxZoomControls.hidden = !isVisible;
+      if (!isVisible) resetMediaZoom();
     }
 
     function createMediaElement(project, candidate) {
@@ -1412,6 +1998,7 @@
 
       if (!item) {
         showNoImage(project);
+        setZoomControlsVisible(false);
         lightboxCount.textContent = "";
         lightboxPrev.disabled = true;
         lightboxNext.disabled = true;
@@ -1419,6 +2006,8 @@
       }
 
       lightboxMedia.replaceChildren(createMediaElement(project, item));
+      setZoomControlsVisible(item.type === "image");
+      resetMediaZoom();
       lightboxCount.innerHTML = `<span class="lightbox-media-title"></span><span class="lightbox-media-index"></span>`;
       lightboxCount.querySelector(".lightbox-media-title").textContent = item.title || "자료";
       lightboxCount.querySelector(".lightbox-media-index").textContent = `${currentMediaIndex + 1} / ${currentMediaItems.length}`;
@@ -1427,21 +2016,11 @@
     }
 
     function loadProjectMedia(project) {
-      const requestId = ++mediaRequestId;
+      mediaRequestId += 1;
       const candidates = getMediaCandidates(project);
-      currentMediaItems = [];
+      currentMediaItems = candidates;
       currentMediaIndex = 0;
-      lightboxMedia.replaceChildren();
-      lightboxCount.textContent = "자료 확인 중";
-      lightboxPrev.disabled = true;
-      lightboxNext.disabled = true;
-
-      Promise.all(candidates.map(validateMediaCandidate)).then((results) => {
-        if (requestId !== mediaRequestId) return;
-        currentMediaItems = results.filter(Boolean);
-        currentMediaIndex = 0;
-        renderCurrentMedia(project);
-      });
+      renderCurrentMedia(project);
     }
 
     function openLightbox(projectId, trigger) {
@@ -1465,6 +2044,7 @@
       }));
       lightbox.dataset.projectId = projectId;
       lightbox.setAttribute("aria-hidden", "false");
+      lightboxCopy.scrollTop = 0;
       document.body.classList.add("modal-open");
       lightbox.querySelector(".lightbox-close").focus();
     }
@@ -1476,6 +2056,7 @@
       document.body.classList.remove("modal-open");
       lightboxMedia.replaceChildren();
       lightboxDetails.replaceChildren();
+      setZoomControlsVisible(false);
       currentMediaItems = [];
       currentMediaIndex = 0;
       if (lastFocusedTrigger) {
@@ -1489,6 +2070,61 @@
       const project = projectPreviews[openProjectId];
       currentMediaIndex = (currentMediaIndex + direction + currentMediaItems.length) % currentMediaItems.length;
       renderCurrentMedia(project);
+    }
+
+    function resetMediaDrag() {
+      mediaPointerId = null;
+      mediaPointerDeltaX = 0;
+      lightboxMedia.classList.remove("is-dragging");
+      lightboxMedia.style.transform = "";
+    }
+
+    function handleMediaPointerDown(event) {
+      if (mediaZoomScale > 1 || event.target.tagName === "VIDEO" || currentMediaItems.length <= 1) return;
+      mediaPointerId = event.pointerId;
+      mediaPointerStartX = event.clientX;
+      mediaPointerStartY = event.clientY;
+      mediaPointerDeltaX = 0;
+      mediaWasDragged = false;
+      lightboxMedia.classList.add("is-dragging");
+      lightboxMedia.setPointerCapture(event.pointerId);
+    }
+
+    function handleMediaPointerMove(event) {
+      if (mediaPointerId !== event.pointerId) return;
+      const deltaX = event.clientX - mediaPointerStartX;
+      const deltaY = event.clientY - mediaPointerStartY;
+
+      if (Math.abs(deltaX) < 6 || Math.abs(deltaX) < Math.abs(deltaY)) return;
+
+      mediaPointerDeltaX = deltaX;
+      mediaWasDragged = true;
+      lightboxMedia.style.transform = `translateX(${Math.max(-70, Math.min(70, deltaX * 0.18))}px)`;
+    }
+
+    function handleMediaPointerUp(event) {
+      if (mediaPointerId !== event.pointerId) return;
+      const deltaX = mediaPointerDeltaX;
+      resetMediaDrag();
+
+      if (Math.abs(deltaX) >= 45) {
+        moveLightboxMedia(deltaX < 0 ? 1 : -1);
+      }
+    }
+
+    function handleMediaClick(event) {
+      if (mediaZoomScale > 1 || event.target.tagName === "VIDEO" || currentMediaItems.length <= 1) return;
+      if (mediaWasDragged) {
+        mediaWasDragged = false;
+        return;
+      }
+      moveLightboxMedia(1);
+    }
+
+    function handleMediaWheel(event) {
+      if (!currentMediaIsZoomable() || !event.ctrlKey) return;
+      event.preventDefault();
+      setMediaZoom(mediaZoomScale + (event.deltaY < 0 ? mediaZoomStep : -mediaZoomStep));
     }
 
     document.querySelectorAll(".project-preview-trigger").forEach((button) => {
@@ -1505,19 +2141,53 @@
 
     lightboxPrev.addEventListener("click", () => moveLightboxMedia(-1));
     lightboxNext.addEventListener("click", () => moveLightboxMedia(1));
+    lightboxZoomOut.addEventListener("click", () => setMediaZoom(mediaZoomScale - mediaZoomStep));
+    lightboxZoomReset.addEventListener("click", resetMediaZoom);
+    lightboxZoomIn.addEventListener("click", () => setMediaZoom(mediaZoomScale + mediaZoomStep));
+    lightboxMedia.addEventListener("pointerdown", handleMediaPointerDown);
+    lightboxMedia.addEventListener("pointermove", handleMediaPointerMove);
+    lightboxMedia.addEventListener("pointerup", handleMediaPointerUp);
+    lightboxMedia.addEventListener("pointercancel", resetMediaDrag);
+    lightboxMedia.addEventListener("click", handleMediaClick);
+    lightboxMedia.addEventListener("wheel", handleMediaWheel, { passive: false });
 
     document.addEventListener("keydown", (event) => {
-      if (event.key === "Escape" && lightbox.getAttribute("aria-hidden") === "false") {
+      const isLightboxOpen = lightbox.getAttribute("aria-hidden") === "false";
+
+      if (event.key === "Escape" && isLightboxOpen) {
         closeLightbox();
       }
 
-      if (event.key === "ArrowLeft" && lightbox.getAttribute("aria-hidden") === "false") {
+      if (event.key === "ArrowLeft" && isLightboxOpen) {
         moveLightboxMedia(-1);
       }
 
-      if (event.key === "ArrowRight" && lightbox.getAttribute("aria-hidden") === "false") {
+      if (event.key === "ArrowRight" && isLightboxOpen) {
         moveLightboxMedia(1);
       }
+
+      if (!isLightboxOpen || !currentMediaIsZoomable()) return;
+
+      if (event.key === "+" || event.key === "=") {
+        event.preventDefault();
+        setMediaZoom(mediaZoomScale + mediaZoomStep);
+      }
+
+      if (event.key === "-") {
+        event.preventDefault();
+        setMediaZoom(mediaZoomScale - mediaZoomStep);
+      }
+
+      if (event.key === "0") {
+        event.preventDefault();
+        resetMediaZoom();
+      }
+    });
+
+    window.addEventListener("load", () => {
+      if (!window.location.hash) return;
+      const target = document.querySelector(window.location.hash);
+      if (target) target.scrollIntoView({ block: "start" });
     });
   </script>
 </body>

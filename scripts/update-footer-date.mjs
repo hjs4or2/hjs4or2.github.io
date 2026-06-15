@@ -1,6 +1,7 @@
 import { readFileSync, writeFileSync } from "node:fs";
 
 const indexPath = new URL("../index.html", import.meta.url);
+const footerDatePattern = /(<div class="footer-note">[^<]*?)(\d{4}\.\d{2}\.\d{2})([^<]*<\/div>)/u;
 
 function getSeoulDate() {
   const parts = new Intl.DateTimeFormat("en-CA", {
@@ -16,17 +17,14 @@ function getSeoulDate() {
 
 const html = readFileSync(indexPath, "utf8");
 const today = getSeoulDate();
-const nextHtml = html.replace(
-  /(의료영상 소프트웨어 개발 포트폴리오\s*·\s*)\d{4}\.\d{2}\.\d{2}(\s*기준)/u,
-  `$1${today}$2`,
-);
 
-if (nextHtml === html) {
-  if (!html.includes(today)) {
-    console.error("footer date pattern was not found in index.html");
-    process.exit(1);
-  }
-  process.exit(0);
+if (!footerDatePattern.test(html)) {
+  console.error("footer date pattern was not found in index.html");
+  process.exit(1);
 }
 
-writeFileSync(indexPath, nextHtml, "utf8");
+const nextHtml = html.replace(footerDatePattern, `$1${today}$3`);
+
+if (nextHtml !== html) {
+  writeFileSync(indexPath, nextHtml, "utf8");
+}
