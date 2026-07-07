@@ -85,7 +85,7 @@
       min-height: 64px;
       display: flex;
       align-items: center;
-      justify-content: flex-start;
+      justify-content: space-between;
       gap: 20px;
     }
 
@@ -117,6 +117,34 @@
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
+    }
+
+    .language-switch {
+      flex: 0 0 auto;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 4px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.78);
+    }
+
+    .language-switch button {
+      min-width: 42px;
+      min-height: 32px;
+      border: 0;
+      border-radius: 6px;
+      color: var(--muted);
+      background: transparent;
+      cursor: pointer;
+      font-size: 0.84rem;
+      font-weight: 950;
+    }
+
+    .language-switch button[aria-pressed="true"] {
+      color: #fff;
+      background: var(--ink);
     }
 
     .nav {
@@ -1135,6 +1163,10 @@
         padding: 12px 0;
       }
 
+      .language-switch button {
+        min-width: 38px;
+      }
+
       .nav {
         top: auto;
         left: 10px;
@@ -1386,6 +1418,10 @@
           <span class="brand-mark">C++</span>
           <span>한재성 | C++ Application Engineer</span>
         </a>
+        <div class="language-switch" aria-label="언어 선택">
+          <button type="button" data-language-button="ko" aria-pressed="true">KO</button>
+          <button type="button" data-language-button="en" aria-pressed="false">EN</button>
+        </div>
       </div>
     </header>
     <nav class="nav" aria-label="주요 섹션">
@@ -1818,7 +1854,7 @@
 
   <script src="resource/media-manifest.js"></script>
   <script>
-    const projectPreviews = {
+    const projectPreviewsKo = {
       automation: {
         title: "C++/Qt 기반 자동화 파이프라인",
         meta: "C++ Structure",
@@ -1911,6 +1947,387 @@
       }
     };
 
+    const projectPreviewsEn = {
+      automation: {
+        title: "C++/Qt Automation Pipeline",
+        meta: "C++ Structure",
+        accent: "#0f6f68",
+        mediaFolder: "resource/01",
+        description:
+          "Separated repeated, failure-prone tasks into Command objects and an Action Queue to build a long-running automation flow.",
+        details: [
+          ["Command separation", "Separated long-running or failure-prone work such as file loading, analysis execution, layer export, mesh export, and image/DICOM/PDF report saving into Command objects."],
+          ["Action Queue execution", "Queued each Command and executed them sequentially, replacing manual UI steps with an automated flow."],
+          ["Failure handling", "Added handling for missing files, analysis failures, save failures, and status-recording failures, with logs and status values left at each failure point."],
+          ["Configuration-based branching", "Organized configuration structures and condition branches so different flows could be selected by product, module, and execution option."]
+        ],
+        labels: ["C++", "Qt", "Command", "Action Queue"]
+      },
+
+      reporting: {
+        title: "Data Transformation and PDF/CSV Output",
+        meta: "Data To Output",
+        accent: "#d35c2f",
+        mediaFolder: "resource/02",
+        description:
+          "Connected input medical images, X-ray captures, segmentation/mask overlays, metadata, and analysis results to screen display and PDF/CSV output.",
+        details: [
+          ["X-ray image saving", "Captured X-ray screen images during report generation and saved them as image resources that could be used by the HTML report."],
+          ["Segmentation image output", "Controlled segmentation/mask overlay display states by AI module and captured screen images as report WEBP files and saved image artifacts."],
+          ["Report data composition", "Collected input data, metadata, analysis results, memo/image data into a local output folder and reused the same data from HTML templates."],
+          ["QWebEngine PDF output", "Rendered HTML reports with QWebEngineView and generated PDFs using QWebEnginePage::printToPdf, waiting for completion signals to keep screen and saved reports consistent."],
+          ["Conditional output branching", "Branched which reports to display and save based on product, module, license, language, and institution conditions."],
+          ["Operational exception handling", "Handled operational data exceptions such as filenames, save paths, special characters, date values, and description fields."]
+        ],
+        labels: ["X-ray", "Segmentation", "Mask Overlay", "QWebEngine", "PDF", "CSV", "JSON"]
+      },
+
+      integration: {
+        title: "External System Integration and Status Management",
+        meta: "External Systems",
+        accent: "#2f6f9f",
+        mediaFolder: "resource/03",
+        mediaFiles: [
+          "01_PDF_PACS_DICOM_변환_업로드_흐름.png",
+          "05_제품_옵션_구성.png",
+          "06_결과_이미지_PACS업로드.png"
+        ],
+        description:
+          "Developed product operation flows connected to external systems, including DB requests, file transfer, DICOM/PACS integration, and command response status.",
+        details: [
+          ["DB request handling", "Received request keys through PostgreSQL notifications, queried the related data, and recorded result paths and success/failure status."],
+          ["DCMTK integration", "Implemented DICOM file send/receive, DICOM Echo, PACS query/download/upload flows with DCMTK and improved analysis result image upload flows."],
+          ["Status response", "Improved logic for checking port state, program busy state, and command response status in flows triggered by external requests."],
+          ["Product configuration", "Reflected customer and institution requirements through product settings and feature branches, and analyzed logs and behavior issues for improvement."]
+        ],
+        labels: ["PostgreSQL", "Qt SQL", "DCMTK", "TCP/IP"]
+      },
+
+      fieldops: {
+        title: "Customer Requirement Analysis and Product Improvement",
+        meta: "Field To Product",
+        accent: "#0f6f68",
+        mediaFolder: "resource/04",
+        mediaFiles: [
+          "00_대표_제품_안정화_기준.png",
+          "03_DeepCatch_X_Validation.png"
+        ],
+        description:
+          "Organized customer and institution requests into reproducible conditions, logs, configuration differences, and product improvement items for C++ application updates and release validation.",
+        details: [
+          ["Requirement organization", "Organized customer-environment-specific requirements such as report format, filename, save path, and upload conditions into product settings and feature branches."],
+          ["Root cause analysis", "Checked logs, dumps, behavior differences, and environment settings to turn field reports into reproducible conditions and candidate causes."],
+          ["Development item conversion", "Converted field requests into C++/Qt feature fixes, exception handling, option additions, and output improvements."],
+          ["Validation and sharing", "Connected modified features to test items, validation documents, and release check scopes so they could work reliably in release builds."]
+        ],
+        labels: ["Requirement", "Log Analysis", "Product Option", "Validation"]
+      },
+
+      quality: {
+        title: "Test Automation and Product Stabilization",
+        meta: "Release Quality",
+        accent: "#e7b84e",
+        mediaFolder: "resource/05",
+        description:
+          "Organized repeatedly checked UI behavior and integration scenarios into reproducible release validation flows using UI automation tests and TeamCity.",
+        details: [
+          ["UI behavior recording", "Recorded test target widgets and actions at the object level so repeated failures could be traced to the exact screen and operation."],
+          ["Keyboard macro and replay", "Saved repetitive input tests as keyboard macros and configuration files so they could be replayed."],
+          ["Interruption flow improvement", "Improved unexpected popup, long-wait, forced-termination, and restart flows to increase long-running test stability."],
+          ["Release validation documentation", "Organized TeamCity-based repeated validation flows and prepared release feature lists, validation documents, and output check materials."]
+        ],
+        labels: ["UI Automation", "TeamCity", "Docs", "Release"]
+      }
+    };
+
+    const pageTranslations = {
+      ko: {
+        documentTitle: "한재성 | C++/Qt Application Engineer",
+        brand: "한재성 | C++ Application Engineer",
+        brandAria: "처음으로 이동",
+        languageLabel: "언어 선택",
+        navAria: "주요 섹션",
+        nav: ["맨 위로", "작업 사례", "개발 흐름", "경력", "스택"],
+        print: "PDF",
+        heroAria: "소개",
+        heroTitle: ["제품 흐름을 구조화하는", "C++/Qt 개발자"],
+        summaryLabel: "Summary",
+        summaryText: "C++/Qt 기반 Windows 제품 클라이언트에서 UI, 파일 처리, 의료영상 이미지 출력, 외부 시스템 연동, 데이터 변환, PDF/CSV 출력, 자동화 파이프라인을 구현해 왔습니다. 의료영상 도메인에서 DICOM/PACS, X-ray/Segmentation 이미지, AI 분석 결과, 기관별 운영 조건을 다루며 요구사항을 재현 가능한 기능과 검증 가능한 릴리즈 흐름으로 연결하는 데 집중했습니다.",
+        summaryCta: "작업 사례 보기",
+        metricsAria: "핵심 요약",
+        metrics: ["제품 개발 경험", "Windows 앱", "검증/안정화", "요구 분석"],
+        profileLabel: "Profile",
+        profileRows: [
+          ["이름", "한재성"],
+          ["포지션", "C++/Qt Application Engineer"],
+          ["강점", "C++/Qt, Windows 클라이언트, 자동화 아키텍처, 외부 시스템 연동"],
+          ["연락처", "필요 시 별도 전달"]
+        ],
+        signal: {
+          label: "Core Signals",
+          title: "제품 완성도를 높이는 C++/Qt 개발 역량",
+          body: "C++/Qt 기반 제품 클라이언트 구현을 중심으로 의료영상 이미지 출력, 외부 시스템 연동, 자동화 파이프라인, 고객 이슈 분석, 검증 문서화, 릴리즈 안정화를 함께 다뤘습니다.",
+          cards: [
+            ["C++/Qt 제품 클라이언트", "Windows 데스크톱 애플리케이션에서 UI, 파일 처리, 설정 기반 분기, 출력 기능을 구현했습니다."],
+            ["자동화 파이프라인", "Command 계열 클래스와 Action Queue로 오래 걸리는 작업을 순차 실행 구조로 분리했습니다."],
+            ["의료영상 이미지 출력", "X-ray 캡처 이미지와 segmentation/mask overlay 이미지를 리포트·저장·업로드 산출물로 연결했습니다."],
+            ["외부 시스템 연동", "DB 알림, 파일 송수신, 프로토콜 연동, 상태 기록처럼 제품 밖 시스템과 이어지는 흐름을 다뤘습니다."],
+            ["고객 이슈 분석", "현장 요청을 그대로 처리하지 않고 재현 조건, 로그, 설정 차이, 제품 개선 항목으로 정리했습니다."],
+            ["문서화와 릴리즈 안정화", "요구사항 정리, 검증 문서, 릴리즈 확인 자료, 제품 옵션 확인까지 배포 전 품질을 챙겼습니다."]
+          ]
+        },
+        work: {
+          label: "Selected Projects",
+          title: "작업 사례",
+          note: "주요 프로젝트",
+          body: "각 항목은 요구사항 분석, C++/Qt 구현 구조 설계, 외부 연동, 검증과 릴리즈 안정화로 이어지는 실제 제품 개발 흐름을 기준으로 구성했습니다.",
+          notice: "의료기기 제품 보안과 의료정보 보호 기준상 실제 화면·데이터 일부는 비식별화하거나 재구성한 자료로 대체했습니다.",
+          button: "자세히 보기",
+          projects: [
+            {
+              alt: "자동화 파이프라인 대표 자료",
+              title: "C++/Qt 기반 자동화 파이프라인",
+              body: "반복 분석과 결과 저장 흐름을 Command 객체와 Action Queue로 분리해 장시간 실행 가능한 구조로 정리했습니다.",
+              bullets: ["파일 로드, 분석 실행, 결과 export, 리포트 저장 단계를 독립 Command로 분리", "실패 가능성이 있는 지점에 상태값과 로그를 남기고 다음 작업으로 이어지는 흐름 보강", "제품, 모듈, 실행 옵션에 따라 서로 다른 처리 흐름을 설정 기반으로 분기"]
+            },
+            {
+              alt: "리포트 출력 대표 자료",
+              title: "데이터 변환 및 PDF/CSV 출력",
+              body: "입력 의료영상, X-ray 캡처 이미지, segmentation/mask overlay, 분석 결과를 화면 표시와 PDF/CSV 출력으로 연결하는 리포트 흐름을 구현했습니다.",
+              bullets: ["X-ray 원본 캡처 이미지를 리포트 데이터로 저장하고 segmentation 결과 이미지를 모듈별로 생성", "QWebEngine HTML 렌더링과 QWebEnginePage::printToPdf 기반 PDF export 구현", "화면용 리포트와 저장용 리포트가 다르게 동작하지 않도록 완료 신호 기반 처리", "파일명, 저장 경로, 특수문자, 날짜 값 등 운영 환경 예외 처리"]
+            },
+            {
+              alt: "외부 시스템 연동 대표 자료",
+              title: "외부 시스템 연동과 상태 관리",
+              body: "DB 요청, 파일 송수신, PACS 업로드, command 응답 상태처럼 제품 밖 시스템과 이어지는 운영 흐름을 다뤘습니다.",
+              bullets: ["PostgreSQL 알림과 데이터 조회로 자동 실행 요청을 받아 처리하고 결과 상태 기록", "DCMTK 기반 DICOM 파일 송수신, Echo, 조회, 다운로드, 업로드 흐름 개발", "포트 상태, 프로그램 busy 상태, command 응답 상태 확인 로직 보강"]
+            },
+            {
+              alt: "고객 요구사항 분석과 제품 안정화 대표 자료",
+              title: "고객 요구사항 분석과 제품 개선",
+              body: "고객사/기관 요청과 운영 이슈를 단순 대응으로 끝내지 않고, 재현 가능한 조건과 제품 개선 항목으로 정리했습니다.",
+              bullets: ["기관별 리포트 형식, 저장 경로, 파일명, 업로드 조건을 기능 분기와 설정으로 반영", "로그, 덤프, 동작 차이, 환경 설정을 확인해 문제 원인과 재현 조건을 정리", "개선된 기능이 배포 버전에서 안정적으로 동작하도록 검증 문서와 테스트 항목으로 연결"]
+            },
+            {
+              alt: "테스트 자동화 대표 자료",
+              title: "테스트 자동화와 제품 안정화",
+              body: "반복 확인이 필요한 UI 동작과 연동 테스트를 자동화하고, 릴리즈 전 검증 흐름을 정리했습니다.",
+              bullets: ["UI Auto Test와 mipAutoPilot Tester에서 객체별 로그, 키보드 매크로, 재실행 구조 구현", "팝업, 긴 대기 상태, 강제 종료, 재시작 흐름을 보강해 장시간 테스트 안정성 개선", "TeamCity 기반 반복 검증과 릴리즈 전 기능 목록, 검증 문서, 출력 결과 확인 자료 정리"]
+            }
+          ]
+        },
+        evidence: {
+          label: "Project Evidence",
+          title: "프로젝트 근거로 확인한 구현 범위",
+          body: "실제 제품 코드 이력에서 확인되는 C++/Qt 클라이언트, 자동화, DICOM/PACS 연동, 리포트 출력, 제품 옵션·검증 문서화·릴리즈 구성 경험을 포트폴리오 문구로 정리했습니다.",
+          cards: [
+            ["Automation", "Action/Command 기반 실행 구조", "ActionManager, ActionBase, Macro Build, UserMacro 계열 작업을 통해 반복 분석과 장시간 실행 흐름을 큐 기반 구조로 다뤘습니다."],
+            ["Output Pipeline", "AI 결과 산출물 연결", "분석 결과를 이미지, DICOM, PDF 리포트로 저장하는 Command와 QWebEngine 기반 리포트 화면 흐름을 구현·보강했습니다."],
+            ["Image Output", "X-ray와 Segmentation 이미지 출력", "X-ray 화면 캡처 이미지와 mask overlay 기반 segmentation 이미지를 생성해 리포트 화면, PDF, 이미지 저장 흐름에 연결했습니다."],
+            ["Integration", "DICOM/PACS와 FileManager 연동", "DICOM Dataset, DCMTK 네트워크, PACS Query/Retrieve, PACS Export, DICOM Import/Preview 영역을 제품 코드와 라이브러리 양쪽에서 다뤘습니다."],
+            ["Report Template", "환경·제품·기관별 리포트 리소스 반영", "환경별, 제품별, 기관별로 달라지는 리포트 템플릿, 배경 PDF/SVG, 이미지 리소스를 제품 산출물에 맞춰 반영했습니다."],
+            ["Release", "제품 옵션과 검증 문서화", "FunctionLevel, 라이선스 리소스, 패키지 파일 목록, 히스토리·프로퍼티 변경과 함께 릴리즈 확인 자료를 정리했습니다."],
+            ["Quality", "자동화 테스트와 릴리즈 확인", "UIAutoTest, AutoPilot, UserMacro, Macro 결과 표시를 통해 반복 검증과 릴리즈 전 확인 흐름을 개선했습니다."]
+          ]
+        },
+        flow: {
+          label: "Engineering Flow",
+          title: "개발 흐름",
+          note: "요구 분석에서 릴리즈까지",
+          body: "고객 요청을 재현 가능한 제품 이슈로 정리하고, 원인 분석과 C++/Qt 구현, 검증, 배포까지 이어지는 흐름으로 개선 사항을 반영했습니다.",
+          steps: [
+            ["Field Signal", "고객 요청, 로그, 환경 설정, 재현 조건을 제품 이슈로 정리"],
+            ["Analyze", "파일, DB 요청, 외부 command, 사용자 옵션의 흐름과 실패 지점을 확인"],
+            ["Implement", "C++/Qt 기능, 설정 분기, 출력물, 연동 로직으로 개선 사항 구현"],
+            ["Verify", "자동 테스트, 수동 확인, 검증 문서와 릴리즈 확인 자료로 수정 결과를 검증"],
+            ["Feedback", "현장 적용 후 추가 요청과 예외 케이스를 다시 제품 개선으로 연결"]
+          ]
+        },
+        experience: {
+          label: "Experience",
+          title: "경력",
+          body: "C++/Qt 제품 클라이언트 개발자로 외부 시스템 연동, 자동화, 데이터 변환, 고객 요구사항 분석, 검증 문서화와 릴리즈 안정화 업무를 수행했습니다.",
+          cards: [
+            ["2023.05 - 재직중", "메디컬아이피 | Application / 대리", "의료영상 도메인의 C++/Qt 기반 Windows 제품 클라이언트 개발, 외부 시스템 연동, 데이터 변환 및 리포트 출력, 자동화 파이프라인, 고객사/기관 요구사항 대응, 검증 문서화와 릴리즈 안정화 업무를 수행했습니다."],
+            ["2019.10 - 2023.02", "아임피치 | R&D / 주임", "Python/Qt 기반 테스트 애플리케이션과 AMX 기반 통합 제어 프로그램을 개발하며 TCP/Serial 통신, WATCHOUT 프로토콜 연동, 장비 제어 흐름을 다뤘습니다. 외부 장비와 소프트웨어가 함께 동작하는 구조를 다루며 이후 제품 클라이언트 개발에서 연동 안정성을 고려하는 기반을 쌓았습니다."]
+          ]
+        },
+        stack: {
+          title: "기술 스택",
+          body: "C++/Qt 제품 구현, DICOM/PACS 연동, 영상·리포트 산출물, 검증 자동화에서 주로 사용한 기술과 도구입니다.",
+          groups: [
+            ["C++/Qt 개발", ["C/C++", "Qt", "Python", "Visual Studio", "Action/Command"]],
+            ["DICOM/PACS 연동", ["DICOM", "PACS", "DCMTK", "SCP/SCU", "DICOM Network", "TCP/IP"]],
+            ["영상·리포트 산출물", ["DICOM Dataset", "X-ray", "Segmentation", "QWebEngine", "HTML/CSS", "PDF/CSV", "JSON"]],
+            ["데이터·검증 자동화", ["PostgreSQL", "Qt SQL", "File I/O", "GitLab/SVN", "TeamCity", "UI 자동화", "검증 문서"]]
+          ]
+        },
+        closing: {
+          aria: "마무리",
+          title: "제품 흐름을 끝까지 책임지는 C++/Qt 개발자",
+          lines: ["고객 요구를 구조화된 기능으로 구현하고, 검증 가능한 배포 결과로 마무리하는 데 집중합니다.", "C++/Qt 클라이언트 구현, 외부 연동, 자동화, 릴리즈 안정화까지 제품 흐름 전반을 다뤄왔습니다."]
+        },
+        footer: "C++/Qt Application Engineer Portfolio · 2026.07.07",
+        lightbox: {
+          close: "닫기",
+          zoomOut: "이미지 축소",
+          zoomReset: "배율 초기화",
+          zoomIn: "이미지 확대",
+          prev: "이전 자료",
+          next: "다음 자료",
+          hint: "설명 영역은 스크롤해서 전체 내용을 볼 수 있습니다.",
+          imageSuffix: "이미지",
+          videoSuffix: "영상",
+          fallbackSuffix: "대체 프리뷰",
+          material: "자료"
+        }
+      },
+      en: {
+        documentTitle: "JaeSung Han | C++/Qt Application Engineer",
+        brand: "JaeSung Han | C++ Application Engineer",
+        brandAria: "Go to top",
+        languageLabel: "Language",
+        navAria: "Primary sections",
+        nav: ["Top", "Projects", "Flow", "Experience", "Stack"],
+        print: "PDF",
+        heroAria: "Introduction",
+        heroTitle: ["Structuring Product Flows", "C++/Qt Developer"],
+        summaryLabel: "Summary",
+        summaryText: "I have built C++/Qt-based Windows product clients covering UI, file handling, medical image output, external system integration, data transformation, PDF/CSV output, and automation pipelines. In the medical imaging domain, I worked with DICOM/PACS, X-ray and segmentation images, AI analysis results, and institution-specific operating conditions, connecting requirements to reproducible features and verifiable release flows.",
+        summaryCta: "View Projects",
+        metricsAria: "Key summary",
+        metrics: ["Product development", "Windows apps", "Validation/release", "Requirement analysis"],
+        profileLabel: "Profile",
+        profileRows: [
+          ["Name", "JaeSung Han"],
+          ["Position", "C++/Qt Application Engineer"],
+          ["Strengths", "C++/Qt, Windows product clients, automation architecture, external system integration"],
+          ["Contact", "Available upon request"]
+        ],
+        signal: {
+          label: "Core Signals",
+          title: "C++/Qt Capabilities That Improve Product Completeness",
+          body: "Focused on C++/Qt product client implementation while handling medical image output, external system integration, automation pipelines, customer issue analysis, validation documentation, and release stabilization.",
+          cards: [
+            ["C++/Qt Product Client", "Implemented UI, file handling, configuration-based branching, and output features for Windows desktop applications."],
+            ["Automation Pipeline", "Separated long-running work into sequential execution flows using Command classes and an Action Queue."],
+            ["Medical Image Output", "Connected X-ray capture images and segmentation/mask overlays to report, save, and upload artifacts."],
+            ["External System Integration", "Handled flows connected to systems outside the product, including DB notifications, file transfer, protocol integration, and status records."],
+            ["Customer Issue Analysis", "Organized field requests into reproducible conditions, logs, configuration differences, and product improvement items."],
+            ["Documentation and Release Stabilization", "Covered pre-release quality through requirements organization, validation documents, release check materials, and product option checks."]
+          ]
+        },
+        work: {
+          label: "Selected Projects",
+          title: "Work Cases",
+          note: "Key Projects",
+          body: "Each item is organized around the actual product development flow from requirement analysis and C++/Qt implementation structure to external integration, validation, and release stabilization.",
+          notice: "Due to medical device product security and medical information protection requirements, some real screens and data have been de-identified or reconstructed.",
+          button: "Details",
+          projects: [
+            {
+              alt: "Automation pipeline representative material",
+              title: "C++/Qt Automation Pipeline",
+              body: "Separated repeated analysis and result-saving flows into Command objects and an Action Queue to build a long-running structure.",
+              bullets: ["Separated file loading, analysis execution, result export, and report saving into independent Commands", "Added status values and logs at failure-prone points and continued the next work flow", "Branched different processing flows by product, module, and execution options through configuration"]
+            },
+            {
+              alt: "Report output representative material",
+              title: "Data Transformation and PDF/CSV Output",
+              body: "Connected input medical images, X-ray captures, segmentation/mask overlays, and analysis results to screen display and PDF/CSV output.",
+              bullets: ["Saved X-ray source capture images as report data and generated segmentation result images by module", "Implemented PDF export based on QWebEngine HTML rendering and QWebEnginePage::printToPdf", "Used completion-signal-based handling so screen reports and saved reports did not behave differently", "Handled operational exceptions such as filenames, save paths, special characters, and date values"]
+            },
+            {
+              alt: "External system integration representative material",
+              title: "External System Integration and Status Management",
+              body: "Handled operation flows connected to systems outside the product, including DB requests, file transfer, PACS upload, and command response status.",
+              bullets: ["Received automatic execution requests through PostgreSQL notifications and queries, then recorded result status", "Developed DCMTK-based DICOM file send/receive, Echo, query, download, and upload flows", "Improved port state, program busy state, and command response state checks"]
+            },
+            {
+              alt: "Customer requirement analysis and product stabilization representative material",
+              title: "Customer Requirement Analysis and Product Improvement",
+              body: "Organized customer and institution requests into reproducible conditions and product improvement items instead of one-off responses.",
+              bullets: ["Reflected institution-specific report formats, save paths, filenames, and upload conditions through feature branches and settings", "Checked logs, dumps, behavior differences, and environment settings to organize causes and reproduction conditions", "Connected improved features to validation documents and test items so they worked reliably in release builds"]
+            },
+            {
+              alt: "Test automation representative material",
+              title: "Test Automation and Product Stabilization",
+              body: "Automated repeatedly checked UI behavior and integration tests and organized pre-release validation flows.",
+              bullets: ["Implemented object-level logs, keyboard macros, and replay structures in UI Auto Test and mipAutoPilot Tester", "Improved long-running test stability by handling popups, long waits, forced termination, and restart flows", "Organized TeamCity-based repeated validation, release feature lists, validation documents, and output check materials"]
+            }
+          ]
+        },
+        evidence: {
+          label: "Project Evidence",
+          title: "Implementation Scope Backed by Work History",
+          body: "Summarized portfolio copy based on actual product code history covering C++/Qt clients, automation, DICOM/PACS integration, report output, product options, validation documentation, and release configuration.",
+          cards: [
+            ["Automation", "Action/Command-based execution structure", "Handled repeated analysis and long-running execution flows through queue-based structures such as ActionManager, ActionBase, Macro Build, and UserMacro."],
+            ["Output Pipeline", "AI result artifact connection", "Implemented and improved Command flows and QWebEngine-based report screens that saved analysis results as images, DICOM files, and PDF reports."],
+            ["Image Output", "X-ray and segmentation image output", "Generated X-ray screen capture images and mask-overlay-based segmentation images and connected them to report screens, PDFs, and saved image flows."],
+            ["Integration", "DICOM/PACS and FileManager integration", "Worked across product code and library layers on DICOM Dataset, DCMTK network, PACS Query/Retrieve, PACS Export, and DICOM Import/Preview areas."],
+            ["Report Template", "Environment/product/institution report resources", "Reflected report templates, background PDF/SVG resources, and image resources that vary by environment, product, and institution into product outputs."],
+            ["Release", "Product options and validation documentation", "Organized release check materials together with FunctionLevel, license resources, package file lists, history, and property changes."],
+            ["Quality", "Automation tests and release checks", "Improved repeated validation and pre-release check flows through UIAutoTest, AutoPilot, UserMacro, and Macro result display work."]
+          ]
+        },
+        flow: {
+          label: "Engineering Flow",
+          title: "Development Flow",
+          note: "From requirement analysis to release",
+          body: "Organized customer requests into reproducible product issues and reflected improvements through root cause analysis, C++/Qt implementation, validation, and deployment.",
+          steps: [
+            ["Field Signal", "Organize customer requests, logs, environment settings, and reproduction conditions into product issues"],
+            ["Analyze", "Check files, DB requests, external commands, user options, and failure points"],
+            ["Implement", "Implement improvements through C++/Qt features, setting branches, outputs, and integration logic"],
+            ["Verify", "Validate fixes through automated tests, manual checks, validation documents, and release check materials"],
+            ["Feedback", "Connect additional field requests and exception cases back to product improvements"]
+          ]
+        },
+        experience: {
+          label: "Experience",
+          title: "Experience",
+          body: "Worked as a C++/Qt product client developer across external system integration, automation, data transformation, customer requirement analysis, validation documentation, and release stabilization.",
+          cards: [
+            ["May 2023 - Present", "Medical IP | Application / Assistant Manager", "Developed C++/Qt-based Windows product clients in the medical imaging domain, covering external system integration, data transformation, report output, automation pipelines, customer/institution requirements, validation documentation, and release stabilization."],
+            ["Oct 2019 - Feb 2023", "I'm Peach | R&D / Senior Staff", "Developed Python/Qt-based test applications and AMX-based integrated control programs, handling TCP/Serial communication, WATCHOUT protocol integration, and equipment control flows. Built a foundation for considering integration stability in later product client development."]
+          ]
+        },
+        stack: {
+          title: "Tech Stack",
+          body: "Technologies and tools mainly used for C++/Qt product implementation, DICOM/PACS integration, image/report artifacts, and validation automation.",
+          groups: [
+            ["C++/Qt Development", ["C/C++", "Qt", "Python", "Visual Studio", "Action/Command"]],
+            ["DICOM/PACS Integration", ["DICOM", "PACS", "DCMTK", "SCP/SCU", "DICOM Network", "TCP/IP"]],
+            ["Image and Report Artifacts", ["DICOM Dataset", "X-ray", "Segmentation", "QWebEngine", "HTML/CSS", "PDF/CSV", "JSON"]],
+            ["Data and Validation Automation", ["PostgreSQL", "Qt SQL", "File I/O", "GitLab/SVN", "TeamCity", "UI Automation", "Validation Docs"]]
+          ]
+        },
+        closing: {
+          aria: "Closing",
+          title: "C++/Qt Developer Responsible for the Full Product Flow",
+          lines: ["I focus on turning customer requirements into structured features and closing the loop with verifiable release results.", "I have worked across C++/Qt client implementation, external integration, automation, and release stabilization."]
+        },
+        footer: "C++/Qt Application Engineer Portfolio · 2026.07.07",
+        lightbox: {
+          close: "Close",
+          zoomOut: "Zoom out",
+          zoomReset: "Reset zoom",
+          zoomIn: "Zoom in",
+          prev: "Previous material",
+          next: "Next material",
+          hint: "Scroll the description area to view the full content.",
+          imageSuffix: "image",
+          videoSuffix: "video",
+          fallbackSuffix: "fallback preview",
+          material: "Material"
+        }
+      }
+    };
+
+    let activeLanguage = "ko";
+    let projectPreviews = projectPreviewsKo;
+
     const lightbox = document.querySelector("#project-lightbox");
     const lightboxMedia = document.querySelector("#lightbox-media");
     const lightboxMeta = document.querySelector("#lightbox-meta");
@@ -1939,6 +2356,176 @@
     const mediaZoomMin = 1;
     const mediaZoomMax = 3;
     const mediaZoomStep = 0.25;
+
+    function setText(selector, value) {
+      const element = document.querySelector(selector);
+      if (element) element.textContent = value;
+    }
+
+    function setAttribute(selector, name, value) {
+      const element = document.querySelector(selector);
+      if (element) element.setAttribute(name, value);
+    }
+
+    function setChipList(list, values) {
+      list.replaceChildren(...values.map((value) => {
+        const item = document.createElement("li");
+        item.textContent = value;
+        return item;
+      }));
+    }
+
+    function renderLightboxCopy(project) {
+      lightboxMeta.textContent = project.meta || "";
+      lightboxMeta.hidden = !project.meta;
+      lightboxTitle.textContent = project.title;
+      lightboxDescription.textContent = project.description;
+      lightboxDetails.replaceChildren(...(project.details || []).map(([title, body]) => {
+        const item = document.createElement("li");
+        const heading = document.createElement("strong");
+        const text = document.createElement("span");
+        heading.textContent = title;
+        text.textContent = body;
+        item.append(heading, text);
+        return item;
+      }));
+    }
+
+    function applyLanguage(language, options = {}) {
+      const lang = language === "en" ? "en" : "ko";
+      const text = pageTranslations[lang];
+      activeLanguage = lang;
+      projectPreviews = lang === "en" ? projectPreviewsEn : projectPreviewsKo;
+      document.documentElement.lang = lang;
+      document.title = text.documentTitle;
+      document.body.dataset.language = lang;
+
+      if (options.persist) {
+        try {
+          window.localStorage.setItem("portfolioLanguage", lang);
+        } catch {
+          // localStorage can be unavailable when opened from restricted environments.
+        }
+      }
+
+      document.querySelectorAll("[data-language-button]").forEach((button) => {
+        button.setAttribute("aria-pressed", String(button.dataset.languageButton === lang));
+      });
+
+      setAttribute(".brand", "aria-label", text.brandAria);
+      setText(".brand span:last-child", text.brand);
+      setAttribute(".language-switch", "aria-label", text.languageLabel);
+      setAttribute(".nav", "aria-label", text.navAria);
+      document.querySelectorAll(".nav a").forEach((item, index) => {
+        item.textContent = text.nav[index];
+      });
+      setText("[data-print-page]", text.print);
+      setAttribute(".hero", "aria-label", text.heroAria);
+      setText(".hero-title span:nth-child(1)", text.heroTitle[0]);
+      setText(".hero-title span:nth-child(2)", text.heroTitle[1]);
+      setText("#summary-title", text.summaryLabel);
+      setText(".summary-text", text.summaryText);
+      setText(".summary-cta", text.summaryCta);
+      setAttribute(".summary-metrics", "aria-label", text.metricsAria);
+      document.querySelectorAll(".summary-metric span").forEach((item, index) => {
+        item.textContent = text.metrics[index];
+      });
+      setText("#profile-title", text.profileLabel);
+      document.querySelectorAll(".profile-row").forEach((row, index) => {
+        const [term, description] = text.profileRows[index];
+        row.querySelector("dt").textContent = term;
+        row.querySelector("dd").textContent = description;
+      });
+
+      const signalSection = document.querySelector('[aria-labelledby="signal-title"]');
+      signalSection.querySelector(".section-label").textContent = text.signal.label;
+      signalSection.querySelector("#signal-title").textContent = text.signal.title;
+      signalSection.querySelector(".section-header p").textContent = text.signal.body;
+      signalSection.querySelectorAll(".signal-card").forEach((card, index) => {
+        const [title, body] = text.signal.cards[index];
+        card.querySelector("strong").textContent = title;
+        card.querySelector("p").textContent = body;
+      });
+
+      setText("#work .section-label", text.work.label);
+      setText("#work-title .section-title-line", text.work.title);
+      setText("#work-title .section-title-note", text.work.note);
+      setText("#work .section-header p", text.work.body);
+      setText("#work .section-notice", text.work.notice);
+      document.querySelectorAll("#work .project-card").forEach((card, index) => {
+        const project = text.work.projects[index];
+        card.querySelector("img").alt = project.alt;
+        card.querySelector(".project-preview-trigger").textContent = text.work.button;
+        card.querySelector("h3").textContent = project.title;
+        card.querySelector(".project-body > p").textContent = project.body;
+        card.querySelectorAll(".bullet-list li").forEach((item, bulletIndex) => {
+          item.textContent = project.bullets[bulletIndex];
+        });
+      });
+
+      const evidenceSection = document.querySelector('[aria-labelledby="evidence-title"]');
+      evidenceSection.querySelector(".section-label").textContent = text.evidence.label;
+      evidenceSection.querySelector("#evidence-title").textContent = text.evidence.title;
+      evidenceSection.querySelector(".section-header p").textContent = text.evidence.body;
+      evidenceSection.querySelectorAll(".evidence-card").forEach((card, index) => {
+        const [label, title, body] = text.evidence.cards[index];
+        card.querySelector("span").textContent = label;
+        card.querySelector("strong").textContent = title;
+        card.querySelector("p").textContent = body;
+      });
+
+      setText("#flow .section-label", text.flow.label);
+      setText("#flow-title .section-title-line", text.flow.title);
+      setText("#flow-title .section-title-note", text.flow.note);
+      setText("#flow .section-header p", text.flow.body);
+      document.querySelectorAll(".flow-step").forEach((step, index) => {
+        const [title, body] = text.flow.steps[index];
+        step.querySelector("strong").textContent = title;
+        step.querySelector("p").textContent = body;
+      });
+
+      setText("#experience .section-label", text.experience.label);
+      setText("#experience-title", text.experience.title);
+      setText("#experience .section-header p", text.experience.body);
+      document.querySelectorAll(".experience-card").forEach((card, index) => {
+        const [period, title, body] = text.experience.cards[index];
+        card.querySelector(".period").textContent = period;
+        card.querySelector("h3").textContent = title;
+        card.querySelector("p").textContent = body;
+      });
+
+      setText("#stack-title", text.stack.title);
+      setText("#stack .section-header p", text.stack.body);
+      document.querySelectorAll(".stack-group").forEach((group, index) => {
+        const [title, chips] = text.stack.groups[index];
+        group.querySelector("h3").textContent = title;
+        setChipList(group.querySelector(".chips"), chips);
+      });
+
+      setAttribute(".closing", "aria-label", text.closing.aria);
+      setText(".closing h2", text.closing.title);
+      document.querySelectorAll(".closing p span").forEach((line, index) => {
+        line.textContent = text.closing.lines[index];
+      });
+      setText(".footer-note", text.footer);
+
+      setAttribute(".lightbox-close", "aria-label", text.lightbox.close);
+      setAttribute("#lightbox-zoom-out", "aria-label", text.lightbox.zoomOut);
+      setAttribute("#lightbox-zoom-reset", "aria-label", text.lightbox.zoomReset);
+      setAttribute("#lightbox-zoom-in", "aria-label", text.lightbox.zoomIn);
+      setAttribute("#lightbox-prev", "aria-label", text.lightbox.prev);
+      setAttribute("#lightbox-next", "aria-label", text.lightbox.next);
+      setText(".lightbox-scroll-hint", text.lightbox.hint);
+
+      const openProjectId = lightbox.dataset.projectId;
+      if (openProjectId) {
+        const project = projectPreviews[openProjectId];
+        if (project) {
+          renderLightboxCopy(project);
+          renderCurrentMedia(project);
+        }
+      }
+    }
 
     function escapeXml(value) {
       return String(value)
@@ -2034,10 +2621,11 @@
     }
 
     function showNoImage(project) {
+      const lightboxText = pageTranslations[activeLanguage].lightbox;
       const empty = document.createElement("img");
       empty.className = "lightbox-empty";
       empty.src = makePreviewImage(project);
-      empty.alt = `${project.title} 대체 프리뷰`;
+      empty.alt = `${project.title} ${lightboxText.fallbackSuffix}`;
       lightboxMedia.replaceChildren(empty);
     }
 
@@ -2075,6 +2663,7 @@
     }
 
     function createMediaElement(project, candidate) {
+      const lightboxText = pageTranslations[activeLanguage].lightbox;
       const media = document.createElement(candidate.type === "video" ? "video" : "img");
       media.src = candidate.src;
 
@@ -2082,9 +2671,9 @@
         media.controls = true;
         media.playsInline = true;
         media.preload = "metadata";
-        media.setAttribute("aria-label", `${project.title} 영상`);
+        media.setAttribute("aria-label", `${project.title} ${lightboxText.videoSuffix}`);
       } else {
-        media.alt = `${project.title} 이미지`;
+        media.alt = `${project.title} ${lightboxText.imageSuffix}`;
       }
 
       return media;
@@ -2126,7 +2715,7 @@
       setZoomControlsVisible(item.type === "image");
       resetMediaZoom();
       lightboxCount.innerHTML = `<span class="lightbox-media-title"></span><span class="lightbox-media-index"></span>`;
-      lightboxCount.querySelector(".lightbox-media-title").textContent = item.title || "자료";
+      lightboxCount.querySelector(".lightbox-media-title").textContent = item.title || pageTranslations[activeLanguage].lightbox.material;
       lightboxCount.querySelector(".lightbox-media-index").textContent = `${currentMediaIndex + 1} / ${currentMediaItems.length}`;
       lightboxPrev.disabled = currentMediaItems.length <= 1;
       lightboxNext.disabled = currentMediaItems.length <= 1;
@@ -2146,19 +2735,7 @@
 
       lastFocusedTrigger = trigger;
       loadProjectMedia(project);
-      lightboxMeta.textContent = project.meta || "";
-      lightboxMeta.hidden = !project.meta;
-      lightboxTitle.textContent = project.title;
-      lightboxDescription.textContent = project.description;
-      lightboxDetails.replaceChildren(...(project.details || []).map(([title, body]) => {
-        const item = document.createElement("li");
-        const heading = document.createElement("strong");
-        const text = document.createElement("span");
-        heading.textContent = title;
-        text.textContent = body;
-        item.append(heading, text);
-        return item;
-      }));
+      renderLightboxCopy(project);
       lightbox.dataset.projectId = projectId;
       lightbox.setAttribute("aria-hidden", "false");
       lightboxCopy.scrollTop = 0;
@@ -2248,6 +2825,10 @@
       button.addEventListener("click", () => openLightbox(button.dataset.project, button));
     });
 
+    document.querySelectorAll("[data-language-button]").forEach((button) => {
+      button.addEventListener("click", () => applyLanguage(button.dataset.languageButton, { persist: true }));
+    });
+
     document.querySelectorAll("[data-print-page]").forEach((button) => {
       button.addEventListener("click", () => window.print());
     });
@@ -2300,6 +2881,22 @@
         resetMediaZoom();
       }
     });
+
+    function getInitialLanguage() {
+      try {
+        const savedLanguage = window.localStorage.getItem("portfolioLanguage");
+        if (savedLanguage === "ko" || savedLanguage === "en") {
+          return savedLanguage;
+        }
+      } catch {
+        // Ignore storage errors and fall back to browser language.
+      }
+
+      const preferredLanguage = (navigator.languages?.[0] || navigator.language || "").toLowerCase();
+      return preferredLanguage.startsWith("ko") ? "ko" : "en";
+    }
+
+    applyLanguage(getInitialLanguage());
 
     window.addEventListener("load", () => {
       if (!window.location.hash) return;
