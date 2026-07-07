@@ -1,20 +1,23 @@
-# 포트폴리오 다른 버전
+# 포트폴리오 버전
 
-C++/Qt 기반 Windows 애플리케이션 개발자 포지션에 맞춰 다시 디자인한 포트폴리오입니다.
+같은 경력과 주요 프로젝트를 두 지원 방향에 맞춰 분리한 정적 포트폴리오입니다.
 
-## 기준 파일
+## 파일
 
-- `index.html`: 바로 열어볼 수 있는 메인 버전
+- `index.html`: C++/Qt Application Engineer 버전
+- `medical-imaging.html`: Medical Imaging Software Engineer 버전
+- `combined.html`: C++/Qt Medical Imaging Engineer 통합 버전
 - `resource/`: 포트폴리오 이미지/GIF 자료
 - `resource/media-manifest.js`: 자료 보기 모달에서 사용할 이미지 목록
 
-## 디자인 방향
+## 사용 기준
 
-- 첫인상은 `의료영상 개발자`보다 `C++/Qt Product Client Engineer`로 보이게 구성
-- 의료영상, DICOM/PACS는 도메인 경험으로 남기되 앞쪽에서는 낮게 배치
-- 자동화 파이프라인, 외부 시스템 연동, 데이터 변환, PDF/CSV 출력, 테스트 자동화, 릴리즈 안정화를 전면에 배치
-- 기존 `자료 보기` 모달과 `PDF 저장` 기능은 유지
+- C++/Qt, Windows 클라이언트, 제품 구조화, 자동화, 외부 시스템 연동 포지션에는 `index.html`
+- 의료영상, DICOM/PACS, AI 분석 리포트, 병원/기관 연동 포지션에는 `medical-imaging.html`
+- C++/Qt 구현력과 의료영상 도메인 경험을 함께 강조해야 하는 포지션에는 `combined.html`
+
+세 버전 모두 기존 `자료 보기` 모달과 `PDF 저장` 기능을 유지합니다.
 
 ## 확인 방법
 
-`index.html`을 브라우저로 열면 됩니다.
+각 HTML 파일을 브라우저로 열면 됩니다.
