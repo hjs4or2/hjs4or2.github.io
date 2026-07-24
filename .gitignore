@@ -1,0 +1,7 @@
+tmp/
+portfolio/archive/
+portfolio/resource/Temp/
+resume/*
+!resume/README.md
+**/__pycache__/
+~$*

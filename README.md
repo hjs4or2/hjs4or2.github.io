@@ -1,14 +1,15 @@
-# 포트폴리오
+# 한재성 작업 자료
 
-C++/Qt Application Engineer 포지션을 기준으로 정리한 정적 포트폴리오입니다.
+C++/Qt Application Engineer 포트폴리오와 채용 플랫폼별 이력서를 분리해 관리합니다.
 
-## 파일
+## 디렉터리
 
-- `index.html`: 메인 포트폴리오
-- `resource/`: 포트폴리오 이미지/GIF 자료
-- `resource/media-manifest.js`: 자료 보기 모달에서 사용할 이미지 목록
-- `scripts/update-footer-date.mjs`: 푸터 날짜 갱신 스크립트
+- `portfolio/`: 공개용 정적 포트폴리오와 이미지 자료
+- `resume/`: 플랫폼별 이력서, 지원용 문서와 생성 스크립트를 관리하는 로컬 디렉터리
+- `index.html`: 기존 GitHub Pages 주소를 `portfolio/`로 연결하는 진입 페이지
 
 ## 확인 방법
 
-`index.html`을 브라우저로 열면 됩니다.
+루트의 `index.html` 또는 `portfolio/index.html`을 브라우저로 열면 됩니다.
+
+`resume/`의 실제 지원 문서, `portfolio/resource/Temp`의 원본 자료와 `portfolio/archive`의 백업 자료는 로컬에서만 관리하며 공개 커밋에서는 제외합니다.

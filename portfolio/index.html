@@ -1,0 +1,2975 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>한재성 | C++/Qt Application Engineer</title>
+  <style>
+    :root {
+      --bg: #f4f6f2;
+      --surface: #ffffff;
+      --surface-2: #eef2ec;
+      --ink: #161a1d;
+      --ink-soft: #3d464c;
+      --muted: #69747b;
+      --line: rgba(22, 26, 29, 0.12);
+      --line-strong: rgba(22, 26, 29, 0.22);
+      --teal: #0f6f68;
+      --teal-dark: #094a45;
+      --blue: #2f6f9f;
+      --orange: #d35c2f;
+      --yellow: #e7b84e;
+      --paper: #fbfbf8;
+      --shadow: 0 24px 70px rgba(22, 26, 29, 0.12);
+      --shadow-sm: 0 14px 34px rgba(22, 26, 29, 0.09);
+      --radius: 8px;
+      --max: 1180px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      overflow-x: hidden;
+    }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      font-family: "Pretendard Variable", "Pretendard", "Noto Sans KR", "Segoe UI", sans-serif;
+      line-height: 1.6;
+      background: var(--bg);
+      overflow-x: hidden;
+      max-width: 100vw;
+      word-break: keep-all;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+    }
+
+    button,
+    a {
+      font: inherit;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img,
+    video {
+      max-width: 100%;
+      display: block;
+    }
+
+    .site-shell {
+      min-height: 100vh;
+      max-width: 100%;
+      overflow-x: hidden;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      border-bottom: 1px solid var(--line);
+      background: rgba(244, 246, 242, 0.88);
+      backdrop-filter: blur(18px);
+    }
+
+    .topbar-inner {
+      width: min(calc(100% - 32px), var(--max));
+      margin: 0 auto;
+      min-height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 20px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0;
+      font-weight: 900;
+      letter-spacing: 0;
+    }
+
+    .brand-mark {
+      width: 34px;
+      height: 34px;
+      display: grid;
+      place-items: center;
+      color: #fff;
+      background: var(--ink);
+      border: 2px solid var(--teal);
+      border-radius: 6px;
+      box-shadow: 4px 4px 0 var(--yellow);
+      font-size: 0.78rem;
+      line-height: 1;
+    }
+
+    .brand span:last-child {
+      min-width: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .language-switch {
+      flex: 0 0 auto;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 4px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.78);
+    }
+
+    .language-switch button {
+      min-width: 42px;
+      min-height: 32px;
+      border: 0;
+      border-radius: 6px;
+      color: var(--muted);
+      background: transparent;
+      cursor: pointer;
+      font-size: 0.84rem;
+      font-weight: 950;
+    }
+
+    .language-switch button[aria-pressed="true"] {
+      color: #fff;
+      background: var(--ink);
+    }
+
+    .nav {
+      position: fixed;
+      top: 50%;
+      right: 16px;
+      transform: translateY(-50%);
+      z-index: 45;
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 8px;
+      width: 112px;
+      max-width: calc(100vw - 24px);
+      padding: 8px;
+      border-radius: 8px;
+      border: 1px solid rgba(22, 26, 29, 0.1);
+      background: rgba(255, 255, 255, 0.84);
+      box-shadow: 0 16px 42px rgba(22, 26, 29, 0.13);
+      backdrop-filter: blur(16px);
+    }
+
+    .nav a,
+    .print-button,
+    .project-preview-trigger,
+    .lightbox-nav,
+    .lightbox-close {
+      min-height: 40px;
+      border: 1px solid var(--line-strong);
+      border-radius: 6px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      color: var(--ink);
+      background: var(--surface);
+      cursor: pointer;
+      transition: transform 140ms ease, border-color 140ms ease, background 140ms ease, color 140ms ease;
+    }
+
+    .nav a {
+      width: 100%;
+      padding: 9px 12px;
+      font-size: 0.92rem;
+      font-weight: 800;
+    }
+
+    .print-button,
+    .project-preview-trigger,
+    .lightbox-nav {
+      padding: 9px 13px;
+      font-weight: 900;
+    }
+
+    .nav .print-button {
+      width: 100%;
+    }
+
+    .nav .language-switch {
+      width: 100%;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 3px;
+      padding: 3px;
+    }
+
+    .nav .language-switch button {
+      width: 100%;
+      min-width: 0;
+      min-height: 34px;
+      padding: 0;
+    }
+
+    .nav a:hover,
+    .nav a:focus-visible,
+    .print-button:hover,
+    .print-button:focus-visible,
+    .project-preview-trigger:hover,
+    .project-preview-trigger:focus-visible,
+    .lightbox-nav:hover:not(:disabled),
+    .lightbox-nav:focus-visible:not(:disabled),
+    .lightbox-close:hover,
+    .lightbox-close:focus-visible {
+      transform: translateY(-1px);
+      color: #fff;
+      background: var(--ink);
+      border-color: var(--ink);
+      outline: none;
+    }
+
+    .page {
+      width: min(calc(100% - 32px), var(--max));
+      margin: 0 auto;
+      padding: 28px 0 70px;
+      max-width: calc(100vw - 32px);
+      overflow-x: hidden;
+    }
+
+    .hero {
+      min-height: 0;
+      display: grid;
+      grid-template-columns: minmax(0, 1.5fr) minmax(320px, 1fr);
+      align-items: stretch;
+      gap: 24px;
+      padding: clamp(28px, 5vw, 54px);
+      position: relative;
+      overflow: hidden;
+      background: rgba(255, 255, 255, 0.88);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0 0 auto;
+      height: 8px;
+      background: linear-gradient(90deg, var(--teal), var(--orange), var(--yellow), var(--blue));
+    }
+
+    .hero-card,
+    .section,
+    .project-card,
+    .experience-card,
+    .stack-group,
+    .signal-card {
+      background: rgba(255, 255, 255, 0.88);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .hero-card {
+      background: rgba(255, 255, 255, 0.72);
+      box-shadow: none;
+      padding: clamp(24px, 3.6vw, 34px);
+      min-width: 0;
+    }
+
+    h1,
+    h2,
+    h3,
+    p {
+      margin: 0;
+    }
+
+    h1,
+    h2,
+    h3 {
+      text-wrap: balance;
+    }
+
+    p,
+    li,
+    dd {
+      line-break: strict;
+      text-wrap: pretty;
+    }
+
+    .hero-heading {
+      grid-column: 1 / -1;
+      min-width: 0;
+    }
+
+    .hero-title {
+      max-width: 920px;
+      font-size: clamp(2.7rem, 5.5vw, 4.72rem);
+      line-height: 0.92;
+      letter-spacing: 0;
+    }
+
+    .hero-title span {
+      display: block;
+    }
+
+    .hero-label {
+      color: var(--orange);
+      font-size: 0.98rem;
+      font-weight: 950;
+      letter-spacing: 0;
+      text-transform: uppercase;
+    }
+
+    .summary-text {
+      margin-top: 18px;
+      color: var(--ink-soft);
+      font-size: clamp(1rem, 1.4vw, 1.08rem);
+      line-height: 1.7;
+      font-weight: 650;
+      overflow-wrap: break-word;
+      word-break: keep-all;
+    }
+
+    .summary-actions {
+      display: flex;
+      margin-top: 24px;
+    }
+
+    .summary-cta {
+      min-height: 46px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 11px 15px;
+      border: 1px solid var(--ink);
+      border-radius: 6px;
+      color: #fff;
+      background: var(--ink);
+      box-shadow: 5px 5px 0 var(--orange);
+      font-weight: 950;
+      transition: transform 140ms ease, background 140ms ease, border-color 140ms ease;
+    }
+
+    .summary-cta:hover,
+    .summary-cta:focus-visible {
+      transform: translateY(-1px);
+      background: var(--teal-dark);
+      border-color: var(--teal-dark);
+      outline: none;
+    }
+
+    .summary-metrics {
+      margin-top: 28px;
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      border: 1px solid var(--line-strong);
+      border-radius: 8px;
+      overflow: hidden;
+      background: var(--paper);
+    }
+
+    .summary-metric {
+      min-width: 0;
+      padding: 15px;
+      border-right: 1px solid var(--line);
+    }
+
+    .summary-metric:last-child {
+      border-right: 0;
+    }
+
+    .summary-metric strong {
+      display: block;
+      font-size: 1.35rem;
+      line-height: 1;
+    }
+
+    .summary-metric span {
+      display: block;
+      margin-top: 7px;
+      color: var(--muted);
+      font-size: 0.82rem;
+      font-weight: 800;
+      overflow-wrap: break-word;
+    }
+
+    .profile-table {
+      margin-top: 12px;
+    }
+
+    .profile-row {
+      display: grid;
+      grid-template-columns: 86px minmax(0, 1fr);
+      gap: 0;
+      padding: 13px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .profile-row:last-child {
+      border-bottom: 0;
+      padding-bottom: 0;
+    }
+
+    .profile-row dt {
+      color: var(--teal-dark);
+      font-weight: 950;
+    }
+
+    .profile-row dd {
+      margin: 0;
+      color: var(--ink-soft);
+      font-weight: 700;
+      word-break: keep-all;
+      overflow-wrap: break-word;
+    }
+
+    .sections {
+      display: grid;
+      gap: 22px;
+    }
+
+    .section {
+      padding: clamp(24px, 4vw, 36px);
+      min-width: 0;
+    }
+
+    .section-header {
+      display: grid;
+      grid-template-columns: minmax(0, 0.72fr) minmax(280px, 0.8fr);
+      gap: 24px;
+      align-items: end;
+      margin-bottom: 22px;
+      padding-bottom: 18px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .section-label {
+      color: var(--orange);
+      font-size: 0.82rem;
+      font-weight: 950;
+      letter-spacing: 0;
+      text-transform: uppercase;
+    }
+
+    .section h2 {
+      margin-top: 6px;
+      font-size: clamp(1.7rem, 3.2vw, 2.7rem);
+      line-height: 1.03;
+      letter-spacing: 0;
+    }
+
+    .section-header p {
+      justify-self: end;
+      max-width: 540px;
+      color: var(--muted);
+      font-weight: 650;
+      line-height: 1.72;
+      text-align: right;
+    }
+
+    .section-title-line,
+    .section-title-note {
+      display: block;
+    }
+
+    .section-title-note {
+      margin-top: 8px;
+      color: var(--muted);
+      font-size: clamp(1rem, 1.4vw, 1.25rem);
+      font-weight: 850;
+      line-height: 1.35;
+    }
+
+    .section-title-line {
+      white-space: nowrap;
+    }
+
+    .section-notice {
+      margin: -4px 0 18px;
+      max-width: 760px;
+      padding-left: 12px;
+      border-left: 3px solid var(--line);
+      color: var(--muted);
+      font-size: 0.9rem;
+      font-weight: 650;
+      line-height: 1.62;
+    }
+
+    .signal-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .signal-card {
+      padding: 22px;
+      min-height: 166px;
+      box-shadow: none;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .signal-card::before {
+      content: "";
+      position: absolute;
+      inset: 0 0 auto;
+      height: 5px;
+      background: var(--teal);
+    }
+
+    .signal-card:nth-child(2)::before {
+      background: var(--orange);
+    }
+
+    .signal-card:nth-child(3)::before {
+      background: var(--blue);
+    }
+
+    .signal-card:nth-child(4)::before {
+      background: var(--yellow);
+    }
+
+    .signal-card:nth-child(5)::before {
+      background: var(--teal-dark);
+    }
+
+    .signal-card:nth-child(6)::before {
+      background: var(--orange);
+    }
+
+    .signal-card strong {
+      display: block;
+      font-size: 1.03rem;
+      line-height: 1.34;
+    }
+
+    .signal-card p {
+      margin-top: 12px;
+      color: var(--muted);
+      font-size: 0.94rem;
+      font-weight: 600;
+      line-height: 1.66;
+    }
+
+    .evidence-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .evidence-card {
+      min-height: 176px;
+      padding: 20px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--paper);
+    }
+
+    .evidence-card span {
+      display: block;
+      color: var(--orange);
+      font-size: 0.78rem;
+      font-weight: 950;
+      text-transform: uppercase;
+    }
+
+    .evidence-card strong {
+      display: block;
+      margin-top: 10px;
+      font-size: 1.04rem;
+      line-height: 1.34;
+    }
+
+    .evidence-card p {
+      margin-top: 10px;
+      color: var(--muted);
+      font-size: 0.94rem;
+      font-weight: 600;
+      line-height: 1.66;
+    }
+
+    .project-list {
+      display: grid;
+      gap: 16px;
+    }
+
+    .project-card {
+      display: grid;
+      grid-template-columns: minmax(250px, 0.36fr) minmax(0, 1fr);
+      gap: 0;
+      overflow: hidden;
+      box-shadow: none;
+      background: var(--surface);
+      min-width: 0;
+    }
+
+    .project-media {
+      min-height: 210px;
+      display: grid;
+      place-items: center;
+      padding: 12px;
+      background:
+        linear-gradient(90deg, rgba(255, 255, 255, 0.045) 1px, transparent 1px),
+        linear-gradient(rgba(255, 255, 255, 0.045) 1px, transparent 1px),
+        var(--ink);
+      background-size: 22px 22px;
+      border-right: 1px solid var(--line);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .project-media img {
+      width: 100%;
+      height: clamp(132px, 15vw, 178px);
+      min-height: 0;
+      object-fit: contain;
+      object-position: center center;
+      opacity: 0.98;
+      filter: saturate(0.92) contrast(1.03);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: 6px;
+      background: #fbfbf8;
+    }
+
+    .project-media::after {
+      content: none;
+    }
+
+    .project-period {
+      margin-top: -7px;
+      color: var(--orange);
+      font-size: 0.88rem;
+      font-weight: 950;
+      letter-spacing: 0.02em;
+    }
+
+    .project-media-trigger {
+      position: absolute;
+      right: 14px;
+      bottom: 14px;
+      z-index: 2;
+      min-height: 36px;
+      padding: 7px 10px;
+      background: rgba(255, 255, 255, 0.94);
+      box-shadow: 0 10px 24px rgba(16, 20, 23, 0.22);
+      backdrop-filter: blur(8px);
+    }
+
+    .project-body {
+      padding: clamp(20px, 3vw, 30px);
+      display: grid;
+      align-content: start;
+      gap: 15px;
+      min-width: 0;
+    }
+
+    .project-kicker {
+      color: var(--teal-dark);
+      font-size: 0.82rem;
+      font-weight: 950;
+      text-transform: uppercase;
+    }
+
+    .project-card h3 {
+      font-size: clamp(1.3rem, 2.4vw, 2rem);
+      line-height: 1.12;
+      letter-spacing: 0;
+    }
+
+    .project-card p {
+      color: var(--ink-soft);
+      font-weight: 650;
+      word-break: keep-all;
+      overflow-wrap: break-word;
+      line-height: 1.68;
+    }
+
+    .bullet-list {
+      display: grid;
+      gap: 9px;
+      padding: 0;
+      margin: 0;
+      list-style: none;
+    }
+
+    .bullet-list li {
+      position: relative;
+      padding-left: 18px;
+      color: var(--muted);
+      font-size: 0.95rem;
+      font-weight: 600;
+      line-height: 1.62;
+    }
+
+    .bullet-list li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0.72em;
+      width: 8px;
+      height: 2px;
+      background: var(--orange);
+    }
+
+    .tag-row,
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      padding: 0;
+      margin: 0;
+      list-style: none;
+    }
+
+    .tag-row li,
+    .chips li {
+      min-height: 30px;
+      display: inline-flex;
+      align-items: center;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      padding: 5px 9px;
+      color: var(--ink-soft);
+      background: var(--surface-2);
+      font-size: 0.82rem;
+      font-weight: 850;
+    }
+
+    .flow-grid {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .flow-step {
+      min-height: 150px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 15px;
+      background: var(--paper);
+      position: relative;
+    }
+
+    .flow-step::after {
+      content: "->";
+      position: absolute;
+      right: -14px;
+      top: 18px;
+      z-index: 1;
+      color: var(--orange);
+      font-weight: 950;
+    }
+
+    .flow-step:last-child::after {
+      content: "";
+    }
+
+    .flow-step span {
+      display: block;
+      color: var(--orange);
+      font-size: 0.82rem;
+      font-weight: 950;
+    }
+
+    .flow-step strong {
+      display: block;
+      margin-top: 10px;
+      line-height: 1.25;
+    }
+
+    .flow-step p {
+      margin-top: 8px;
+      color: var(--muted);
+      font-size: 0.9rem;
+      font-weight: 600;
+      line-height: 1.58;
+    }
+
+    .experience-grid,
+    .stack-grid {
+      display: grid;
+      gap: 14px;
+    }
+
+    .experience-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .stack-grid {
+      grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+    }
+
+    .experience-card,
+    .stack-group {
+      padding: 20px;
+      box-shadow: none;
+    }
+
+    .period {
+      color: var(--orange);
+      font-size: 0.84rem;
+      font-weight: 950;
+    }
+
+    .experience-card h3,
+    .stack-group h3 {
+      margin-top: 8px;
+      font-size: 1.18rem;
+      line-height: 1.3;
+    }
+
+    .experience-card p {
+      margin-top: 9px;
+      color: var(--muted);
+      font-weight: 600;
+      line-height: 1.65;
+    }
+
+    .stack-group .chips {
+      margin-top: 14px;
+      gap: 10px;
+    }
+
+    .stack-group .chips li {
+      min-height: 38px;
+      border-color: transparent;
+      border-radius: 999px;
+      padding: 8px 12px;
+      color: var(--teal-dark);
+      background: #d8ebe6;
+    }
+
+    .closing {
+      padding: clamp(24px, 4vw, 38px);
+      color: #fff;
+      background: var(--ink);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 24px;
+      align-items: center;
+    }
+
+    .closing h2 {
+      font-size: clamp(1.7rem, 3.5vw, 3rem);
+      line-height: 1.04;
+    }
+
+    .closing p {
+      margin-top: 12px;
+      max-width: 720px;
+      color: rgba(255, 255, 255, 0.72);
+      font-weight: 650;
+      line-height: 1.7;
+    }
+
+    .closing p span {
+      display: block;
+    }
+
+    .closing p span + span {
+      margin-top: 4px;
+    }
+
+    .footer-note {
+      color: var(--muted);
+      font-size: 0.9rem;
+      font-weight: 700;
+      text-align: center;
+    }
+
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      z-index: 50;
+      display: grid;
+      place-items: center;
+      padding: 24px;
+    }
+
+    .lightbox[aria-hidden="true"] {
+      display: none;
+    }
+
+    .lightbox-backdrop {
+      position: absolute;
+      inset: 0;
+      background: rgba(10, 14, 16, 0.72);
+      backdrop-filter: blur(12px);
+    }
+
+    .lightbox-panel {
+      position: relative;
+      z-index: 1;
+      width: min(1320px, calc(100vw - 28px));
+      height: min(820px, calc(100vh - 28px));
+      max-height: calc(100vh - 28px);
+      display: grid;
+      grid-template-columns: minmax(0, 1.35fr) minmax(420px, 0.8fr);
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.24);
+      border-radius: 8px;
+      background: #fbfbf8;
+      box-shadow: 0 32px 80px rgba(0, 0, 0, 0.38);
+    }
+
+    .lightbox-close {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      z-index: 2;
+      width: 42px;
+      height: 42px;
+      padding: 0;
+      color: #fff;
+      background: rgba(0, 0, 0, 0.56);
+      border-color: rgba(255, 255, 255, 0.22);
+      font-size: 1.4rem;
+    }
+
+    .lightbox-media-wrap {
+      min-height: 0;
+      display: grid;
+      grid-template-rows: minmax(0, 1fr) auto;
+      background: #101417;
+      position: relative;
+    }
+
+    .lightbox-media {
+      min-height: 0;
+      display: grid;
+      place-items: center;
+      padding: 18px;
+      overflow: auto;
+      cursor: grab;
+      touch-action: pan-y;
+      user-select: none;
+    }
+
+    .lightbox-media.is-dragging {
+      cursor: grabbing;
+    }
+
+    .lightbox-media.is-zoomed {
+      place-items: start start;
+      cursor: default;
+      touch-action: pan-x pan-y;
+    }
+
+    .lightbox-media img,
+    .lightbox-media video {
+      width: 100%;
+      max-height: calc(100vh - 170px);
+      object-fit: contain;
+      border-radius: 6px;
+      background: #fff;
+    }
+
+    .lightbox-media img {
+      max-width: none;
+      pointer-events: none;
+    }
+
+    .lightbox-empty {
+      aspect-ratio: 16 / 9;
+      object-fit: cover;
+    }
+
+    .lightbox-toolbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 12px 14px;
+      color: #fff;
+      border-top: 1px solid rgba(255, 255, 255, 0.14);
+    }
+
+    .lightbox-count {
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      font-size: 0.82rem;
+      font-weight: 850;
+    }
+
+    .lightbox-media-title {
+      max-width: 42vw;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      color: rgba(255, 255, 255, 0.92);
+    }
+
+    .lightbox-media-index {
+      color: rgba(255, 255, 255, 0.56);
+    }
+
+    .lightbox-controls {
+      display: flex;
+      gap: 8px;
+    }
+
+    .lightbox-toolbar-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .lightbox-zoom-controls {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .lightbox-zoom-value {
+      min-width: 54px;
+      color: #fff;
+      font-size: 0.82rem;
+      font-weight: 900;
+    }
+
+    .lightbox-nav {
+      min-height: 36px;
+      color: #fff;
+      background: rgba(255, 255, 255, 0.08);
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .lightbox-nav:disabled {
+      cursor: not-allowed;
+      opacity: 0.42;
+    }
+
+    .lightbox-zoom-controls[hidden] {
+      display: none;
+    }
+
+    .lightbox-copy {
+      min-height: 0;
+      overflow: auto;
+      padding: clamp(22px, 3vw, 34px);
+      overscroll-behavior: contain;
+      scrollbar-gutter: stable;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(15, 111, 104, 0.76) rgba(22, 26, 29, 0.08);
+    }
+
+    .lightbox-copy::-webkit-scrollbar {
+      width: 10px;
+    }
+
+    .lightbox-copy::-webkit-scrollbar-track {
+      background: rgba(22, 26, 29, 0.08);
+      border-radius: 999px;
+    }
+
+    .lightbox-copy::-webkit-scrollbar-thumb {
+      background: rgba(15, 111, 104, 0.76);
+      border-radius: 999px;
+    }
+
+    .lightbox-scroll-hint {
+      position: sticky;
+      bottom: -1px;
+      margin: 18px -2px -2px;
+      padding: 10px 12px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      color: var(--muted);
+      background: linear-gradient(180deg, rgba(251, 251, 248, 0.74), #fbfbf8 36%);
+      font-size: 0.82rem;
+      font-weight: 850;
+      text-align: center;
+    }
+
+    .lightbox-meta {
+      display: block;
+      color: var(--orange);
+      font-size: 0.82rem;
+      font-weight: 950;
+      text-transform: uppercase;
+    }
+
+    .lightbox-copy h2 {
+      margin-top: 8px;
+      font-size: clamp(1.45rem, 3vw, 2.3rem);
+      line-height: 1.08;
+    }
+
+    .lightbox-copy p {
+      margin-top: 14px;
+      color: var(--ink-soft);
+      font-weight: 650;
+    }
+
+    .lightbox-detail-list {
+      display: grid;
+      gap: 12px;
+      padding: 0;
+      margin: 22px 0 0;
+      list-style: none;
+    }
+
+    .lightbox-detail-list li {
+      padding: 14px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--surface-2);
+    }
+
+    .lightbox-detail-list strong {
+      display: block;
+      margin-bottom: 6px;
+      color: var(--ink);
+    }
+
+    .lightbox-detail-list span {
+      display: block;
+      color: var(--muted);
+      font-size: 0.92rem;
+      font-weight: 600;
+    }
+
+    body.modal-open {
+      overflow: hidden;
+    }
+
+    @media (max-width: 1120px) {
+      .lightbox {
+        padding: 10px;
+      }
+
+      .lightbox-panel {
+        width: min(1080px, calc(100vw - 20px));
+        height: min(900px, calc(100vh - 20px));
+        grid-template-columns: 1fr;
+        grid-template-rows: minmax(0, 56%) minmax(0, 44%);
+      }
+
+      .lightbox-media img,
+      .lightbox-media video {
+        max-height: min(42vh, 410px);
+      }
+
+      .lightbox-media-title {
+        max-width: 62vw;
+      }
+
+      .lightbox-copy {
+        max-height: none;
+        padding: 22px 28px 28px;
+      }
+
+      .lightbox-copy h2 {
+        font-size: clamp(1.55rem, 4vw, 2.2rem);
+      }
+
+      .lightbox-detail-list {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .lightbox-scroll-hint {
+        grid-column: 1 / -1;
+      }
+    }
+
+    @media (max-width: 1040px) {
+      .hero {
+        grid-template-columns: 1fr;
+        min-height: 0;
+      }
+
+      .signal-grid,
+      .evidence-grid,
+      .flow-grid,
+      .stack-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .flow-step::after {
+        content: "";
+      }
+    }
+
+    @media (max-width: 820px) {
+      .topbar-inner {
+        min-height: 64px;
+        padding: 12px 0;
+      }
+
+      .language-switch button {
+        min-width: 38px;
+      }
+
+      .nav {
+        top: auto;
+        left: 10px;
+        right: 10px;
+        bottom: 10px;
+        transform: none;
+        width: auto;
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        align-items: stretch;
+        justify-content: stretch;
+        max-width: none;
+        gap: 5px;
+        padding: 6px;
+      }
+
+      .nav a,
+      .nav .print-button {
+        flex: 1 1 0;
+        min-width: 0;
+        width: 100%;
+        padding: 8px 6px;
+        font-size: clamp(0.68rem, 2.4vw, 0.82rem);
+        white-space: nowrap;
+      }
+
+      .section-header,
+      .project-card,
+      .experience-grid,
+      .stack-grid,
+      .closing,
+      .lightbox-panel {
+        grid-template-columns: 1fr;
+      }
+
+      .section-header p {
+        justify-self: start;
+        max-width: none;
+        text-align: left;
+      }
+
+      .project-media {
+        border-right: 0;
+        border-bottom: 1px solid var(--line);
+        min-height: 210px;
+      }
+
+      .project-media img {
+        height: clamp(150px, 34vw, 210px);
+      }
+
+      .lightbox-panel {
+        overflow: hidden;
+        height: min(900px, calc(100vh - 20px));
+        grid-template-rows: minmax(0, 52%) minmax(0, 48%);
+      }
+
+      .lightbox-copy {
+        max-height: none;
+        padding: 20px 22px 24px;
+      }
+
+      .lightbox-media img,
+      .lightbox-media video {
+        max-height: min(38vh, 340px);
+      }
+
+      .lightbox-media-title {
+        max-width: 64vw;
+      }
+
+      .lightbox-toolbar {
+        align-items: flex-start;
+      }
+
+      .lightbox-toolbar-actions {
+        flex-direction: column;
+        align-items: flex-end;
+        gap: 8px;
+      }
+    }
+
+    @media (max-width: 620px) {
+      .page {
+        width: min(calc(100% - 20px), var(--max));
+        padding-top: 18px;
+        padding-bottom: 112px;
+      }
+
+      .topbar-inner {
+        width: min(calc(100% - 20px), var(--max));
+      }
+
+      .nav {
+        width: auto;
+      }
+
+      .nav a,
+      .nav .print-button {
+        min-height: 36px;
+        padding: 8px 4px;
+        font-size: 0.72rem;
+      }
+
+      .hero-card,
+      .section,
+      .closing {
+        padding: 22px;
+      }
+
+      .hero-title {
+        font-size: clamp(2.2rem, 10vw, 2.95rem);
+        line-height: 0.98;
+      }
+
+      .hero-card > *,
+      .section > *,
+      .project-body > * {
+        max-width: 100%;
+      }
+
+      .section-title-line {
+        white-space: normal;
+      }
+
+      .summary-text {
+        font-size: 0.98rem;
+        line-height: 1.62;
+      }
+
+      .summary-metrics {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .summary-metric {
+        border-bottom: 1px solid var(--line);
+      }
+
+      .summary-metric:nth-child(2),
+      .summary-metric:nth-child(4) {
+        border-right: 0;
+      }
+
+      .summary-metric:nth-child(3),
+      .summary-metric:nth-child(4) {
+        border-bottom: 0;
+      }
+
+      .profile-row {
+        grid-template-columns: 74px minmax(0, 1fr);
+      }
+
+      .signal-grid,
+      .evidence-grid,
+      .flow-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .project-media {
+        min-height: 188px;
+      }
+
+      .project-media img {
+        height: 150px;
+        min-height: 0;
+      }
+
+      .lightbox {
+        padding: 10px;
+      }
+
+      .lightbox-panel {
+        height: calc(100vh - 20px);
+        grid-template-rows: minmax(0, 44%) minmax(0, 56%);
+      }
+
+      .lightbox-media {
+        padding: 10px;
+      }
+
+      .lightbox-media img,
+      .lightbox-media video {
+        max-height: min(31vh, 280px);
+      }
+
+      .lightbox-detail-list {
+        grid-template-columns: 1fr;
+      }
+
+      .lightbox-copy {
+        padding: 18px 18px 22px;
+      }
+    }
+
+    @media print {
+      @page {
+        margin: 12mm;
+      }
+
+      * {
+        print-color-adjust: exact;
+        -webkit-print-color-adjust: exact;
+      }
+
+      body {
+        background: #fff;
+      }
+
+      .topbar,
+      .nav,
+      .summary-actions,
+      .project-preview-trigger,
+      .lightbox {
+        display: none !important;
+      }
+
+      .page {
+        width: 100%;
+        padding: 0;
+      }
+
+      .hero {
+        min-height: 0;
+        grid-template-columns: 1fr;
+      }
+
+      .hero,
+      .hero-card,
+      .section,
+      .project-card,
+      .experience-card,
+      .evidence-card,
+      .stack-group,
+      .closing {
+        box-shadow: none;
+        break-inside: avoid;
+      }
+
+      .project-card {
+        grid-template-columns: 1fr;
+        overflow: hidden;
+      }
+
+      .project-media {
+        min-height: 350px;
+        padding: 16px;
+        border-right: 0;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .project-media img {
+        width: 100%;
+        height: 320px;
+        object-fit: contain;
+      }
+
+      .project-body {
+        padding: 18px 20px 20px;
+        gap: 10px;
+      }
+
+      .bullet-list {
+        gap: 6px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="site-shell">
+    <header class="topbar">
+      <div class="topbar-inner">
+        <a class="brand" href="#top" aria-label="처음으로 이동">
+          <span class="brand-mark">C++</span>
+          <span>한재성 | C++ Application Engineer</span>
+        </a>
+      </div>
+    </header>
+    <nav class="nav" aria-label="주요 섹션">
+      <a href="#top">맨 위로</a>
+      <a href="#work">작업 사례</a>
+      <a href="#flow">개발 흐름</a>
+      <a href="#experience">경력</a>
+      <a href="#stack">스택</a>
+      <div class="language-switch" aria-label="언어 선택">
+        <button type="button" data-language-button="ko" aria-pressed="true">KO</button>
+        <button type="button" data-language-button="en" aria-pressed="false">EN</button>
+      </div>
+      <button class="print-button" type="button" data-print-page>PDF</button>
+    </nav>
+
+    <main class="page" id="top">
+      <section class="hero" aria-label="소개">
+        <div class="hero-heading">
+          <h1 class="hero-title"><span>제품 흐름을 구조화하는</span><span>C++/Qt 개발자</span></h1>
+        </div>
+        <article class="hero-card" aria-labelledby="summary-title">
+          <h2 class="hero-label" id="summary-title">Summary</h2>
+          <p class="summary-text">
+            C++/Qt 기반 UI AutoTest 개발을 시작으로 TiSepX를 DeepCatch X로 전환하는 제품 개발에 참여했습니다.
+            초기 MVVM 구조를 인계받아 WW/WL 기반 Segmentation·Annotation 결과 이미지와 리포트 출력, Action Queue 자동화를 구현하고 2024년 6월 최초 배포를 완료했습니다.
+            최근에는 JSON 설정, 다양한 결과 Export, 파일별 상태·실패 메시지 기록과 실패 격리를 갖춘 MEDIP 배치 Macro를 개발했으며,
+            기존 PACS 영역에서는 운영 이슈를 수정하고 DICOM C-ECHO 연결 확인 기능을 추가했습니다.
+          </p>
+          <div class="summary-actions">
+            <a class="summary-cta" href="#work">작업 사례 보기</a>
+          </div>
+          <div class="summary-metrics" aria-label="핵심 요약">
+            <div class="summary-metric">
+              <strong>6y+</strong>
+              <span>제품 개발 경험</span>
+            </div>
+            <div class="summary-metric">
+              <strong>C++/Qt</strong>
+              <span>Windows 앱</span>
+            </div>
+            <div class="summary-metric">
+              <strong>Release</strong>
+              <span>검증/안정화</span>
+            </div>
+            <div class="summary-metric">
+              <strong>Field</strong>
+              <span>요구 분석</span>
+            </div>
+          </div>
+        </article>
+        <article class="hero-card" aria-labelledby="profile-title">
+          <h2 class="hero-label" id="profile-title">Profile</h2>
+          <dl class="profile-table">
+            <div class="profile-row">
+              <dt>이름</dt>
+              <dd>한재성</dd>
+            </div>
+            <div class="profile-row">
+              <dt>포지션</dt>
+              <dd>C++/Qt Application Engineer</dd>
+            </div>
+            <div class="profile-row">
+              <dt>강점</dt>
+              <dd>C++/Qt, UI·배치 자동화, TCP/IP·Serial 시스템 연동, DICOM/PACS 안정화</dd>
+            </div>
+            <div class="profile-row">
+              <dt>연락처</dt>
+              <dd>필요 시 별도 전달</dd>
+            </div>
+          </dl>
+        </article>
+
+      </section>
+
+      <div class="sections">
+        <section class="section" aria-labelledby="signal-title">
+          <div class="section-header">
+            <div>
+              <span class="section-label">Core Signals</span>
+              <h2 id="signal-title">제품 완성도를 높이는 C++/Qt 개발 역량</h2>
+            </div>
+            <p>
+              UI 기록·재생 AutoTest, DeepCatch X의 MVVM 기반 영상 결과 출력과 최초 배포, MEDIP 배치 Macro,
+              기존 DICOM/PACS 기능 안정화까지 메디컬아이피에서 실제 담당한 제품 개발 범위를 중심으로 정리했습니다.
+            </p>
+          </div>
+          <div class="signal-grid">
+            <article class="signal-card">
+              <strong>UI AutoTest</strong>
+              <p>UI 객체와 이벤트를 기록하고 다양한 Qt 위젯과 키보드 입력을 재현하는 반복 검증 도구를 개발했습니다.</p>
+            </article>
+            <article class="signal-card">
+              <strong>MEDIP 배치 Macro</strong>
+              <p>JSON 설정과 Command·Action Queue로 장시간 분석·Export를 실행하고 파일별 상태 기록과 실패 격리를 구현했습니다.</p>
+            </article>
+            <article class="signal-card">
+              <strong>AI·의료영상 출력 연동</strong>
+              <p>WW/WL을 반영한 X-ray 영상과 Segmentation·Annotation Overlay를 결과 이미지와 PDF 리포트로 연결했습니다.</p>
+            </article>
+            <article class="signal-card">
+              <strong>DICOM/PACS 안정화</strong>
+              <p>기존 Query/Retrieve와 송수신 과정의 운영 이슈를 수정하고 연결 확인용 DICOM C-ECHO를 추가했습니다.</p>
+            </article>
+            <article class="signal-card">
+              <strong>TCP/IP·Serial 시스템 연동</strong>
+              <p>장비와 외부 소프트웨어의 명령·응답 흐름을 구현하고 WATCHOUT 연동, 연결 상태와 통신 예외를 처리했습니다.</p>
+            </article>
+            <article class="signal-card">
+              <strong>배포 운영·고객 이슈 분석</strong>
+              <p>건강관리협회 전국 지부와 여러 병원 환경에서 발생하는 요청을 재현 조건, 로그, 설정 차이, 제품 개선 항목으로 정리했습니다.</p>
+            </article>
+            <article class="signal-card">
+              <strong>문서화와 릴리즈 안정화</strong>
+              <p>요구사항 정리, 검증 문서, 릴리즈 확인 자료, 제품 옵션 확인까지 배포 전 품질을 챙겼습니다.</p>
+            </article>
+          </div>
+        </section>
+
+        <section class="section" id="work" aria-labelledby="work-title">
+          <div class="section-header">
+            <div>
+              <span class="section-label">Selected Projects</span>
+              <h2 id="work-title"><span class="section-title-line">작업 사례</span><span class="section-title-note">주요 프로젝트</span></h2>
+            </div>
+            <p>
+              각 항목은 요구사항 분석, C++/Qt 구현 구조 설계, 외부 연동, 검증과 릴리즈 안정화로
+              이어지는 실제 제품 개발 흐름을 기준으로 구성했습니다.
+            </p>
+          </div>
+          <p class="section-notice">의료기기 제품 보안과 의료정보 보호 기준상 실제 화면·데이터 일부는 비식별화하거나 재구성한 자료로 대체했습니다.</p>
+
+          <div class="project-list">
+            <article class="project-card">
+              <div class="project-media">
+                <img src="resource/05/00_대표_테스트_자동화_인프라.png" alt="UI AutoTest 대표 자료">
+                <button type="button" class="project-preview-trigger project-media-trigger" data-project="autotest">자세히 보기</button>
+              </div>
+              <div class="project-body">
+                <span class="project-kicker">First Project · UI Automation</span>
+                <h3>C++/Qt 기반 UI AutoTest 개발</h3>
+                <span class="project-period">2023.08–2024.11</span>
+                <p>입사 후 첫 업무로 제품 UI 동작을 객체·이벤트 단위로 기록하고 같은 시나리오를 반복 재생하는 AutoTest를 개발했습니다.</p>
+                <ul class="bullet-list">
+                  <li>버튼·콤보박스·슬라이더·트리·테이블과 키보드 입력 기록 및 재현</li>
+                  <li>반복 횟수, 팝업 처리, 장시간 작업 대기와 단계별 진행·결과 표시 구현</li>
+                  <li>수동 UI 검증을 재실행 가능하고 실패 지점을 확인할 수 있는 흐름으로 전환</li>
+                </ul>
+                <ul class="tag-row">
+                  <li>C++</li><li>Qt</li><li>UI Automation</li><li>Replay</li>
+                </ul>
+              </div>
+            </article>
+
+            <article class="project-card">
+              <div class="project-media">
+                <img src="resource/04/02_릴리즈_전_동작_확인.gif" alt="TiSepX에서 전환한 DeepCatch X 클라이언트 화면">
+                <button type="button" class="project-preview-trigger project-media-trigger" data-project="deepcatch">자세히 보기</button>
+              </div>
+              <div class="project-body">
+                <span class="project-kicker">Product Transition · Operation</span>
+                <h3>DeepCatch X 클라이언트 MVVM 구조 전환·기능 개발 및 제품 개선</h3>
+                <span class="project-period">2024.04–2026.06</span>
+                <p>초기 MVVM 구조를 인계받아 주요 기능과 자동화 흐름을 완성하고, 최초 배포 이후 기관별 요구사항과 운영 이슈를 제품 개선으로 연결했습니다.</p>
+                <ul class="bullet-list">
+                  <li>TiSepX 기능과 리소스를 DeepCatch X 제품 구성에 맞게 변경</li>
+                  <li>WW/WL을 반영한 X-ray 영상에 Segmentation Mask와 Annotation을 합성해 결과 이미지 생성</li>
+                  <li>AI 분석 결과와 생성 이미지를 리포트 데이터로 연결하고 PDF 출력 구현</li>
+                  <li>Action/Command와 Action Queue 기반 분석·출력 자동화 구현 후 2024년 6월 최초 배포</li>
+                  <li>기관별 리포트·저장·업로드 옵션과 운영 이슈를 분석해 제품 개선 및 릴리즈 검증에 반영</li>
+                </ul>
+                <ul class="tag-row">
+                  <li>C++</li><li>Qt</li><li>MVVM</li><li>WW/WL</li><li>QWebEngine</li><li>Action Queue</li>
+                </ul>
+              </div>
+            </article>
+
+            <article class="project-card">
+              <div class="project-media">
+                <img src="resource/07/01_MEDIP_Macro_입력_설정.gif" alt="MEDIP Macro 입력 파일과 분석·Export 옵션 설정 화면">
+                <button type="button" class="project-preview-trigger project-media-trigger" data-project="medipmacro">자세히 보기</button>
+              </div>
+              <div class="project-body">
+                <span class="project-kicker">Batch Analysis · Export</span>
+                <h3>MEDIP 배치 분석 및 결과 Export Macro 개발</h3>
+                <span class="project-period">2026.01–2026.04</span>
+                <p>다수의 의료영상 파일을 자동 분석하고 다양한 결과를 저장하는 장시간 배치 Macro를 개발했습니다.</p>
+                <ul class="bullet-list">
+                  <li>복수 AI Segmentation, Surface 생성, Layer·Mesh Export와 원본 HU Volume NII 변환</li>
+                  <li>JSON 실행 설정과 Command/Action Queue 기반 순차 처리</li>
+                  <li>파일별 상태·실패 메시지를 JSONL로 기록하고 개별 실패 후 다음 파일 계속 실행</li>
+                </ul>
+                <ul class="tag-row">
+                  <li>C++</li><li>Qt</li><li>JSON</li><li>Action Queue</li><li>Failure Isolation</li>
+                </ul>
+              </div>
+            </article>
+
+            <article class="project-card">
+              <div class="project-media">
+                <img src="resource/03/00_PACS_Stabilization.png" alt="기존 DICOM/PACS 안정화와 C-ECHO 담당 범위">
+                <button type="button" class="project-preview-trigger project-media-trigger" data-project="pacs">자세히 보기</button>
+              </div>
+              <div class="project-body">
+                <span class="project-kicker">Maintenance · Connectivity</span>
+                <h3>기존 DICOM/PACS 기능 안정화 및 C-ECHO 추가</h3>
+                <span class="project-period">2024.06–2026.06</span>
+                <p>기존 PACS 기능을 새로 구축한 것이 아니라 운영 중 발생한 검색·다운로드·상태 처리 이슈를 분석하고 수정했습니다.</p>
+                <ul class="bullet-list">
+                  <li>기존 Query/Retrieve와 DICOM 송수신 코드의 운영 이슈 분석 및 수정</li>
+                  <li>PACS 설정 화면과 DICOM Network Manager에 비동기 C-ECHO 연결</li>
+                  <li>기관별 설정 차이와 상태 처리 오류를 로그와 재현 조건으로 개선</li>
+                </ul>
+                <ul class="tag-row">
+                  <li>C++</li><li>Qt</li><li>DCMTK</li><li>DICOM C-ECHO</li><li>PACS</li>
+                </ul>
+              </div>
+            </article>
+
+          </div>
+        </section>
+
+        <section class="section" aria-labelledby="evidence-title">
+          <div class="section-header">
+            <div>
+              <span class="section-label">Project Evidence</span>
+              <h2 id="evidence-title">프로젝트 근거로 확인한 구현 범위</h2>
+            </div>
+            <p>
+              실제 제품 코드 이력에서 확인되는 C++/Qt 클라이언트, MVVM 기반 기능 개발, 자동화, TCP/IP·Serial 시스템 연동, AI 분석 결과 연동, DICOM/PACS 안정화,
+              리포트 출력, 기관별 배포 설정, 검증 문서화·릴리즈 구성 경험을 포트폴리오 문구로 정리했습니다.
+            </p>
+          </div>
+          <div class="evidence-grid">
+            <article class="evidence-card">
+              <span>Automation</span>
+              <strong>Action/Command 기반 실행 구조</strong>
+              <p>ActionManager, ActionBase, Macro Build, UserMacro 계열 작업을 통해 반복 분석과 장시간 실행 흐름을 큐 기반 구조로 다뤘습니다.</p>
+            </article>
+            <article class="evidence-card">
+              <span>Architecture</span>
+              <strong>DeepCatch X MVVM 기능 개발</strong>
+              <p>선임 개발자가 구성하던 초기 MVVM 구조를 인계받아 화면 상태와 데이터 흐름을 분석하고 Segmentation·Annotation 출력 기능을 구현했습니다.</p>
+            </article>
+            <article class="evidence-card">
+              <span>Output Pipeline</span>
+              <strong>AI 분석 결과와 리포트 출력 연결</strong>
+              <p>AI 분석 결과와 WW/WL·Overlay가 적용된 결과 이미지를 리포트 데이터로 구성하고 QWebEngine 기반 PDF 출력 흐름에 연결했습니다.</p>
+            </article>
+            <article class="evidence-card">
+              <span>Image Output</span>
+              <strong>WW/WL 기반 Segmentation·Annotation 출력</strong>
+              <p>WW/WL 조건을 반영한 X-ray 영상에 Segmentation Mask와 Annotation을 합성해 결과 이미지를 생성하고 저장·리포트 흐름에 연결했습니다.</p>
+            </article>
+            <article class="evidence-card">
+              <span>Integration</span>
+              <strong>기존 PACS 안정화와 DICOM C-ECHO</strong>
+              <p>이미 구축된 Query/Retrieve와 검색·다운로드 영역의 운영 이슈를 수정하고 PACS 연결 확인을 위한 DICOM C-ECHO를 추가했습니다.</p>
+            </article>
+            <article class="evidence-card">
+              <span>System Integration</span>
+              <strong>TCP/IP·Serial 명령·응답 연동</strong>
+              <p>장비 제어와 외부 소프트웨어 연동을 위한 명령·응답 흐름을 구현하고 WATCHOUT 프로토콜, 연결 상태와 통신 예외를 처리했습니다.</p>
+            </article>
+            <article class="evidence-card">
+              <span>Report Template</span>
+              <strong>환경·제품·기관별 리포트 리소스 반영</strong>
+              <p>환경별, 제품별, 기관별로 달라지는 리포트 템플릿, 배경 PDF/SVG, 이미지 리소스를 제품 산출물에 맞춰 반영했습니다.</p>
+            </article>
+            <article class="evidence-card">
+              <span>Deployment</span>
+              <strong>병원·협회 지부 배포 설정 관리</strong>
+              <p>건강관리협회 전국 지부와 여러 병원 환경에 맞춰 제품 옵션, 라이선스 리소스, 패키지 파일 목록, 업로드 조건, 릴리즈 점검 자료를 정리했습니다.</p>
+            </article>
+            <article class="evidence-card">
+              <span>Quality</span>
+              <strong>UI AutoTest와 배치 실패 격리</strong>
+              <p>UI 동작 기록·재생 AutoTest와 MEDIP Macro의 파일별 상태 기록·실패 격리를 통해 반복 작업의 재현성과 오류 추적을 개선했습니다.</p>
+            </article>
+          </div>
+        </section>
+
+        <section class="section" id="flow" aria-labelledby="flow-title">
+          <div class="section-header">
+            <div>
+              <span class="section-label">Engineering Flow</span>
+              <h2 id="flow-title"><span class="section-title-line">개발 흐름</span><span class="section-title-note">요구 분석에서 릴리즈까지</span></h2>
+            </div>
+            <p>
+              건강관리협회 지부와 병원 현장의 요청을 재현 가능한 제품 이슈로 정리하고, 원인 분석과 C++/Qt 구현, 검증, 배포까지
+              이어지는 흐름으로 개선 사항을 반영했습니다.
+            </p>
+          </div>
+          <div class="flow-grid">
+            <article class="flow-step">
+              <span>01</span>
+              <strong>Field Signal</strong>
+              <p>건강관리협회 지부와 병원 현장의 요청, 로그, 환경 설정, 재현 조건을 제품 이슈로 정리</p>
+            </article>
+            <article class="flow-step">
+              <span>02</span>
+              <strong>Analyze</strong>
+              <p>파일, DB 요청, 외부 command, 사용자 옵션의 흐름과 실패 지점을 확인</p>
+            </article>
+            <article class="flow-step">
+              <span>03</span>
+              <strong>Implement</strong>
+              <p>C++/Qt 기능, MVVM 기반 기능 변경, 설정 분기, 출력물, 연동 로직으로 개선 사항 구현</p>
+            </article>
+            <article class="flow-step">
+              <span>04</span>
+              <strong>Verify</strong>
+              <p>자동 테스트, 수동 확인, 검증 문서와 릴리즈 확인 자료로 수정 결과를 검증</p>
+            </article>
+            <article class="flow-step">
+              <span>05</span>
+              <strong>Feedback</strong>
+              <p>현장 적용 후 추가 요청과 예외 케이스를 다시 제품 개선으로 연결</p>
+            </article>
+          </div>
+        </section>
+
+        <section class="section" id="experience" aria-labelledby="experience-title">
+          <div class="section-header">
+            <div>
+              <span class="section-label">Experience</span>
+              <h2 id="experience-title">경력</h2>
+            </div>
+            <p>
+              C++/Qt 제품 클라이언트 개발자로 UI AutoTest, DeepCatch X MVVM 기능과 최초 배포, MEDIP 배치 Macro,
+              기존 PACS 안정화와 DICOM C-ECHO 추가, 고객 요구사항 분석과 릴리즈 검증 업무를 수행했습니다.
+            </p>
+          </div>
+          <div class="experience-grid">
+            <article class="experience-card">
+              <span class="period">2023.05 - 재직중</span>
+              <h3>메디컬아이피 | Application / 대리</h3>
+              <p>C++/Qt 기반 UI AutoTest를 개발하고, 초기 MVVM 구조를 인계받아 TiSepX를 DeepCatch X로 전환하는 제품 기능과 Action Queue 자동화를 구현해 최초 배포했습니다. 이후 MEDIP 배치 분석·Export Macro 개발, 기존 PACS 운영 이슈 수정과 DICOM C-ECHO 추가, 병원·협회 지부 배포 검증을 수행했습니다.</p>
+            </article>
+            <article class="experience-card">
+              <span class="period">2019.10 - 2023.02</span>
+              <h3>IMPEACH | R&D / 주임</h3>
+              <p>Python/Qt 기반 테스트 애플리케이션과 AMX 기반 통합 제어 프로그램을 개발했습니다. TCP/IP·Serial 기반 장비 제어와 외부 소프트웨어 명령·응답 흐름을 구현하고 WATCHOUT 프로토콜, 연결 상태와 통신 예외를 처리했습니다.</p>
+            </article>
+          </div>
+        </section>
+
+        <section class="section" id="stack" aria-labelledby="stack-title">
+          <div class="section-header">
+            <div>
+              <h2 id="stack-title">기술 스택</h2>
+            </div>
+            <p>
+              C++/Qt 제품 구현, MVVM 기반 기능 개발, UI·배치 자동화, TCP/IP·Serial 시스템 연동, DICOM/PACS 안정화, 영상·리포트 산출물에서 주로 사용한 기술과 도구입니다.
+            </p>
+          </div>
+          <div class="stack-grid">
+            <article class="stack-group">
+              <h3>C++/Qt 개발</h3>
+              <ul class="chips">
+                <li>C/C++</li><li>Qt</li><li>MVVM</li><li>Python</li><li>Visual Studio</li><li>Action/Command</li>
+              </ul>
+            </article>
+            <article class="stack-group">
+              <h3>네트워크·시스템 연동</h3>
+              <ul class="chips">
+                <li>TCP/IP</li><li>Serial</li><li>Command/Response</li><li>WATCHOUT</li><li>DICOM</li><li>PACS</li><li>DCMTK</li><li>DICOM Network</li>
+              </ul>
+            </article>
+            <article class="stack-group">
+              <h3>AI·영상·리포트 산출물</h3>
+              <ul class="chips">
+                <li>AI Result Integration</li><li>DICOM Dataset</li><li>X-ray</li><li>Segmentation</li><li>QWebEngine</li><li>HTML/CSS</li><li>PDF/CSV</li><li>JSON</li>
+              </ul>
+            </article>
+            <article class="stack-group">
+              <h3>데이터·검증 자동화</h3>
+              <ul class="chips">
+                <li>PostgreSQL</li><li>Qt SQL</li><li>File I/O</li><li>GitLab/SVN</li><li>TeamCity</li><li>UI 자동화</li><li>검증 문서</li>
+              </ul>
+            </article>
+          </div>
+        </section>
+
+        <section class="closing" aria-label="마무리">
+          <div>
+            <h2>제품 흐름을 끝까지 책임지는 C++/Qt 개발자</h2>
+            <p>
+              <span>고객 요구를 구조화된 기능으로 구현하고, 검증 가능한 배포 결과로 마무리하는 데 집중합니다.</span>
+              <span>UI 검증 자동화부터 의료영상 클라이언트 기능, 장시간 배치 처리, 기존 연동 안정화와 최초 배포까지 제품 흐름을 다뤄왔습니다.</span>
+            </p>
+          </div>
+        </section>
+
+        <div class="footer-note">C++/Qt Application Engineer Portfolio · 2026.07.24</div>
+      </div>
+
+      <div class="lightbox" id="project-lightbox" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="lightbox-title">
+        <div class="lightbox-backdrop" data-close-lightbox></div>
+        <section class="lightbox-panel">
+          <button type="button" class="lightbox-close" aria-label="닫기" data-close-lightbox>×</button>
+          <div class="lightbox-media-wrap">
+            <div class="lightbox-media" id="lightbox-media"></div>
+            <div class="lightbox-toolbar">
+              <span class="lightbox-count" id="lightbox-count"></span>
+              <div class="lightbox-toolbar-actions">
+                <div class="lightbox-zoom-controls" id="lightbox-zoom-controls" hidden>
+                  <button type="button" class="lightbox-nav" id="lightbox-zoom-out" aria-label="이미지 축소">-</button>
+                  <button type="button" class="lightbox-nav lightbox-zoom-value" id="lightbox-zoom-reset" aria-label="배율 초기화">100%</button>
+                  <button type="button" class="lightbox-nav" id="lightbox-zoom-in" aria-label="이미지 확대">+</button>
+                </div>
+                <div class="lightbox-controls">
+                  <button type="button" class="lightbox-nav" id="lightbox-prev" aria-label="이전 자료">&lt;</button>
+                  <button type="button" class="lightbox-nav" id="lightbox-next" aria-label="다음 자료">&gt;</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="lightbox-copy">
+            <span class="lightbox-meta" id="lightbox-meta"></span>
+          <h2 id="lightbox-title"></h2>
+          <p id="lightbox-description"></p>
+          <ul class="lightbox-detail-list" id="lightbox-details"></ul>
+          <div class="lightbox-scroll-hint">설명 영역은 스크롤해서 전체 내용을 볼 수 있습니다.</div>
+        </div>
+      </section>
+      </div>
+    </main>
+  </div>
+
+  <script src="resource/media-manifest.js"></script>
+  <script>
+    const projectPreviewsKo = {
+      autotest: {
+        title: "C++/Qt 기반 UI AutoTest 개발",
+        meta: "2023.08–2024.11 · First Project",
+        accent: "#e7b84e",
+        mediaFolder: "resource/05",
+        previewImage: "resource/05/00_대표_테스트_자동화_인프라.png",
+        mediaFiles: ["00_대표_테스트_자동화_인프라.png", "01_AutoTest_결과_메일전송.png"],
+        description: "입사 후 첫 업무로 사용자 UI 동작을 객체·이벤트 단위로 기록하고 저장한 시나리오를 반복 실행하는 AutoTest를 개발했습니다.",
+        details: [
+          ["UI 동작 기록", "객체 이름, 이벤트 종류, 마우스 위치와 입력 정보를 기록해 테스트 시나리오로 저장했습니다."],
+          ["다양한 입력 재현", "버튼, 콤보박스, 슬라이더, Line Edit, 트리·리스트·테이블과 키보드·단축키 입력을 재현했습니다."],
+          ["장시간 실행 안정화", "반복 횟수, 팝업 처리, 작업 완료 대기와 단계별 진행·결과 표시를 구현했습니다."],
+          ["검증 방식 개선", "사람이 반복하던 UI 검증을 동일 조건으로 재실행하고 실패 지점을 확인할 수 있는 흐름으로 바꿨습니다."]
+        ],
+        labels: ["C++", "Qt", "UI Automation", "Record", "Replay"]
+      },
+      deepcatch: {
+        title: "DeepCatch X 클라이언트 MVVM 구조 전환·기능 개발 및 제품 개선",
+        meta: "2024.04–2026.06 · Product Development & Operation",
+        accent: "#d35c2f",
+        mediaFolder: "resource/04",
+        previewImage: "resource/04/02_릴리즈_전_동작_확인.gif",
+        mediaFiles: [
+          { file: "01_제품화_기능_개발.gif", title: "전환 전 TiSepX 클라이언트" },
+          { file: "02_릴리즈_전_동작_확인.gif", title: "전환 후 DeepCatch X 클라이언트" },
+          { src: "resource/01/01_매크로_동작.gif", title: "DeepCatch X Action Queue 동작" },
+          { src: "resource/01/03_반복_분석_결과표시.png", title: "DeepCatch X 반복 분석 결과 표시" },
+          { src: "resource/03/05_제품_옵션_구성.png", title: "DeepCatch X 리포트 언어·형식·저장·업로드 설정" },
+          { src: "resource/03/06_결과_이미지_PACS업로드.png", title: "DeepCatch X 리포트 생성 및 PACS 등록 결과" },
+          { file: "03_DeepCatch_X_Validation.png", title: "DeepCatch X 최초 배포 검증 문서" },
+          { src: "resource/04/00_대표_제품_안정화_기준.png", title: "고객 요구사항 분석에서 제품 개선·검증까지의 업무 흐름" }
+        ],
+        description: "초기 MVVM 구조를 인계받아 TiSepX 기능을 DeepCatch X로 전환하고 2024년 6월 최초 배포한 뒤, 기관별 요구사항과 운영 이슈를 제품 개선과 릴리즈 검증으로 연결했습니다.",
+        details: [
+          ["MVVM 구조 인계", "초기 View·ViewModel 구조를 인계받아 기존 화면, 상태와 데이터 흐름을 분석하고 제품 기능을 완성했습니다."],
+          ["TiSepX에서 DeepCatch X로 전환", "기존 TiSepX 클라이언트의 기능과 리소스를 DeepCatch X 제품 구성으로 변경했으며, 갤러리 첫 두 화면은 전환 전·후를 비교한 자료입니다."],
+          ["WW/WL 기반 영상 출력", "WW/WL 조건을 반영한 X-ray 영상에 AI Segmentation Mask와 Annotation을 합성해 화면과 저장용 결과 이미지를 생성했습니다."],
+          ["리포트 출력", "AI 분석 결과와 생성 이미지를 리포트 데이터로 구성하고 QWebEngine 렌더링과 PDF 출력 흐름에 연결했습니다."],
+          ["분석 자동화", "분석과 결과 출력 작업을 Action/Command로 분리하고 Action Queue에서 순차 실행하도록 구성했습니다."],
+          ["최초 배포", "기능 검증과 릴리즈 확인을 거쳐 2024년 6월 DeepCatch X를 최초 배포했습니다."],
+          ["기관별 요구사항 반영", "리포트 형식, 파일명, 저장 경로와 업로드 조건을 제품 설정과 기능 분기로 정리했습니다."],
+          ["운영 이슈와 제품 개선", "로그, 덤프, 동작 차이와 환경 설정으로 재현 조건을 정리하고 기능 수정·예외 처리·옵션 개선으로 연결했습니다."],
+          ["검증과 배포 안정화", "개선 기능을 테스트 항목, 검증 문서와 릴리즈 확인 범위로 연결했습니다."]
+        ],
+        labels: ["C++", "Qt", "MVVM", "WW/WL", "Segmentation", "Annotation", "QWebEngine", "Action Queue", "Product Option", "Validation"]
+      },
+      medipmacro: {
+        title: "MEDIP 배치 분석 및 결과 Export Macro 개발",
+        meta: "2026.01–2026.04 · Batch Automation",
+        accent: "#0f6f68",
+        mediaFolder: "resource/07",
+        previewImage: "resource/07/01_MEDIP_Macro_입력_설정.gif",
+        mediaFiles: [
+          { file: "01_MEDIP_Macro_입력_설정.gif", title: "MEDIP Macro 설정부터 AI 분석 실행·결과 폴더 확인" },
+          { file: "02_MEDIP_Macro_옵션_구성.png", title: "MEDIP Macro 화면 구성과 지원 옵션" },
+          { file: "03_MEDIP_Macro_실행_상태.png", title: "MEDIP Macro 파일별 실행 상태와 실패 메시지 기록" }
+        ],
+        description: "다수의 DICOM·MIP 데이터를 대상으로 AI 분석과 다양한 결과 저장을 파일별 Action과 세부 Command로 순차 실행하는 MEDIP Macro를 개발했습니다.",
+        details: [
+          ["입력·설정 관리", ".dcm·.mip 파일과 폴더를 Drag & Drop으로 추가하고 하위 폴더를 재귀 탐색했습니다. 대상 파일, 복수 AI 프로젝트와 Export 옵션은 JSON으로 저장·불러오도록 구성했습니다."],
+          ["분석·Surface 생성", "파일별로 DICOM을 로드하고 복수 AI Segmentation 프로젝트를 순차 실행한 뒤 Mask를 기반으로 Preview Surface를 생성했습니다."],
+          ["Layer·Mesh Export", "Layer 이름의 Start·End·Contains 규칙 또는 전체 선택으로 NII·RAW·STL·OBJ를 출력했습니다. Mesh별 Smooth 횟수와 Laplacian·Taubin·HC Laplacian 방식을 적용하고 STL·OBJ로 저장했습니다."],
+          ["의료영상 결과 저장", "원본 DICOM HU Volume을 NII로 변환하고 Volume·Mask·Mesh·Annotation·AI 결과를 MIP로 저장했습니다. 영상 크기·Spacing과 Layer별 voxel 수·비율·체적은 CSV로 기록했습니다."],
+          ["Action Queue와 실패 격리", "각 파일을 독립 Action으로, 내부 단계를 Command로 구성했습니다. 현재 파일의 Command가 실패하면 해당 파일을 Failed로 기록한 뒤 다음 파일 Action을 계속 실행했습니다."],
+          ["상태·실행 관리", "NotStarted·Running·Success·Failed·Interrupted 상태와 실패 메시지를 JSONL로 기록하고, 결과 폴더 중복 방지와 실행 중 창 종료 방지, 취소·완료 후 UI 복원을 처리했습니다."]
+        ],
+        labels: ["C++", "Qt", "JSON", "Command", "Action Queue", "NII", "STL/OBJ", "Failure Isolation"]
+      },
+      pacs: {
+        title: "기존 DICOM/PACS 기능 안정화 및 C-ECHO 추가",
+        meta: "2024.06–2026.06 · Maintenance",
+        accent: "#2f6f9f",
+        mediaFolder: "resource/03",
+        previewImage: "resource/03/00_PACS_Stabilization.png",
+        mediaFiles: [
+          { file: "00_PACS_Stabilization.png", title: "기존 DICOM/PACS 안정화와 C-ECHO 담당 범위 요약" }
+        ],
+        description: "이미 구축된 PACS 기능을 기반으로 검색·다운로드·상태 처리 이슈를 수정하고 서버 연결 확인을 위한 DICOM C-ECHO를 추가했습니다.",
+        details: [
+          ["기존 기능 유지보수", "PACS Query/Retrieve와 검색·다운로드, DICOM 송수신 코드를 새로 구현한 것이 아니라 운영 이슈를 분석하고 수정했습니다."],
+          ["DICOM C-ECHO 추가", "PACS 설정 화면과 DICOM Network Manager에 비동기 Echo 동작을 연결해 서버 연결 가능 여부를 확인하도록 했습니다."],
+          ["운영 이슈 개선", "기관별 설정 차이, 포트와 프로그램 상태, 응답 처리 오류를 로그와 재현 조건으로 분석했습니다."],
+          ["담당 범위 명확화", "기존 연동 구조를 유지하면서 오류 수정과 연결 확인 기능 추가에 집중했습니다."]
+        ],
+        labels: ["C++", "Qt", "DCMTK", "DICOM C-ECHO", "PACS", "Maintenance"]
+      }
+    };
+
+    const projectPreviewsEn = {
+      autotest: {
+        title: "C++/Qt UI AutoTest Development",
+        meta: "Aug 2023–Nov 2024 · First Project",
+        accent: "#e7b84e",
+        mediaFolder: "resource/05",
+        previewImage: "resource/05/00_Test_Automation_Infrastructure_en.png",
+        mediaFiles: ["00_Test_Automation_Infrastructure_en.png", "01_AutoTest_결과_메일전송.png"],
+        description: "As my first assignment, I developed AutoTest to record UI actions at the object and event level and replay saved scenarios repeatedly.",
+        details: [
+          ["UI action recording", "Recorded object names, event types, mouse positions, and input data as reusable test scenarios."],
+          ["Input replay", "Replayed buttons, combo boxes, sliders, line edits, trees, lists, tables, keyboard input, and shortcuts."],
+          ["Long-running stability", "Implemented repeat counts, popup handling, task completion waits, and step-by-step progress and result displays."],
+          ["Validation improvement", "Turned manual UI checks into reproducible flows with traceable failure points."]
+        ],
+        labels: ["C++", "Qt", "UI Automation", "Record", "Replay"]
+      },
+      deepcatch: {
+        title: "DeepCatch X Client MVVM Transition, Feature Development, and Product Improvement",
+        meta: "Apr 2024–Jun 2026 · Product Development & Operation",
+        accent: "#d35c2f",
+        mediaFolder: "resource/04",
+        previewImage: "resource/04/02_릴리즈_전_동작_확인.gif",
+        mediaFiles: [
+          { file: "01_제품화_기능_개발.gif", title: "Before Transition: TiSepX Client" },
+          { file: "02_릴리즈_전_동작_확인.gif", title: "After Transition: DeepCatch X Client" },
+          { src: "resource/01/01_매크로_동작.gif", title: "DeepCatch X Action Queue Flow" },
+          { src: "resource/01/03_반복_분석_결과표시.png", title: "DeepCatch X Repeated Analysis Results" },
+          { src: "resource/03/05_제품_옵션_구성.png", title: "DeepCatch X Report Language, Format, Save, and Upload Settings" },
+          { src: "resource/03/06_결과_이미지_PACS업로드.png", title: "DeepCatch X Report Generation and PACS Registration Result" },
+          { file: "03_DeepCatch_X_Validation_en.png", title: "DeepCatch X First-release Validation Document" },
+          { src: "resource/04/00_Product_Stabilization_Checks_en.png", title: "Workflow from Customer Requirements to Product Improvement and Validation" }
+        ],
+        description: "Inherited the initial MVVM structure, transitioned TiSepX features into DeepCatch X, completed the first release in June 2024, and connected institution-specific requirements and operational issues to product improvements and release validation.",
+        details: [
+          ["Inherited MVVM foundation", "Analyzed the existing screens, state, and data flow on top of the initial View and ViewModel structure."],
+          ["TiSepX-to-DeepCatch X transition", "Converted the existing TiSepX client features and resources into the DeepCatch X product configuration. The first two gallery items show the client before and after the transition."],
+          ["WW/WL-based imaging output", "Applied WW/WL settings to X-ray images and composited AI segmentation masks and annotations into screen and saved result images."],
+          ["Report output", "Composed AI results and generated images as report data and connected them to QWebEngine rendering and PDF output."],
+          ["Analysis automation", "Separated analysis and output work into Action and Command units executed sequentially through the Action Queue."],
+          ["First release", "Completed feature validation and delivered the first DeepCatch X release in June 2024."],
+          ["Institution-specific requirements", "Organized report formats, filenames, save paths, and upload conditions into product settings and feature branches."],
+          ["Operational issues and improvements", "Used logs, dumps, behavior differences, and environment settings to define reproducible conditions and turn them into fixes, exception handling, and option improvements."],
+          ["Validation and release stabilization", "Connected improvements to test cases, validation documents, and release checks."]
+        ],
+        labels: ["C++", "Qt", "MVVM", "WW/WL", "Segmentation", "Annotation", "QWebEngine", "Action Queue", "Product Option", "Validation"]
+      },
+      medipmacro: {
+        title: "MEDIP Batch Analysis and Export Macro",
+        meta: "Jan–Apr 2026 · Batch Automation",
+        accent: "#0f6f68",
+        mediaFolder: "resource/07",
+        previewImage: "resource/07/01_MEDIP_Macro_입력_설정.gif",
+        mediaFiles: [
+          { file: "01_MEDIP_Macro_입력_설정.gif", title: "MEDIP Macro Configuration, AI Execution, and Output-folder Verification" },
+          { file: "02_MEDIP_Macro_옵션_구성.png", title: "MEDIP Macro Screen Layout and Supported Options" },
+          { file: "03_MEDIP_Macro_실행_상태.png", title: "MEDIP Macro Per-file Status and Failure-message Logging" }
+        ],
+        description: "Developed a MEDIP Macro that processes multiple DICOM and MIP inputs through per-file Actions and detailed Commands for AI analysis and multi-format output.",
+        details: [
+          ["Input and configuration", "Accepted .dcm and .mip files or folders through drag and drop, recursively collected inputs, and saved target files, multiple AI projects, and export options as JSON."],
+          ["Analysis and surface generation", "Loaded DICOM data, ran multiple AI segmentation projects sequentially, and generated preview surfaces from the resulting masks."],
+          ["Layer and mesh exports", "Selected layers by Start, End, or Contains name rules and exported NII, RAW, STL, and OBJ. Applied per-mesh Laplacian, Taubin, or HC Laplacian smoothing before STL/OBJ export."],
+          ["Medical-image outputs", "Converted the original DICOM HU volume to NII, saved volume, mask, mesh, annotation, and AI results in MIP, and wrote image dimensions, spacing, and per-layer voxel and volume metrics to CSV."],
+          ["Action Queue and failure isolation", "Modeled each file as an independent Action and each processing stage as a Command. A failed file was recorded and removed while the queue continued with the next file."],
+          ["Status and execution control", "Recorded NotStarted, Running, Success, Failed, and Interrupted states with messages in JSONL and handled collision-free result folders, close prevention, cancellation, and UI restoration."]
+        ],
+        labels: ["C++", "Qt", "JSON", "Command", "Action Queue", "NII", "STL/OBJ", "Failure Isolation"]
+      },
+      pacs: {
+        title: "DICOM/PACS Stabilization and C-ECHO Addition",
+        meta: "Jun 2024–Jun 2026 · Maintenance",
+        accent: "#2f6f9f",
+        mediaFolder: "resource/03",
+        previewImage: "resource/03/00_PACS_Stabilization_en.png",
+        mediaFiles: [
+          { file: "00_PACS_Stabilization_en.png", title: "Existing DICOM/PACS Stabilization and C-ECHO Ownership Summary" }
+        ],
+        description: "Maintained existing PACS features by fixing search, download, and status issues and adding DICOM C-ECHO for connectivity checks.",
+        details: [
+          ["Existing-feature maintenance", "Analyzed and fixed operational issues in the existing Query/Retrieve, search, download, and DICOM transfer code rather than building those features from scratch."],
+          ["DICOM C-ECHO", "Connected an asynchronous Echo operation to PACS settings and the DICOM Network Manager for server connectivity checks."],
+          ["Operational issue fixes", "Used logs and reproduction conditions to resolve institution-specific settings, port state, and response-handling issues."],
+          ["Clear ownership", "Focused on stabilizing the existing integration and adding connectivity verification."]
+        ],
+        labels: ["C++", "Qt", "DCMTK", "DICOM C-ECHO", "PACS", "Maintenance"]
+      }
+    };
+
+    const pageTranslations = {
+      ko: {
+        documentTitle: "한재성 | C++/Qt Application Engineer",
+        brand: "한재성 | C++ Application Engineer",
+        brandAria: "처음으로 이동",
+        languageLabel: "언어 선택",
+        navAria: "주요 섹션",
+        nav: ["맨 위로", "작업 사례", "개발 흐름", "경력", "스택"],
+        print: "PDF",
+        heroAria: "소개",
+        heroTitle: ["제품 흐름을 구조화하는", "C++/Qt 개발자"],
+        summaryLabel: "Summary",
+        summaryText: "C++/Qt 기반 UI AutoTest 개발을 시작으로 TiSepX를 DeepCatch X로 전환하는 제품 개발에 참여했습니다. 초기 MVVM 구조를 인계받아 WW/WL 기반 Segmentation·Annotation 결과 이미지와 리포트 출력, Action Queue 자동화를 구현하고 2024년 6월 최초 배포를 완료했습니다. 최근에는 JSON 설정, 다양한 결과 Export, 파일별 상태·실패 메시지 기록과 실패 격리를 갖춘 MEDIP 배치 Macro를 개발했으며, 기존 PACS 영역에서는 운영 이슈를 수정하고 DICOM C-ECHO 연결 확인 기능을 추가했습니다.",
+        summaryCta: "작업 사례 보기",
+        metricsAria: "핵심 요약",
+        metrics: ["제품 개발 경험", "Windows 앱", "검증/안정화", "요구 분석"],
+        profileLabel: "Profile",
+        profileRows: [
+          ["이름", "한재성"],
+          ["포지션", "C++/Qt Application Engineer"],
+          ["강점", "C++/Qt, UI·배치 자동화, TCP/IP·Serial 시스템 연동, DICOM/PACS 안정화"],
+          ["연락처", "필요 시 별도 전달"]
+        ],
+        signal: {
+          label: "Core Signals",
+          title: "제품 완성도를 높이는 C++/Qt 개발 역량",
+          body: "UI 기록·재생 AutoTest, DeepCatch X의 MVVM 기반 영상 결과 출력과 최초 배포, MEDIP 배치 Macro, 기존 DICOM/PACS 기능 안정화까지 메디컬아이피에서 실제 담당한 제품 개발 범위를 중심으로 정리했습니다.",
+          cards: [
+            ["UI AutoTest", "UI 객체와 이벤트를 기록하고 다양한 Qt 위젯과 키보드 입력을 재현하는 반복 검증 도구를 개발했습니다."],
+            ["MEDIP 배치 Macro", "JSON 설정과 Command·Action Queue로 장시간 분석·Export를 실행하고 파일별 상태 기록과 실패 격리를 구현했습니다."],
+            ["AI·의료영상 출력 연동", "WW/WL을 반영한 X-ray 영상과 Segmentation·Annotation Overlay를 결과 이미지와 PDF 리포트로 연결했습니다."],
+            ["DICOM/PACS 안정화", "기존 Query/Retrieve와 송수신 과정의 운영 이슈를 수정하고 연결 확인용 DICOM C-ECHO를 추가했습니다."],
+            ["TCP/IP·Serial 시스템 연동", "장비와 외부 소프트웨어의 명령·응답 흐름을 구현하고 WATCHOUT 연동, 연결 상태와 통신 예외를 처리했습니다."],
+            ["배포 운영·고객 이슈 분석", "건강관리협회 전국 지부와 여러 병원 환경에서 발생하는 요청을 재현 조건, 로그, 설정 차이, 제품 개선 항목으로 정리했습니다."],
+            ["문서화와 릴리즈 안정화", "요구사항 정리, 검증 문서, 릴리즈 확인 자료, 제품 옵션 확인까지 배포 전 품질을 챙겼습니다."]
+          ]
+        },
+        work: {
+          label: "Selected Projects",
+          title: "작업 사례",
+          note: "주요 프로젝트",
+          body: "메디컬아이피에서 수행한 주요 제품 개발 경험을 실제 담당 범위에 맞춰 AutoTest, DeepCatch X, MEDIP Macro와 기존 PACS 안정화로 구성했습니다.",
+          notice: "의료기기 제품 보안과 의료정보 보호 기준상 실제 화면·데이터 일부는 비식별화하거나 재구성한 자료로 대체했습니다.",
+          button: "자세히 보기",
+          projects: [
+            {
+              alt: "UI AutoTest 대표 자료",
+              title: "C++/Qt 기반 UI AutoTest 개발",
+              body: "입사 후 첫 업무로 제품 UI 동작을 객체·이벤트 단위로 기록하고 같은 시나리오를 반복 재생하는 AutoTest를 개발했습니다.",
+              bullets: ["버튼·콤보박스·슬라이더·트리·테이블과 키보드 입력 기록 및 재현", "반복 횟수, 팝업 처리, 장시간 작업 대기와 단계별 진행·결과 표시 구현", "수동 UI 검증을 재실행 가능하고 실패 지점을 확인할 수 있는 흐름으로 전환"]
+            },
+            {
+              alt: "DeepCatch X 검증 대표 자료",
+              title: "DeepCatch X 클라이언트 MVVM 구조 전환·기능 개발 및 제품 개선",
+              body: "초기 MVVM 구조를 인계받아 주요 기능과 자동화 흐름을 완성하고, 최초 배포 이후 기관별 요구사항과 운영 이슈를 제품 개선으로 연결했습니다.",
+              bullets: ["TiSepX 기능과 리소스를 DeepCatch X 제품 구성에 맞게 변경", "WW/WL을 반영한 X-ray 영상에 Segmentation Mask와 Annotation을 합성해 결과 이미지 생성", "AI 분석 결과와 생성 이미지를 리포트 데이터로 연결하고 PDF 출력 구현", "Action/Command와 Action Queue 기반 분석·출력 자동화 구현 후 2024년 6월 최초 배포", "기관별 리포트·저장·업로드 옵션과 운영 이슈를 분석해 제품 개선 및 릴리즈 검증에 반영"]
+            },
+            {
+              alt: "MEDIP Macro 배치 실행 대표 자료",
+              title: "MEDIP 배치 분석 및 결과 Export Macro 개발",
+              body: "다수의 DICOM·MIP 데이터를 자동 분석하고 다양한 결과를 저장하는 장시간 배치 Macro를 개발했습니다.",
+              bullets: ["복수 AI Segmentation, Surface 생성, Layer·Mesh Export와 원본 HU Volume NII 변환", "JSON 실행 설정과 Command/Action Queue 기반 순차 처리", "파일별 상태·실패 메시지를 JSONL로 기록하고 개별 실패 후 다음 파일 계속 실행"]
+            },
+            {
+              alt: "DICOM/PACS 안정화 대표 자료",
+              title: "기존 DICOM/PACS 기능 안정화 및 C-ECHO 추가",
+              body: "기존 PACS 기능을 새로 구축한 것이 아니라 운영 중 발생한 검색·다운로드·상태 처리 이슈를 분석하고 수정했습니다.",
+              bullets: ["기존 Query/Retrieve와 DICOM 송수신 코드의 운영 이슈 분석 및 수정", "PACS 설정 화면과 DICOM Network Manager에 비동기 C-ECHO 연결", "기관별 설정 차이와 상태 처리 오류를 로그와 재현 조건으로 개선"]
+            }
+          ]
+        },
+        evidence: {
+          label: "Project Evidence",
+          title: "프로젝트 근거로 확인한 구현 범위",
+          body: "실제 제품 코드 이력에서 확인되는 C++/Qt 클라이언트, MVVM 기반 기능 개발, UI·배치 자동화, TCP/IP·Serial 시스템 연동, AI 분석 결과 연동, DICOM/PACS 안정화, 리포트 출력과 릴리즈 경험을 정리했습니다.",
+          cards: [
+            ["Automation", "Action/Command 기반 실행 구조", "ActionManager, ActionBase, Macro Build, UserMacro 계열 작업을 통해 반복 분석과 장시간 실행 흐름을 큐 기반 구조로 다뤘습니다."],
+            ["Architecture", "DeepCatch X MVVM 기능 개발", "선임 개발자가 구성하던 초기 MVVM 구조를 인계받아 화면 상태와 데이터 흐름을 분석하고 Segmentation·Annotation 출력 기능을 구현했습니다."],
+            ["Output Pipeline", "AI 분석 결과와 리포트 출력 연결", "AI 분석 결과와 WW/WL·Overlay가 적용된 결과 이미지를 리포트 데이터로 구성하고 QWebEngine 기반 PDF 출력 흐름에 연결했습니다."],
+            ["Image Output", "WW/WL 기반 Segmentation·Annotation 출력", "WW/WL 조건을 반영한 X-ray 영상에 Segmentation Mask와 Annotation을 합성해 결과 이미지를 생성하고 저장·리포트 흐름에 연결했습니다."],
+            ["Integration", "기존 PACS 안정화와 DICOM C-ECHO", "이미 구축된 Query/Retrieve와 검색·다운로드 영역의 운영 이슈를 수정하고 PACS 연결 확인을 위한 DICOM C-ECHO를 추가했습니다."],
+            ["System Integration", "TCP/IP·Serial 명령·응답 연동", "장비 제어와 외부 소프트웨어 연동을 위한 명령·응답 흐름을 구현하고 WATCHOUT 프로토콜, 연결 상태와 통신 예외를 처리했습니다."],
+            ["Report Template", "환경·제품·기관별 리포트 리소스 반영", "환경별, 제품별, 기관별로 달라지는 리포트 템플릿, 배경 PDF/SVG, 이미지 리소스를 제품 산출물에 맞춰 반영했습니다."],
+            ["Deployment", "병원·협회 지부 배포 설정 관리", "건강관리협회 전국 지부와 여러 병원 환경에 맞춰 제품 옵션, 라이선스 리소스, 패키지 파일 목록, 업로드 조건, 릴리즈 점검 자료를 정리했습니다."],
+            ["Quality", "UI AutoTest와 배치 실패 격리", "UI 동작 기록·재생 AutoTest와 MEDIP Macro의 파일별 상태 기록·실패 격리를 통해 반복 작업의 재현성과 오류 추적을 개선했습니다."]
+          ]
+        },
+        flow: {
+          label: "Engineering Flow",
+          title: "개발 흐름",
+          note: "요구 분석에서 릴리즈까지",
+          body: "건강관리협회 지부와 병원 현장의 요청을 재현 가능한 제품 이슈로 정리하고, 원인 분석과 C++/Qt 구현, 검증, 배포까지 이어지는 흐름으로 개선 사항을 반영했습니다.",
+          steps: [
+            ["Field Signal", "건강관리협회 지부와 병원 현장의 요청, 로그, 환경 설정, 재현 조건을 제품 이슈로 정리"],
+            ["Analyze", "파일, DB 요청, 외부 command, 사용자 옵션의 흐름과 실패 지점을 확인"],
+            ["Implement", "C++/Qt 기능, MVVM 기반 기능 변경, 설정 분기, 출력물, 연동 로직으로 개선 사항 구현"],
+            ["Verify", "자동 테스트, 수동 확인, 검증 문서와 릴리즈 확인 자료로 수정 결과를 검증"],
+            ["Feedback", "현장 적용 후 추가 요청과 예외 케이스를 다시 제품 개선으로 연결"]
+          ]
+        },
+        experience: {
+          label: "Experience",
+          title: "경력",
+          body: "C++/Qt 제품 클라이언트 개발자로 UI AutoTest, DeepCatch X MVVM 기능과 최초 배포, MEDIP 배치 Macro, 기존 PACS 안정화와 DICOM C-ECHO 추가, 고객 요구사항 분석과 릴리즈 검증을 수행했습니다.",
+          cards: [
+            ["2023.05 - 재직중", "메디컬아이피 | Application / 대리", "C++/Qt 기반 UI AutoTest를 개발하고, 초기 MVVM 구조를 인계받아 TiSepX를 DeepCatch X로 전환하는 제품 기능과 Action Queue 자동화를 구현해 최초 배포했습니다. 이후 MEDIP 배치 분석·Export Macro 개발, 기존 PACS 운영 이슈 수정과 DICOM C-ECHO 추가, 병원·협회 지부 배포 검증을 수행했습니다."],
+            ["2019.10 - 2023.02", "IMPEACH | R&D / 주임", "Python/Qt 기반 테스트 애플리케이션과 AMX 기반 통합 제어 프로그램을 개발했습니다. TCP/IP·Serial 기반 장비 제어와 외부 소프트웨어 명령·응답 흐름을 구현하고 WATCHOUT 프로토콜, 연결 상태와 통신 예외를 처리했습니다."]
+          ]
+        },
+        stack: {
+          title: "기술 스택",
+          body: "C++/Qt 제품 구현, MVVM 기반 기능 개발, UI·배치 자동화, TCP/IP·Serial 시스템 연동, DICOM/PACS 안정화, 영상·리포트 산출물에서 주로 사용한 기술과 도구입니다.",
+          groups: [
+            ["C++/Qt 개발", ["C/C++", "Qt", "MVVM", "Python", "Visual Studio", "Action/Command"]],
+            ["네트워크·시스템 연동", ["TCP/IP", "Serial", "Command/Response", "WATCHOUT", "DICOM", "PACS", "DCMTK", "DICOM Network"]],
+            ["AI·영상·리포트 산출물", ["AI Result Integration", "DICOM Dataset", "X-ray", "Segmentation", "QWebEngine", "HTML/CSS", "PDF/CSV", "JSON"]],
+            ["데이터·검증 자동화", ["PostgreSQL", "Qt SQL", "File I/O", "GitLab/SVN", "TeamCity", "UI 자동화", "검증 문서"]]
+          ]
+        },
+        closing: {
+          aria: "마무리",
+          title: "제품 흐름을 끝까지 책임지는 C++/Qt 개발자",
+          lines: ["고객 요구와 배포 환경 조건을 구조화된 기능으로 구현하고, 검증 가능한 배포 결과로 마무리하는 데 집중합니다.", "UI 검증 자동화부터 의료영상 클라이언트 기능, 장시간 배치 처리, 기존 연동 안정화와 최초 배포까지 제품 흐름을 다뤄왔습니다."]
+        },
+        footer: "C++/Qt Application Engineer Portfolio · 2026.07.23",
+        lightbox: {
+          close: "닫기",
+          zoomOut: "이미지 축소",
+          zoomReset: "배율 초기화",
+          zoomIn: "이미지 확대",
+          prev: "이전 자료",
+          next: "다음 자료",
+          hint: "설명 영역은 스크롤해서 전체 내용을 볼 수 있습니다.",
+          imageSuffix: "이미지",
+          videoSuffix: "영상",
+          fallbackSuffix: "대체 프리뷰",
+          material: "자료"
+        }
+      },
+      en: {
+        documentTitle: "JaeSung Han | C++/Qt Application Engineer",
+        brand: "JaeSung Han | C++ Application Engineer",
+        brandAria: "Go to top",
+        languageLabel: "Language",
+        navAria: "Primary sections",
+        nav: ["Top", "Projects", "Flow", "Experience", "Stack"],
+        print: "PDF",
+        heroAria: "Introduction",
+        heroTitle: ["Structuring Product Flows", "C++/Qt Developer"],
+        summaryLabel: "Summary",
+        summaryText: "I began with a C++/Qt UI AutoTest, then joined the TiSepX-to-DeepCatch X product transition. After inheriting the initial MVVM structure, I implemented WW/WL-based segmentation and annotation result images, report output, and Action Queue automation, then completed the first release in June 2024. More recently, I developed a MEDIP batch analysis/export Macro with JSON configuration, detailed output Commands, per-file status tracking, and failure isolation. For PACS, I maintained existing functionality and added DICOM C-ECHO connectivity checks.",
+        summaryCta: "View Projects",
+        metricsAria: "Key summary",
+        metrics: ["Product development", "Windows apps", "Validation/release", "Requirement analysis"],
+        profileLabel: "Profile",
+        profileRows: [
+          ["Name", "JaeSung Han"],
+          ["Position", "C++/Qt Application Engineer"],
+          ["Strengths", "C++/Qt, UI and batch automation, TCP/IP and Serial system integration, DICOM/PACS stabilization"],
+          ["Contact", "Available upon request"]
+        ],
+        signal: {
+          label: "Core Signals",
+          title: "C++/Qt Capabilities That Improve Product Completeness",
+          body: "Focused on the Medical IP product work I directly owned: UI record/replay AutoTest, MVVM-based DeepCatch X features and first release, the MEDIP batch Macro, and stabilization of existing DICOM/PACS functionality.",
+          cards: [
+            ["UI AutoTest", "Developed a repeatable validation tool that records UI objects and events and replays Qt widgets and keyboard input."],
+            ["MEDIP Batch Macro", "Used JSON configuration and Command/Action Queue execution for long-running analysis and exports, with per-file status tracking and failure isolation."],
+            ["AI and Medical Image Output", "Applied WW/WL to X-ray images, composited segmentation and annotation overlays, and connected the results to images and PDF reports."],
+            ["DICOM/PACS Stabilization", "Fixed operational issues in existing Query/Retrieve and transfer flows and added DICOM C-ECHO connectivity checks."],
+            ["TCP/IP and Serial System Integration", "Implemented command/response flows for equipment and external software, including WATCHOUT integration, connection-state handling, and communication exceptions."],
+            ["Deployment and Issue Analysis", "Organized requests from nationwide health association branches and hospitals into reproducible conditions, logs, configuration differences, and product improvement items."],
+            ["Documentation and Release Stabilization", "Covered pre-release quality through requirements organization, validation documents, release check materials, and product option checks."]
+          ]
+        },
+        work: {
+          label: "Selected Projects",
+          title: "Work Cases",
+          note: "Key Projects",
+          body: "The selected projects focus on my Medical IP work across AutoTest, DeepCatch X, the MEDIP Macro, and stabilization of existing PACS functionality.",
+          notice: "Due to medical device product security and medical information protection requirements, some real screens and data have been de-identified or reconstructed.",
+          button: "Details",
+          projects: [
+            {
+              alt: "UI AutoTest representative material",
+              title: "C++/Qt UI AutoTest Development",
+              body: "As my first assignment, I developed AutoTest to record UI actions at the object and event level and replay the same scenarios.",
+              bullets: ["Recorded and replayed buttons, combo boxes, sliders, trees, tables, and keyboard input", "Implemented repeat counts, popup handling, long task waits, and step-level progress and results", "Turned manual UI checks into reproducible flows with traceable failure points"]
+            },
+            {
+              alt: "DeepCatch X validation material",
+              title: "DeepCatch X Client MVVM Transition, Feature Development, and Product Improvement",
+              body: "Inherited the initial MVVM structure, completed core imaging and automation features, and connected post-release institution requirements and operational issues to product improvements.",
+              bullets: ["Transitioned TiSepX features and resources into the DeepCatch X product configuration", "Applied WW/WL to X-ray images and composited segmentation masks and annotations", "Connected AI results and generated images to report data and PDF output", "Built Action/Command and Action Queue automation and completed the first release in June 2024", "Reflected institution-specific report, save, and upload options and operational issues in product improvements and release validation"]
+            },
+            {
+              alt: "MEDIP Macro batch execution material",
+              title: "MEDIP Batch Analysis and Export Macro",
+              body: "Developed a long-running batch Macro that analyzes multiple DICOM and MIP inputs and saves multiple result formats.",
+              bullets: ["Automated multiple AI segmentations, surface creation, layer and mesh exports, and original HU volume NII conversion", "Used JSON execution settings and sequential Command/Action Queue processing", "Recorded per-file states and failure messages in JSONL and continued with the next file after an isolated failure"]
+            },
+            {
+              alt: "DICOM/PACS stabilization material",
+              title: "DICOM/PACS Stabilization and C-ECHO Addition",
+              body: "Maintained existing PACS functionality by fixing search, download, and status issues rather than building Query/Retrieve from scratch.",
+              bullets: ["Analyzed and fixed operational issues in existing Query/Retrieve and DICOM transfer code", "Connected asynchronous C-ECHO to PACS settings and the DICOM Network Manager", "Resolved institution-specific settings and status errors using logs and reproduction conditions"]
+            }
+          ]
+        },
+        evidence: {
+          label: "Project Evidence",
+          title: "Implementation Scope Backed by Work History",
+          body: "Summarized portfolio copy based on actual work history covering C++/Qt clients, MVVM-based feature development, UI and batch automation, TCP/IP and Serial system integration, AI and image output, existing DICOM/PACS stabilization, report output, and release validation.",
+          cards: [
+            ["Automation", "Action/Command-based execution structure", "Handled repeated analysis and long-running execution flows through queue-based structures such as ActionManager, ActionBase, Macro Build, and UserMacro."],
+            ["Architecture", "DeepCatch X MVVM feature development", "Inherited the initial MVVM structure, analyzed screen state and data flow, and implemented segmentation and annotation output."],
+            ["Output Pipeline", "AI result and report output integration", "Composed AI results and WW/WL/overlay result images as report data and connected them to QWebEngine-based PDF output."],
+            ["Image Output", "WW/WL-based segmentation and annotation output", "Applied WW/WL settings to X-ray images, composited segmentation masks and annotations, and connected result images to save and report flows."],
+            ["Integration", "Existing PACS stabilization and DICOM C-ECHO", "Fixed operational issues in existing Query/Retrieve and search/download areas and added DICOM C-ECHO for PACS connectivity checks."],
+            ["System Integration", "TCP/IP and Serial command/response integration", "Implemented command/response flows for equipment and external software and handled WATCHOUT integration, connection states, and communication exceptions."],
+            ["Report Template", "Environment/product/institution report resources", "Reflected report templates, background PDF/SVG resources, and image resources that vary by environment, product, and institution into product outputs."],
+            ["Deployment", "Hospital and association branch configuration", "Organized product options, license resources, package file lists, upload conditions, and release check materials for health association branch and hospital environments."],
+            ["Quality", "UI AutoTest and batch failure isolation", "Improved repeatability and error traceability through UI record/replay AutoTest and MEDIP Macro per-file status tracking and failure isolation."]
+          ]
+        },
+        flow: {
+          label: "Engineering Flow",
+          title: "Development Flow",
+          note: "From requirement analysis to release",
+          body: "Organized branch and hospital field requests into reproducible product issues and reflected improvements through root cause analysis, C++/Qt implementation, validation, and deployment.",
+          steps: [
+            ["Field Signal", "Organize branch and hospital requests, logs, environment settings, and reproduction conditions into product issues"],
+            ["Analyze", "Check files, DB requests, external commands, user options, and failure points"],
+            ["Implement", "Implement improvements through C++/Qt features, MVVM structure changes, setting branches, outputs, and integration logic"],
+            ["Verify", "Validate fixes through automated tests, manual checks, validation documents, and release check materials"],
+            ["Feedback", "Connect additional field requests and exception cases back to product improvements"]
+          ]
+        },
+        experience: {
+          label: "Experience",
+          title: "Experience",
+          body: "Worked as a C++/Qt product client developer across UI AutoTest, DeepCatch X MVVM features and first release, the MEDIP batch Macro, stabilization of existing PACS functionality, DICOM C-ECHO, field issue analysis, and release validation.",
+          cards: [
+            ["May 2023 - Present", "Medical IP | Application / Assistant Manager", "Developed a C++/Qt UI AutoTest, then inherited the initial MVVM structure and implemented DeepCatch X imaging output and Action Queue automation through its first release. Later developed the MEDIP batch analysis/export Macro, fixed existing PACS operational issues, added DICOM C-ECHO, and supported release validation for hospital and health association deployments."],
+            ["Oct 2019 - Feb 2023", "IMPEACH | R&D / Senior Staff", "Developed Python/Qt-based test applications and AMX-based integrated control programs. Implemented TCP/IP and Serial-based command/response flows for equipment and external software and handled WATCHOUT integration, connection states, and communication exceptions."]
+          ]
+        },
+        stack: {
+          title: "Tech Stack",
+          body: "Technologies and tools used for C++/Qt product implementation, MVVM-based feature development, UI and batch automation, TCP/IP and Serial system integration, DICOM/PACS stabilization, and image/report outputs.",
+          groups: [
+            ["C++/Qt Development", ["C/C++", "Qt", "MVVM", "Python", "Visual Studio", "Action/Command"]],
+            ["Network and System Integration", ["TCP/IP", "Serial", "Command/Response", "WATCHOUT", "DICOM", "PACS", "DCMTK", "DICOM Network"]],
+            ["AI, Image, and Report Artifacts", ["AI Result Integration", "DICOM Dataset", "X-ray", "Segmentation", "QWebEngine", "HTML/CSS", "PDF/CSV", "JSON"]],
+            ["Data and Validation Automation", ["PostgreSQL", "Qt SQL", "File I/O", "GitLab/SVN", "TeamCity", "UI Automation", "Validation Docs"]]
+          ]
+        },
+        closing: {
+          aria: "Closing",
+          title: "C++/Qt Developer Responsible for the Full Product Flow",
+          lines: ["I focus on turning customer and deployment requirements into structured features and closing the loop with verifiable release results.", "My work spans UI validation automation, medical-image client features, long-running batch execution, existing integration stabilization, and first-release delivery."]
+        },
+        footer: "C++/Qt Application Engineer Portfolio · 2026.07.23",
+        lightbox: {
+          close: "Close",
+          zoomOut: "Zoom out",
+          zoomReset: "Reset zoom",
+          zoomIn: "Zoom in",
+          prev: "Previous material",
+          next: "Next material",
+          hint: "Scroll the description area to view the full content.",
+          imageSuffix: "image",
+          videoSuffix: "video",
+          fallbackSuffix: "fallback preview",
+          material: "Material"
+        }
+      }
+    };
+
+    let activeLanguage = "ko";
+    let projectPreviews = projectPreviewsKo;
+
+    const lightbox = document.querySelector("#project-lightbox");
+    const lightboxMedia = document.querySelector("#lightbox-media");
+    const lightboxMeta = document.querySelector("#lightbox-meta");
+    const lightboxTitle = document.querySelector("#lightbox-title");
+    const lightboxDescription = document.querySelector("#lightbox-description");
+    const lightboxDetails = document.querySelector("#lightbox-details");
+    const lightboxCopy = document.querySelector(".lightbox-copy");
+    const lightboxCount = document.querySelector("#lightbox-count");
+    const lightboxPrev = document.querySelector("#lightbox-prev");
+    const lightboxNext = document.querySelector("#lightbox-next");
+    const lightboxZoomControls = document.querySelector("#lightbox-zoom-controls");
+    const lightboxZoomOut = document.querySelector("#lightbox-zoom-out");
+    const lightboxZoomReset = document.querySelector("#lightbox-zoom-reset");
+    const lightboxZoomIn = document.querySelector("#lightbox-zoom-in");
+
+    let lastFocusedTrigger = null;
+    let currentMediaItems = [];
+    let currentMediaIndex = 0;
+    let mediaRequestId = 0;
+    let mediaPointerStartX = 0;
+    let mediaPointerStartY = 0;
+    let mediaPointerDeltaX = 0;
+    let mediaPointerId = null;
+    let mediaWasDragged = false;
+    let mediaZoomScale = 1;
+    const mediaZoomMin = 1;
+    const mediaZoomMax = 3;
+    const mediaZoomStep = 0.25;
+
+    function setText(selector, value) {
+      const element = document.querySelector(selector);
+      if (element) element.textContent = value;
+    }
+
+    function setAttribute(selector, name, value) {
+      const element = document.querySelector(selector);
+      if (element) element.setAttribute(name, value);
+    }
+
+    function setChipList(list, values) {
+      list.replaceChildren(...values.map((value) => {
+        const item = document.createElement("li");
+        item.textContent = value;
+        return item;
+      }));
+    }
+
+    function renderLightboxCopy(project) {
+      lightboxMeta.textContent = project.meta || "";
+      lightboxMeta.hidden = !project.meta;
+      lightboxTitle.textContent = project.title;
+      lightboxDescription.textContent = project.description;
+      lightboxDetails.replaceChildren(...(project.details || []).map(([title, body]) => {
+        const item = document.createElement("li");
+        const heading = document.createElement("strong");
+        const text = document.createElement("span");
+        heading.textContent = title;
+        text.textContent = body;
+        item.append(heading, text);
+        return item;
+      }));
+    }
+
+    function applyLanguage(language, options = {}) {
+      const lang = language === "en" ? "en" : "ko";
+      const text = pageTranslations[lang];
+      activeLanguage = lang;
+      projectPreviews = lang === "en" ? projectPreviewsEn : projectPreviewsKo;
+      document.documentElement.lang = lang;
+      document.title = text.documentTitle;
+      document.body.dataset.language = lang;
+
+      if (options.persist) {
+        try {
+          window.localStorage.setItem("portfolioLanguage", lang);
+        } catch {
+          // localStorage can be unavailable when opened from restricted environments.
+        }
+      }
+
+      document.querySelectorAll("[data-language-button]").forEach((button) => {
+        button.setAttribute("aria-pressed", String(button.dataset.languageButton === lang));
+      });
+
+      setAttribute(".brand", "aria-label", text.brandAria);
+      setText(".brand span:last-child", text.brand);
+      setAttribute(".language-switch", "aria-label", text.languageLabel);
+      setAttribute(".nav", "aria-label", text.navAria);
+      document.querySelectorAll(".nav a").forEach((item, index) => {
+        item.textContent = text.nav[index];
+      });
+      setText("[data-print-page]", text.print);
+      setAttribute(".hero", "aria-label", text.heroAria);
+      setText(".hero-title span:nth-child(1)", text.heroTitle[0]);
+      setText(".hero-title span:nth-child(2)", text.heroTitle[1]);
+      setText("#summary-title", text.summaryLabel);
+      setText(".summary-text", text.summaryText);
+      setText(".summary-cta", text.summaryCta);
+      setAttribute(".summary-metrics", "aria-label", text.metricsAria);
+      document.querySelectorAll(".summary-metric span").forEach((item, index) => {
+        item.textContent = text.metrics[index];
+      });
+      setText("#profile-title", text.profileLabel);
+      document.querySelectorAll(".profile-row").forEach((row, index) => {
+        const [term, description] = text.profileRows[index];
+        row.querySelector("dt").textContent = term;
+        row.querySelector("dd").textContent = description;
+      });
+
+      const signalSection = document.querySelector('[aria-labelledby="signal-title"]');
+      signalSection.querySelector(".section-label").textContent = text.signal.label;
+      signalSection.querySelector("#signal-title").textContent = text.signal.title;
+      signalSection.querySelector(".section-header p").textContent = text.signal.body;
+      signalSection.querySelectorAll(".signal-card").forEach((card, index) => {
+        const [title, body] = text.signal.cards[index];
+        card.querySelector("strong").textContent = title;
+        card.querySelector("p").textContent = body;
+      });
+
+      setText("#work .section-label", text.work.label);
+      setText("#work-title .section-title-line", text.work.title);
+      setText("#work-title .section-title-note", text.work.note);
+      setText("#work .section-header p", text.work.body);
+      setText("#work .section-notice", text.work.notice);
+      document.querySelectorAll("#work .project-card").forEach((card, index) => {
+        const project = text.work.projects[index];
+        const previewButton = card.querySelector(".project-preview-trigger");
+        const previewProject = projectPreviews[previewButton?.dataset.project];
+        const previewImage = card.querySelector("img");
+        if (previewImage) {
+          if (previewProject?.previewImage) {
+            previewImage.src = previewProject.previewImage;
+          }
+          previewImage.alt = project.alt;
+        }
+        previewButton.textContent = text.work.button;
+        card.querySelector("h3").textContent = project.title;
+        card.querySelector(".project-body > p").textContent = project.body;
+        card.querySelectorAll(".bullet-list li").forEach((item, bulletIndex) => {
+          item.textContent = project.bullets[bulletIndex];
+        });
+      });
+
+      const evidenceSection = document.querySelector('[aria-labelledby="evidence-title"]');
+      evidenceSection.querySelector(".section-label").textContent = text.evidence.label;
+      evidenceSection.querySelector("#evidence-title").textContent = text.evidence.title;
+      evidenceSection.querySelector(".section-header p").textContent = text.evidence.body;
+      evidenceSection.querySelectorAll(".evidence-card").forEach((card, index) => {
+        const [label, title, body] = text.evidence.cards[index];
+        card.querySelector("span").textContent = label;
+        card.querySelector("strong").textContent = title;
+        card.querySelector("p").textContent = body;
+      });
+
+      setText("#flow .section-label", text.flow.label);
+      setText("#flow-title .section-title-line", text.flow.title);
+      setText("#flow-title .section-title-note", text.flow.note);
+      setText("#flow .section-header p", text.flow.body);
+      document.querySelectorAll(".flow-step").forEach((step, index) => {
+        const [title, body] = text.flow.steps[index];
+        step.querySelector("strong").textContent = title;
+        step.querySelector("p").textContent = body;
+      });
+
+      setText("#experience .section-label", text.experience.label);
+      setText("#experience-title", text.experience.title);
+      setText("#experience .section-header p", text.experience.body);
+      document.querySelectorAll(".experience-card").forEach((card, index) => {
+        const [period, title, body] = text.experience.cards[index];
+        card.querySelector(".period").textContent = period;
+        card.querySelector("h3").textContent = title;
+        card.querySelector("p").textContent = body;
+      });
+
+      setText("#stack-title", text.stack.title);
+      setText("#stack .section-header p", text.stack.body);
+      document.querySelectorAll(".stack-group").forEach((group, index) => {
+        const [title, chips] = text.stack.groups[index];
+        group.querySelector("h3").textContent = title;
+        setChipList(group.querySelector(".chips"), chips);
+      });
+
+      setAttribute(".closing", "aria-label", text.closing.aria);
+      setText(".closing h2", text.closing.title);
+      document.querySelectorAll(".closing p span").forEach((line, index) => {
+        line.textContent = text.closing.lines[index];
+      });
+      setText(".footer-note", text.footer);
+
+      setAttribute(".lightbox-close", "aria-label", text.lightbox.close);
+      setAttribute("#lightbox-zoom-out", "aria-label", text.lightbox.zoomOut);
+      setAttribute("#lightbox-zoom-reset", "aria-label", text.lightbox.zoomReset);
+      setAttribute("#lightbox-zoom-in", "aria-label", text.lightbox.zoomIn);
+      setAttribute("#lightbox-prev", "aria-label", text.lightbox.prev);
+      setAttribute("#lightbox-next", "aria-label", text.lightbox.next);
+      setText(".lightbox-scroll-hint", text.lightbox.hint);
+
+      const openProjectId = lightbox.dataset.projectId;
+      if (openProjectId) {
+        const project = projectPreviews[openProjectId];
+        if (project) {
+          renderLightboxCopy(project);
+          renderCurrentMedia(project);
+        }
+      }
+    }
+
+    function escapeXml(value) {
+      return String(value)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&apos;");
+    }
+
+    function makePreviewImage(project) {
+      const labels = (project.labels || []).map(escapeXml);
+      const title = escapeXml(project.title);
+      const meta = escapeXml(project.meta || "Portfolio Preview");
+      const accent = escapeXml(project.accent || "#0f6f68");
+      while (labels.length < 4) labels.push("System");
+
+      const svg = `
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675">
+          <rect width="1200" height="675" fill="#f4f6f2"/>
+          <path d="M0 96H1200" stroke="#161a1d" stroke-opacity="0.12"/>
+          <path d="M0 192H1200" stroke="#161a1d" stroke-opacity="0.08"/>
+          <path d="M0 288H1200" stroke="#161a1d" stroke-opacity="0.08"/>
+          <path d="M0 384H1200" stroke="#161a1d" stroke-opacity="0.08"/>
+          <rect x="78" y="70" width="1044" height="535" rx="18" fill="#fbfbf8" stroke="#161a1d" stroke-opacity="0.16"/>
+          <rect x="78" y="70" width="1044" height="76" rx="18" fill="#161a1d"/>
+          <circle cx="124" cy="108" r="10" fill="#d35c2f"/>
+          <circle cx="158" cy="108" r="10" fill="#e7b84e"/>
+          <circle cx="192" cy="108" r="10" fill="#0f6f68"/>
+          <rect x="128" y="194" width="260" height="336" rx="14" fill="#eef2ec" stroke="#161a1d" stroke-opacity="0.12"/>
+          <rect x="164" y="230" width="150" height="18" rx="9" fill="${accent}"/>
+          <rect x="164" y="276" width="178" height="14" rx="7" fill="#161a1d" opacity="0.36"/>
+          <rect x="164" y="314" width="132" height="14" rx="7" fill="#161a1d" opacity="0.24"/>
+          <rect x="164" y="352" width="158" height="14" rx="7" fill="#161a1d" opacity="0.24"/>
+          <rect x="430" y="194" width="640" height="210" rx="14" fill="#161a1d"/>
+          <text x="470" y="258" fill="#fbfbf8" font-family="Arial, sans-serif" font-size="34" font-weight="700">${title}</text>
+          <text x="470" y="302" fill="#fbfbf8" font-family="Arial, sans-serif" font-size="24" opacity="0.72">${meta}</text>
+          <path d="M470 348 H622 L672 314 H808 L850 348 H1010" fill="none" stroke="${accent}" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
+          <rect x="430" y="434" width="140" height="96" rx="14" fill="#eef2ec"/>
+          <rect x="596" y="434" width="140" height="96" rx="14" fill="#eef2ec"/>
+          <rect x="762" y="434" width="140" height="96" rx="14" fill="#eef2ec"/>
+          <rect x="928" y="434" width="140" height="96" rx="14" fill="#eef2ec"/>
+          <text x="456" y="490" fill="#161a1d" font-family="Arial, sans-serif" font-size="23" font-weight="700">${labels[0]}</text>
+          <text x="622" y="490" fill="#161a1d" font-family="Arial, sans-serif" font-size="23" font-weight="700">${labels[1]}</text>
+          <text x="788" y="490" fill="#161a1d" font-family="Arial, sans-serif" font-size="23" font-weight="700">${labels[2]}</text>
+          <text x="954" y="490" fill="#161a1d" font-family="Arial, sans-serif" font-size="23" font-weight="700">${labels[3]}</text>
+        </svg>`;
+
+      return `data:image/svg+xml;charset=UTF-8,${encodeURIComponent(svg)}`;
+    }
+
+    function getMediaCandidates(project) {
+      const imageExtensions = ["png", "jpg", "jpeg", "webp", "gif"];
+      const videoExtensions = ["mp4", "webm", "mov", "mkv"];
+      const mediaFiles = Array.isArray(project.mediaFiles) ? project.mediaFiles : [];
+
+      if (mediaFiles.length > 0) {
+        return mediaFiles.map((file) => {
+          const fileName = typeof file === "string"
+            ? file
+            : file.file || file.src.split("/").pop();
+          const title = typeof file === "string" ? "" : file.title;
+          const extension = fileName.split(".").pop().toLowerCase();
+          return {
+            src: typeof file === "object" && file.src
+              ? file.src
+              : `${project.mediaFolder}/${fileName}`,
+            title: getMediaTitle(fileName, title),
+            type: videoExtensions.includes(extension) ? "video" : "image"
+          };
+        });
+      }
+
+      const manifestFiles = window.portfolioMediaManifest?.[project.mediaFolder] || [];
+      return manifestFiles.map((fileName) => {
+        const extension = fileName.split(".").pop().toLowerCase();
+        return {
+          src: `${project.mediaFolder}/${fileName}`,
+          title: getMediaTitle(fileName, ""),
+          type: videoExtensions.includes(extension) ? "video" : "image"
+        };
+      });
+    }
+
+    function getMediaTitle(fileName, fallbackTitle) {
+      if (fallbackTitle) {
+        return fallbackTitle;
+      }
+
+      const baseName = fileName.replace(/\.[^.]+$/, "");
+      const titleMatch = baseName.match(/^\d{1,2}[_\-\s]+(.+)$/);
+
+      if (titleMatch) {
+        return titleMatch[1]
+          .replace(/[_\-]+/g, " ")
+          .replace(/\s+/g, " ")
+          .trim();
+      }
+
+      return "";
+    }
+
+    function showNoImage(project) {
+      const lightboxText = pageTranslations[activeLanguage].lightbox;
+      const empty = document.createElement("img");
+      empty.className = "lightbox-empty";
+      empty.src = makePreviewImage(project);
+      empty.alt = `${project.title} ${lightboxText.fallbackSuffix}`;
+      lightboxMedia.replaceChildren(empty);
+    }
+
+    function currentMediaIsZoomable() {
+      return currentMediaItems[currentMediaIndex]?.type === "image";
+    }
+
+    function setMediaZoom(scale) {
+      mediaZoomScale = Math.max(mediaZoomMin, Math.min(mediaZoomMax, scale));
+      const image = lightboxMedia.querySelector("img:not(.lightbox-empty)");
+      const zoomed = currentMediaIsZoomable() && mediaZoomScale > 1;
+
+      lightboxMedia.classList.toggle("is-zoomed", zoomed);
+
+      if (image) {
+        image.style.width = `${mediaZoomScale * 100}%`;
+        image.style.maxHeight = zoomed ? "none" : "";
+      }
+
+      lightboxZoomReset.textContent = `${Math.round(mediaZoomScale * 100)}%`;
+      lightboxZoomOut.disabled = !currentMediaIsZoomable() || mediaZoomScale <= mediaZoomMin;
+      lightboxZoomReset.disabled = !currentMediaIsZoomable() || mediaZoomScale <= mediaZoomMin;
+      lightboxZoomIn.disabled = !currentMediaIsZoomable() || mediaZoomScale >= mediaZoomMax;
+    }
+
+    function resetMediaZoom() {
+      setMediaZoom(1);
+      lightboxMedia.scrollLeft = 0;
+      lightboxMedia.scrollTop = 0;
+    }
+
+    function setZoomControlsVisible(isVisible) {
+      lightboxZoomControls.hidden = !isVisible;
+      if (!isVisible) resetMediaZoom();
+    }
+
+    function createMediaElement(project, candidate) {
+      const lightboxText = pageTranslations[activeLanguage].lightbox;
+      const media = document.createElement(candidate.type === "video" ? "video" : "img");
+      media.src = candidate.src;
+
+      if (candidate.type === "video") {
+        media.controls = true;
+        media.playsInline = true;
+        media.preload = "metadata";
+        media.setAttribute("aria-label", `${project.title} ${lightboxText.videoSuffix}`);
+      } else {
+        media.alt = `${project.title} ${lightboxText.imageSuffix}`;
+      }
+
+      return media;
+    }
+
+    function validateMediaCandidate(candidate) {
+      return new Promise((resolve) => {
+        const media = document.createElement(candidate.type === "video" ? "video" : "img");
+        let settled = false;
+        const done = (isAvailable) => {
+          if (settled) return;
+          settled = true;
+          window.clearTimeout(timeoutId);
+          resolve(isAvailable ? candidate : null);
+        };
+        const timeoutId = window.setTimeout(() => done(false), 2500);
+
+        media.onload = () => done(true);
+        media.onloadedmetadata = () => done(true);
+        media.onerror = () => done(false);
+        media.preload = "metadata";
+        media.src = candidate.src;
+      });
+    }
+
+    function renderCurrentMedia(project) {
+      const item = currentMediaItems[currentMediaIndex];
+
+      if (!item) {
+        showNoImage(project);
+        setZoomControlsVisible(false);
+        lightboxCount.textContent = "";
+        lightboxPrev.disabled = true;
+        lightboxNext.disabled = true;
+        return;
+      }
+
+      lightboxMedia.replaceChildren(createMediaElement(project, item));
+      setZoomControlsVisible(item.type === "image");
+      resetMediaZoom();
+      lightboxCount.innerHTML = `<span class="lightbox-media-title"></span><span class="lightbox-media-index"></span>`;
+      lightboxCount.querySelector(".lightbox-media-title").textContent = item.title || pageTranslations[activeLanguage].lightbox.material;
+      lightboxCount.querySelector(".lightbox-media-index").textContent = `${currentMediaIndex + 1} / ${currentMediaItems.length}`;
+      lightboxPrev.disabled = currentMediaItems.length <= 1;
+      lightboxNext.disabled = currentMediaItems.length <= 1;
+    }
+
+    function loadProjectMedia(project) {
+      mediaRequestId += 1;
+      const candidates = getMediaCandidates(project);
+      currentMediaItems = candidates;
+      currentMediaIndex = 0;
+      renderCurrentMedia(project);
+    }
+
+    function openLightbox(projectId, trigger) {
+      const project = projectPreviews[projectId];
+      if (!project) return;
+
+      lastFocusedTrigger = trigger;
+      loadProjectMedia(project);
+      renderLightboxCopy(project);
+      lightbox.dataset.projectId = projectId;
+      lightbox.setAttribute("aria-hidden", "false");
+      lightboxCopy.scrollTop = 0;
+      document.body.classList.add("modal-open");
+      lightbox.querySelector(".lightbox-close").focus();
+    }
+
+    function closeLightbox() {
+      mediaRequestId += 1;
+      lightbox.setAttribute("aria-hidden", "true");
+      delete lightbox.dataset.projectId;
+      document.body.classList.remove("modal-open");
+      lightboxMedia.replaceChildren();
+      lightboxDetails.replaceChildren();
+      setZoomControlsVisible(false);
+      currentMediaItems = [];
+      currentMediaIndex = 0;
+      if (lastFocusedTrigger) {
+        lastFocusedTrigger.focus();
+      }
+    }
+
+    function moveLightboxMedia(direction) {
+      if (currentMediaItems.length <= 1) return;
+      const openProjectId = lightbox.dataset.projectId;
+      const project = projectPreviews[openProjectId];
+      currentMediaIndex = (currentMediaIndex + direction + currentMediaItems.length) % currentMediaItems.length;
+      renderCurrentMedia(project);
+    }
+
+    function resetMediaDrag() {
+      mediaPointerId = null;
+      mediaPointerDeltaX = 0;
+      lightboxMedia.classList.remove("is-dragging");
+      lightboxMedia.style.transform = "";
+    }
+
+    function handleMediaPointerDown(event) {
+      if (mediaZoomScale > 1 || event.target.tagName === "VIDEO" || currentMediaItems.length <= 1) return;
+      mediaPointerId = event.pointerId;
+      mediaPointerStartX = event.clientX;
+      mediaPointerStartY = event.clientY;
+      mediaPointerDeltaX = 0;
+      mediaWasDragged = false;
+      lightboxMedia.classList.add("is-dragging");
+      lightboxMedia.setPointerCapture(event.pointerId);
+    }
+
+    function handleMediaPointerMove(event) {
+      if (mediaPointerId !== event.pointerId) return;
+      const deltaX = event.clientX - mediaPointerStartX;
+      const deltaY = event.clientY - mediaPointerStartY;
+
+      if (Math.abs(deltaX) < 6 || Math.abs(deltaX) < Math.abs(deltaY)) return;
+
+      mediaPointerDeltaX = deltaX;
+      mediaWasDragged = true;
+      lightboxMedia.style.transform = `translateX(${Math.max(-70, Math.min(70, deltaX * 0.18))}px)`;
+    }
+
+    function handleMediaPointerUp(event) {
+      if (mediaPointerId !== event.pointerId) return;
+      const deltaX = mediaPointerDeltaX;
+      resetMediaDrag();
+
+      if (Math.abs(deltaX) >= 45) {
+        moveLightboxMedia(deltaX < 0 ? 1 : -1);
+      }
+    }
+
+    function handleMediaClick(event) {
+      if (mediaZoomScale > 1 || event.target.tagName === "VIDEO" || currentMediaItems.length <= 1) return;
+      if (mediaWasDragged) {
+        mediaWasDragged = false;
+        return;
+      }
+      moveLightboxMedia(1);
+    }
+
+    function handleMediaWheel(event) {
+      if (!currentMediaIsZoomable() || !event.ctrlKey) return;
+      event.preventDefault();
+      setMediaZoom(mediaZoomScale + (event.deltaY < 0 ? mediaZoomStep : -mediaZoomStep));
+    }
+
+    document.querySelectorAll(".project-preview-trigger").forEach((button) => {
+      button.addEventListener("click", () => openLightbox(button.dataset.project, button));
+    });
+
+    document.querySelectorAll("[data-language-button]").forEach((button) => {
+      button.addEventListener("click", () => applyLanguage(button.dataset.languageButton, { persist: true }));
+    });
+
+    document.querySelectorAll("[data-print-page]").forEach((button) => {
+      button.addEventListener("click", () => window.print());
+    });
+
+    document.querySelectorAll("[data-close-lightbox]").forEach((button) => {
+      button.addEventListener("click", closeLightbox);
+    });
+
+    lightboxPrev.addEventListener("click", () => moveLightboxMedia(-1));
+    lightboxNext.addEventListener("click", () => moveLightboxMedia(1));
+    lightboxZoomOut.addEventListener("click", () => setMediaZoom(mediaZoomScale - mediaZoomStep));
+    lightboxZoomReset.addEventListener("click", resetMediaZoom);
+    lightboxZoomIn.addEventListener("click", () => setMediaZoom(mediaZoomScale + mediaZoomStep));
+    lightboxMedia.addEventListener("pointerdown", handleMediaPointerDown);
+    lightboxMedia.addEventListener("pointermove", handleMediaPointerMove);
+    lightboxMedia.addEventListener("pointerup", handleMediaPointerUp);
+    lightboxMedia.addEventListener("pointercancel", resetMediaDrag);
+    lightboxMedia.addEventListener("click", handleMediaClick);
+    lightboxMedia.addEventListener("wheel", handleMediaWheel, { passive: false });
+
+    document.addEventListener("keydown", (event) => {
+      const isLightboxOpen = lightbox.getAttribute("aria-hidden") === "false";
+
+      if (event.key === "Escape" && isLightboxOpen) {
+        closeLightbox();
+      }
+
+      if (event.key === "ArrowLeft" && isLightboxOpen) {
+        moveLightboxMedia(-1);
+      }
+
+      if (event.key === "ArrowRight" && isLightboxOpen) {
+        moveLightboxMedia(1);
+      }
+
+      if (!isLightboxOpen || !currentMediaIsZoomable()) return;
+
+      if (event.key === "+" || event.key === "=") {
+        event.preventDefault();
+        setMediaZoom(mediaZoomScale + mediaZoomStep);
+      }
+
+      if (event.key === "-") {
+        event.preventDefault();
+        setMediaZoom(mediaZoomScale - mediaZoomStep);
+      }
+
+      if (event.key === "0") {
+        event.preventDefault();
+        resetMediaZoom();
+      }
+    });
+
+    function getInitialLanguage() {
+      try {
+        const savedLanguage = window.localStorage.getItem("portfolioLanguage");
+        if (savedLanguage === "ko" || savedLanguage === "en") {
+          return savedLanguage;
+        }
+      } catch {
+        // Ignore storage errors and fall back to browser language.
+      }
+
+      const preferredLanguage = (navigator.languages?.[0] || navigator.language || "").toLowerCase();
+      return preferredLanguage.startsWith("ko") ? "ko" : "en";
+    }
+
+    applyLanguage(getInitialLanguage());
+
+    window.addEventListener("load", () => {
+      if (!window.location.hash) return;
+      const target = document.querySelector(window.location.hash);
+      if (target) target.scrollIntoView({ block: "start" });
+    });
+  </script>
+</body>
+</html>

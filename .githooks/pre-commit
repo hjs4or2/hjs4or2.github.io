@@ -1,5 +1,5 @@
 #!/bin/sh
 set -e
 
-node scripts/update-footer-date.mjs
-git add index.html
+node portfolio/scripts/update-footer-date.mjs
+git add portfolio/index.html
