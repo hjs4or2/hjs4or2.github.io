@@ -1846,12 +1846,13 @@
               <span class="period">2023.05 - 재직중</span>
               <h3>메디컬아이피 | Application / 대리</h3>
               <p>C++/Qt 기반 UI AutoTest를 개발하고, 초기 MVVM 구조를 인계받아 TiSepX를 DeepCatch X로 전환하는 제품 기능과 Action Queue 자동화를 구현해 최초 배포했습니다. 이후 MEDIP 배치 분석·Export Macro 개발, 기존 PACS 운영 이슈 수정과 DICOM C-ECHO 추가, 병원·협회 지부 배포 검증을 수행했습니다.</p>
+              <a class="project-preview-trigger" href="#work">작업 사례</a>
             </article>
             <article class="experience-card">
               <span class="period">2019.10 - 2023.02</span>
               <h3>IMPEACH | R&D / 주임</h3>
               <p>Python/Qt 기반 테스트 애플리케이션과 AMX 기반 통합 제어 프로그램을 개발했습니다. TCP/IP·Serial 기반 장비 제어와 외부 소프트웨어 명령·응답 흐름을 구현하고 WATCHOUT 프로토콜, 연결 상태와 통신 예외를 처리했습니다.</p>
-              <button type="button" class="project-preview-trigger" data-project="impeach">작업물 보기</button>
+              <button type="button" class="project-preview-trigger" data-project="impeach">작업 사례</button>
             </article>
           </div>
         </section>
@@ -2034,8 +2035,6 @@
         mediaOnly: true,
         mediaFolder: "resource/impeach",
         mediaFiles: [
-          "coldboot-tester.png",
-          "i-controller.png",
           "jw-marriott-main.png",
           "jw-marriott-shutdownpeach.png",
           "jw-marriott-matrix.png",
@@ -2046,6 +2045,8 @@
           "the-arc-scheduler.jpg",
           "the-arc-scheduler-settings.jpg",
           "the-arc-projector.jpg",
+          "coldboot-tester.png",
+          "i-controller.png",
           "touchdesigner-butterfly.mp4"
         ],
         description: "",
@@ -2146,8 +2147,6 @@
         mediaOnly: true,
         mediaFolder: "resource/impeach",
         mediaFiles: [
-          "coldboot-tester.png",
-          "i-controller.png",
           "jw-marriott-main.png",
           "jw-marriott-shutdownpeach.png",
           "jw-marriott-matrix.png",
@@ -2158,6 +2157,8 @@
           "the-arc-scheduler.jpg",
           "the-arc-scheduler-settings.jpg",
           "the-arc-projector.jpg",
+          "coldboot-tester.png",
+          "i-controller.png",
           "touchdesigner-butterfly.mp4"
         ],
         description: "",
@@ -2269,7 +2270,7 @@
           label: "Experience",
           title: "경력",
           body: "C++/Qt 제품 클라이언트 개발자로 UI AutoTest, DeepCatch X MVVM 기능과 최초 배포, MEDIP 배치 Macro, 기존 PACS 안정화와 DICOM C-ECHO 추가, 고객 요구사항 분석과 릴리즈 검증을 수행했습니다.",
-          button: "작업물 보기",
+          buttons: ["작업 사례", "작업 사례"],
           cards: [
             ["2023.05 - 재직중", "메디컬아이피 | Application / 대리", "C++/Qt 기반 UI AutoTest를 개발하고, 초기 MVVM 구조를 인계받아 TiSepX를 DeepCatch X로 전환하는 제품 기능과 Action Queue 자동화를 구현해 최초 배포했습니다. 이후 MEDIP 배치 분석·Export Macro 개발, 기존 PACS 운영 이슈 수정과 DICOM C-ECHO 추가, 병원·협회 지부 배포 검증을 수행했습니다."],
             ["2019.10 - 2023.02", "IMPEACH | R&D / 주임", "Python/Qt 기반 테스트 애플리케이션과 AMX 기반 통합 제어 프로그램을 개발했습니다. TCP/IP·Serial 기반 장비 제어와 외부 소프트웨어 명령·응답 흐름을 구현하고 WATCHOUT 프로토콜, 연결 상태와 통신 예외를 처리했습니다."]
@@ -2408,7 +2409,7 @@
           label: "Experience",
           title: "Experience",
           body: "Worked as a C++/Qt product client developer across UI AutoTest, DeepCatch X MVVM features and first release, the MEDIP batch Macro, stabilization of existing PACS functionality, DICOM C-ECHO, field issue analysis, and release validation.",
-          button: "View Work",
+          buttons: ["Work Samples", "Work Samples"],
           cards: [
             ["May 2023 - Present", "Medical IP | Application / Assistant Manager", "Developed a C++/Qt UI AutoTest, then inherited the initial MVVM structure and implemented DeepCatch X imaging output and Action Queue automation through its first release. Later developed the MEDIP batch analysis/export Macro, fixed existing PACS operational issues, added DICOM C-ECHO, and supported release validation for hospital and health association deployments."],
             ["Oct 2019 - Feb 2023", "IMPEACH | R&D / Senior Staff", "Developed Python/Qt-based test applications and AMX-based integrated control programs. Implemented TCP/IP and Serial-based command/response flows for equipment and external software and handled WATCHOUT integration, connection states, and communication exceptions."]
@@ -2622,10 +2623,9 @@
         card.querySelector("h3").textContent = title;
         card.querySelector("p").textContent = body;
       });
-      const experiencePreviewButton = document.querySelector("#experience .project-preview-trigger");
-      if (experiencePreviewButton) {
-        experiencePreviewButton.textContent = text.experience.button;
-      }
+      document.querySelectorAll("#experience .project-preview-trigger").forEach((button, index) => {
+        button.textContent = text.experience.buttons[index];
+      });
 
       setText("#stack-title", text.stack.title);
       setText("#stack .section-header p", text.stack.body);
@@ -2965,7 +2965,7 @@
       setMediaZoom(mediaZoomScale + (event.deltaY < 0 ? mediaZoomStep : -mediaZoomStep));
     }
 
-    document.querySelectorAll(".project-preview-trigger").forEach((button) => {
+    document.querySelectorAll(".project-preview-trigger[data-project]").forEach((button) => {
       button.addEventListener("click", () => openLightbox(button.dataset.project, button));
     });
 
