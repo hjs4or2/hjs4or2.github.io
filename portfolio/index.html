@@ -834,6 +834,11 @@
       line-height: 1.65;
     }
 
+    .experience-card .project-preview-trigger {
+      margin-top: 16px;
+      width: fit-content;
+    }
+
     .stack-group .chips {
       margin-top: 14px;
       gap: 10px;
@@ -1064,6 +1069,22 @@
       scrollbar-gutter: stable;
       scrollbar-width: thin;
       scrollbar-color: rgba(15, 111, 104, 0.76) rgba(22, 26, 29, 0.08);
+    }
+
+    .lightbox.is-media-only .lightbox-panel {
+      grid-template-columns: minmax(0, 1fr);
+      grid-template-rows: minmax(0, 1fr);
+      width: min(1180px, calc(100vw - 28px));
+    }
+
+    .lightbox.is-media-only .lightbox-copy,
+    .lightbox.is-media-only .lightbox-media-title {
+      display: none;
+    }
+
+    .lightbox.is-media-only .lightbox-media img,
+    .lightbox.is-media-only .lightbox-media video {
+      max-height: calc(100vh - 150px);
     }
 
     .lightbox-copy::-webkit-scrollbar {
@@ -1830,6 +1851,7 @@
               <span class="period">2019.10 - 2023.02</span>
               <h3>IMPEACH | R&D / 주임</h3>
               <p>Python/Qt 기반 테스트 애플리케이션과 AMX 기반 통합 제어 프로그램을 개발했습니다. TCP/IP·Serial 기반 장비 제어와 외부 소프트웨어 명령·응답 흐름을 구현하고 WATCHOUT 프로토콜, 연결 상태와 통신 예외를 처리했습니다.</p>
+              <button type="button" class="project-preview-trigger" data-project="impeach">작업물 보기</button>
             </article>
           </div>
         </section>
@@ -1853,7 +1875,7 @@
             <article class="stack-group">
               <h3>네트워크·시스템 연동</h3>
               <ul class="chips">
-                <li>TCP/IP</li><li>Serial</li><li>Command/Response</li><li>WATCHOUT</li><li>DICOM</li><li>PACS</li><li>DCMTK</li><li>DICOM Network</li>
+                <li>TCP/IP</li><li>Serial</li><li>Command/Response</li><li>DICOM</li><li>PACS</li><li>DCMTK</li>
               </ul>
             </article>
             <article class="stack-group">
@@ -1865,7 +1887,7 @@
             <article class="stack-group">
               <h3>데이터·검증 자동화</h3>
               <ul class="chips">
-                <li>PostgreSQL</li><li>Qt SQL</li><li>File I/O</li><li>GitLab/SVN</li><li>TeamCity</li><li>UI 자동화</li><li>검증 문서</li>
+                <li>PostgreSQL</li><li>Qt SQL</li><li>File I/O</li><li>GitLab</li><li>SVN</li><li>TeamCity</li><li>검증 문서</li>
               </ul>
             </article>
           </div>
@@ -2005,6 +2027,29 @@
           ["담당 범위 명확화", "기존 연동 구조를 유지하면서 오류 수정과 연결 확인 기능 추가에 집중했습니다."]
         ],
         labels: ["C++", "Qt", "DCMTK", "DICOM C-ECHO", "PACS", "Maintenance"]
+      },
+      impeach: {
+        title: "IMPEACH 작업물",
+        meta: "2019.10–2023.02",
+        mediaOnly: true,
+        mediaFolder: "resource/impeach",
+        mediaFiles: [
+          "coldboot-tester.png",
+          "i-controller.png",
+          "jw-marriott-main.png",
+          "jw-marriott-shutdownpeach.png",
+          "jw-marriott-matrix.png",
+          "jw-marriott-confirm.png",
+          "naviworks-main.png",
+          "naviworks-projector.png",
+          "the-arc-main.jpg",
+          "the-arc-scheduler.jpg",
+          "the-arc-scheduler-settings.jpg",
+          "the-arc-projector.jpg",
+          "touchdesigner-butterfly.mp4"
+        ],
+        description: "",
+        details: []
       }
     };
 
@@ -2094,6 +2139,29 @@
           ["Clear ownership", "Focused on stabilizing the existing integration and adding connectivity verification."]
         ],
         labels: ["C++", "Qt", "DCMTK", "DICOM C-ECHO", "PACS", "Maintenance"]
+      },
+      impeach: {
+        title: "IMPEACH Work Gallery",
+        meta: "Oct 2019–Feb 2023",
+        mediaOnly: true,
+        mediaFolder: "resource/impeach",
+        mediaFiles: [
+          "coldboot-tester.png",
+          "i-controller.png",
+          "jw-marriott-main.png",
+          "jw-marriott-shutdownpeach.png",
+          "jw-marriott-matrix.png",
+          "jw-marriott-confirm.png",
+          "naviworks-main.png",
+          "naviworks-projector.png",
+          "the-arc-main.jpg",
+          "the-arc-scheduler.jpg",
+          "the-arc-scheduler-settings.jpg",
+          "the-arc-projector.jpg",
+          "touchdesigner-butterfly.mp4"
+        ],
+        description: "",
+        details: []
       }
     };
 
@@ -2201,6 +2269,7 @@
           label: "Experience",
           title: "경력",
           body: "C++/Qt 제품 클라이언트 개발자로 UI AutoTest, DeepCatch X MVVM 기능과 최초 배포, MEDIP 배치 Macro, 기존 PACS 안정화와 DICOM C-ECHO 추가, 고객 요구사항 분석과 릴리즈 검증을 수행했습니다.",
+          button: "작업물 보기",
           cards: [
             ["2023.05 - 재직중", "메디컬아이피 | Application / 대리", "C++/Qt 기반 UI AutoTest를 개발하고, 초기 MVVM 구조를 인계받아 TiSepX를 DeepCatch X로 전환하는 제품 기능과 Action Queue 자동화를 구현해 최초 배포했습니다. 이후 MEDIP 배치 분석·Export Macro 개발, 기존 PACS 운영 이슈 수정과 DICOM C-ECHO 추가, 병원·협회 지부 배포 검증을 수행했습니다."],
             ["2019.10 - 2023.02", "IMPEACH | R&D / 주임", "Python/Qt 기반 테스트 애플리케이션과 AMX 기반 통합 제어 프로그램을 개발했습니다. TCP/IP·Serial 기반 장비 제어와 외부 소프트웨어 명령·응답 흐름을 구현하고 WATCHOUT 프로토콜, 연결 상태와 통신 예외를 처리했습니다."]
@@ -2211,9 +2280,9 @@
           body: "C++/Qt 제품 구현, MVVM 기반 기능 개발, UI·배치 자동화, TCP/IP·Serial 시스템 연동, DICOM/PACS 안정화, 영상·리포트 산출물에서 주로 사용한 기술과 도구입니다.",
           groups: [
             ["C++/Qt 개발", ["C/C++", "Qt", "MVVM", "Python", "Visual Studio", "Action/Command"]],
-            ["네트워크·시스템 연동", ["TCP/IP", "Serial", "Command/Response", "WATCHOUT", "DICOM", "PACS", "DCMTK", "DICOM Network"]],
+            ["네트워크·시스템 연동", ["TCP/IP", "Serial", "Command/Response", "DICOM", "PACS", "DCMTK"]],
             ["AI·영상·리포트 산출물", ["AI Result Integration", "DICOM Dataset", "X-ray", "Segmentation", "QWebEngine", "HTML/CSS", "PDF/CSV", "JSON"]],
-            ["데이터·검증 자동화", ["PostgreSQL", "Qt SQL", "File I/O", "GitLab/SVN", "TeamCity", "UI 자동화", "검증 문서"]]
+            ["데이터·검증 자동화", ["PostgreSQL", "Qt SQL", "File I/O", "GitLab", "SVN", "TeamCity", "검증 문서"]]
           ]
         },
         closing: {
@@ -2339,6 +2408,7 @@
           label: "Experience",
           title: "Experience",
           body: "Worked as a C++/Qt product client developer across UI AutoTest, DeepCatch X MVVM features and first release, the MEDIP batch Macro, stabilization of existing PACS functionality, DICOM C-ECHO, field issue analysis, and release validation.",
+          button: "View Work",
           cards: [
             ["May 2023 - Present", "Medical IP | Application / Assistant Manager", "Developed a C++/Qt UI AutoTest, then inherited the initial MVVM structure and implemented DeepCatch X imaging output and Action Queue automation through its first release. Later developed the MEDIP batch analysis/export Macro, fixed existing PACS operational issues, added DICOM C-ECHO, and supported release validation for hospital and health association deployments."],
             ["Oct 2019 - Feb 2023", "IMPEACH | R&D / Senior Staff", "Developed Python/Qt-based test applications and AMX-based integrated control programs. Implemented TCP/IP and Serial-based command/response flows for equipment and external software and handled WATCHOUT integration, connection states, and communication exceptions."]
@@ -2349,9 +2419,9 @@
           body: "Technologies and tools used for C++/Qt product implementation, MVVM-based feature development, UI and batch automation, TCP/IP and Serial system integration, DICOM/PACS stabilization, and image/report outputs.",
           groups: [
             ["C++/Qt Development", ["C/C++", "Qt", "MVVM", "Python", "Visual Studio", "Action/Command"]],
-            ["Network and System Integration", ["TCP/IP", "Serial", "Command/Response", "WATCHOUT", "DICOM", "PACS", "DCMTK", "DICOM Network"]],
+            ["Network and System Integration", ["TCP/IP", "Serial", "Command/Response", "DICOM", "PACS", "DCMTK"]],
             ["AI, Image, and Report Artifacts", ["AI Result Integration", "DICOM Dataset", "X-ray", "Segmentation", "QWebEngine", "HTML/CSS", "PDF/CSV", "JSON"]],
-            ["Data and Validation Automation", ["PostgreSQL", "Qt SQL", "File I/O", "GitLab/SVN", "TeamCity", "UI Automation", "Validation Docs"]]
+            ["Data and Validation Automation", ["PostgreSQL", "Qt SQL", "File I/O", "GitLab", "SVN", "TeamCity", "Validation Docs"]]
           ]
         },
         closing: {
@@ -2552,6 +2622,10 @@
         card.querySelector("h3").textContent = title;
         card.querySelector("p").textContent = body;
       });
+      const experiencePreviewButton = document.querySelector("#experience .project-preview-trigger");
+      if (experiencePreviewButton) {
+        experiencePreviewButton.textContent = text.experience.button;
+      }
 
       setText("#stack-title", text.stack.title);
       setText("#stack .section-header p", text.stack.body);
@@ -2580,6 +2654,7 @@
       if (openProjectId) {
         const project = projectPreviews[openProjectId];
         if (project) {
+          lightbox.classList.toggle("is-media-only", Boolean(project.mediaOnly));
           renderLightboxCopy(project);
           renderCurrentMedia(project);
         }
@@ -2801,6 +2876,7 @@
       if (!project) return;
 
       lastFocusedTrigger = trigger;
+      lightbox.classList.toggle("is-media-only", Boolean(project.mediaOnly));
       loadProjectMedia(project);
       renderLightboxCopy(project);
       lightbox.dataset.projectId = projectId;
@@ -2814,6 +2890,7 @@
       mediaRequestId += 1;
       lightbox.setAttribute("aria-hidden", "true");
       delete lightbox.dataset.projectId;
+      lightbox.classList.remove("is-media-only");
       document.body.classList.remove("modal-open");
       lightboxMedia.replaceChildren();
       lightboxDetails.replaceChildren();

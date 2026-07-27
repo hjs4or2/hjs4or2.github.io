@@ -26,5 +26,20 @@ window.portfolioMediaManifest = {
     "01_MEDIP_Macro_입력_설정.gif",
     "02_MEDIP_Macro_옵션_구성.png",
     "03_MEDIP_Macro_실행_상태.png"
+  ],
+  "resource/impeach": [
+    "coldboot-tester.png",
+    "i-controller.png",
+    "jw-marriott-main.png",
+    "jw-marriott-shutdownpeach.png",
+    "jw-marriott-matrix.png",
+    "jw-marriott-confirm.png",
+    "naviworks-main.png",
+    "naviworks-projector.png",
+    "the-arc-main.jpg",
+    "the-arc-scheduler.jpg",
+    "the-arc-scheduler-settings.jpg",
+    "the-arc-projector.jpg",
+    "touchdesigner-butterfly.mp4"
   ]
 };
