@@ -23,7 +23,10 @@ if (!footerDatePattern.test(html)) {
   process.exit(1);
 }
 
-const nextHtml = html.replace(footerDatePattern, `$1${today}$3`);
+const translatedFooterDatePattern = /(\bfooter"?:\s*"[^"\r\n]*?)(\d{4}\.\d{2}\.\d{2})([^"\r\n]*")/gu;
+const nextHtml = html
+  .replace(footerDatePattern, `$1${today}$3`)
+  .replace(translatedFooterDatePattern, `$1${today}$3`);
 
 if (nextHtml !== html) {
   writeFileSync(indexPath, nextHtml, "utf8");
