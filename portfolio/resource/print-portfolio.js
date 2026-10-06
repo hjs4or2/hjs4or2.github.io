@@ -20,7 +20,7 @@
 
     sections.push(`<span class="print-kicker">C++ / Qt APPLICATION ENGINEER</span>
       <h1>${text("한재성", "JaeSung Han")}</h1><p>${e(t.summaryText)}</p>
-      <p class="print-meta">${text("6년 이상 소프트웨어 개발 · Windows 애플리케이션 · 의료영상 / 장비 연동", "6+ years in software development · Windows applications · Medical imaging / device integration")}</p>
+      <p class="print-meta">${text("2026.09 기준 경력 6년 8개월 · Windows 애플리케이션 · 의료영상 / 장비 연동", "6 years 8 months as of Sep 2026 · Windows applications · Medical imaging / device integration")}</p>
       <h3>${text("주요 작업", "Selected projects")}</h3>
       <div class="print-index">${t.work.projects.map((item, i) => `<div><strong>0${i + 1}</strong><div><b>${e(item.title)}</b><p>${e(item.outcome)}</p></div></div>`).join("")}</div>
       <h3>${e(t.experience.title)}</h3>${pairs(t.experience.cards.map(([period, title, body]) => [title + " · " + period, body]))}
@@ -34,10 +34,10 @@
       + figure("resource/04/02_릴리즈_전_동작_확인.gif", text("DeepCatch X 클라이언트 화면 · 원본은 동작 영상", "DeepCatch X client view · still from the original animation"))
       + `<p class="print-meta">${e(p.deepcatch.labels.join(" / "))}</p>`);
 
-    sections.push(head("01 / PRODUCT OPERATIONS", text("검진 현장 운영과 사용량 확대", "Screening-site operations and usage"), "2025.08 - 2026.07")
+    sections.push(head("01 / PRODUCT OPERATIONS", text("제품 적용 현황(회사 집계)", "Product adoption (company-reported)"), "2025.08 - 2026.07")
       + `<p>${e(work("deepcatch").context)}</p>`
       + figure("resource/products/deepcatch-usage.png", text("DCX 월별 사용량 (2025.08~2026.07)", "Monthly DCX usage (Aug 2025-Jul 2026)"), "is-wide")
-      + `<p class="print-outcome">${text("DCX 사용량: 2025년 8월 1,037 → 2026년 7월 9,490. 시작 월 대비 약 9.2배로 확대되었습니다.", "DCX usage: 1,037 in August 2025 → 9,490 in July 2026, approximately 9.2 times the starting value.")}</p>`
+      + `<p class="print-outcome">${text("제품 전체 DCX 사용량(회사 집계): 2025년 8월 1,037 → 2026년 7월 9,490. 시작 월 대비 약 9.2배입니다.", "Company-reported product-wide DCX usage: 1,037 in August 2025 → 9,490 in July 2026, approximately 9.2 times the starting value.")}</p>`
       + figure("resource/products/deepcatch-screening-site.png", text("한국건강관리협회 검진 현장", "Korea Association of Health Promotion screening site")));
 
     sections.push(head("01 / REPORT OUTPUT", text("검진 결과와 추적관리 보고서", "Screening and follow-up reports"))
@@ -48,7 +48,7 @@
     sections.push(head("02 / UI AUTOMATION", p.autotest.title, p.autotest.meta)
       + `<p>${e(p.autotest.description)}</p>` + outcome("autotest")
       + pairs(p.autotest.details.slice(1))
-      + figure("resource/05/01_AutoTest_결과_메일전송.png", text("AutoTest 결과 메일과 실패 위치 공유", "AutoTest result email and failure reporting"), "is-wide")
+      + figure("resource/05/01_AutoTest_결과_메일전송.png", text("Windows Qt UI 자동 테스트 결과 메일과 실패 위치 공유", "Windows Qt UI test result email and failure reporting"), "is-wide")
       + `<p class="print-meta">C++ / Qt / UI Automation / TeamCity</p>`);
 
     sections.push(head("03 / BATCH PROCESSING", p.medipmacro.title, p.medipmacro.meta)
@@ -69,6 +69,10 @@
       + figure("resource/impeach/jw-marriott-main.png", text("JW Marriott 통합 제어 화면", "JW Marriott integrated control interface"), "is-wide")
       + figure("resource/impeach/the-arc-main.jpg", text("THE ARC 장비 제어 화면", "THE ARC device control interface"), "is-wide")
       + `<p class="print-meta">Python / Qt / AMX / TCP/IP / Serial / WATCHOUT</p>`);
+
+    sections.push(head("06 / COLLABORATION", t.collaboration.title)
+      + `<p>${e(t.collaboration.body)}</p>`
+      + pairs(t.collaboration.cards));
 
     root.innerHTML = sections.map((content, i) => `<article class="print-page">${content}<footer class="print-footer"><span>${e(t.brand)}</span><span>${i + 1} / ${sections.length}</span></footer></article>`).join("");
   };

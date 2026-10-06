@@ -318,6 +318,7 @@
 
     .hero-title span {
       display: block;
+      white-space: nowrap;
     }
 
     .hero-label {
@@ -1258,7 +1259,7 @@
       }
 
       .hero-title {
-        font-size: clamp(2.2rem, 10vw, 2.95rem);
+        font-size: clamp(1.9rem, 8vw, 2.95rem);
         line-height: 0.98;
       }
 
@@ -1328,6 +1329,12 @@
 
       .lightbox-copy {
         padding: 18px 18px 22px;
+      }
+    }
+
+    @media (max-width: 390px) {
+      .hero-title {
+        font-size: clamp(1.65rem, 7.5vw, 1.9rem);
       }
     }
 
@@ -1438,17 +1445,17 @@
     <main class="page" id="top">
       <section class="hero" aria-label="소개">
         <div class="hero-heading">
-          <h1 class="hero-title"><span>의료영상 제품을 개발하는</span><span>C++/Qt 개발자</span></h1>
+          <h1 class="hero-title"><span>화면부터 현장까지</span><span>C++/Qt 개발자</span></h1>
         </div>
         <article class="hero-card" aria-labelledby="summary-title">
           <h2 class="hero-label" id="summary-title">Summary</h2>
-          <p class="summary-text">6년 이상 Windows 애플리케이션과 장비 연동 소프트웨어를 개발했습니다. 메디컬아이피에서는 C++/Qt 기반 의료영상 클라이언트의 기능 개발과 최초 배포를 담당했습니다. UI 테스트·배치 자동화와 DICOM/PACS 연동 안정화까지 구현하고 운영했습니다.</p>
+          <p class="summary-text">2026년 9월 기준 6년 8개월 동안 Windows 애플리케이션과 장비 연동 소프트웨어를 개발했습니다. 메디컬아이피에서는 기존 MVVM 구조를 분석해 C++/Qt 의료영상 클라이언트 기능을 개발하고 2024년 6월 최초 배포를 지원했습니다. Windows Qt UI 자동 테스트·로그 분석과 JSON 배치 처리를 구현하고 기존 DICOM/PACS 연동을 보완했습니다. 이전에는 Python/Qt 장비 테스트와 AMX 제어 프로그램을 개발하고 TCP/IP·Serial 연동과 현장 검증을 수행했습니다.</p>
           <div class="summary-actions">
             <a class="summary-cta" href="#work">작업 사례 보기</a>
           </div>
           <div class="summary-metrics" aria-label="핵심 요약">
             <div class="summary-metric">
-              <strong>6y+</strong>
+              <strong>6y 8m</strong>
               <span>제품 개발 경험</span>
             </div>
             <div class="summary-metric">
@@ -1478,7 +1485,7 @@
             </div>
             <div class="profile-row">
               <dt>강점</dt>
-              <dd>C++/Qt, UI·배치 자동화, TCP/IP·Serial 시스템 연동, DICOM/PACS 안정화</dd>
+              <dd>C++/Qt 의료영상 클라이언트·기존 MVVM 분석, Windows Qt UI 자동 테스트·로그 분석, DICOM/PACS 보완, JSON 배치 실패 격리, Git·SVN·Redmine 협업</dd>
             </div>
             <div class="profile-row">
               <dt>연락처</dt>
@@ -1517,11 +1524,11 @@
                   <li>TiSepX 기능과 리소스를 DeepCatch X 제품 구성에 맞게 변경</li>
                   <li>WW/WL을 반영한 X-ray 영상에 Segmentation Mask와 Annotation을 합성해 결과 이미지 생성</li>
                   <li>AI 분석 결과와 생성 이미지를 리포트 데이터로 연결하고 PDF 출력 구현</li>
-                  <li>Action/Command와 Action Queue 기반 분석·출력 자동화 구현 후 2024년 6월 최초 배포</li>
+                  <li>Action/Command와 Action Queue 기반 분석·출력 기능 구현, 2024년 6월 최초 배포 지원</li>
                   <li>기관별 리포트·저장·업로드 옵션과 운영 이슈를 분석해 제품 개선 및 릴리즈 검증에 반영</li>
                 </ul>
-                <p class="project-outcome"><strong>결과</strong> <span>2024년 6월 최초 배포를 완료하고, 기관별 출력·저장·업로드 요구사항을 제품 기능과 설정에 반영했습니다.</span></p>
-                <p class="project-context">제품 운영 규모: 한국건강관리협회 17개 지부에 DeepCatch 서비스 제공. DCX 사용량은 1,037에서 9,490으로 약 9.2배 확대(2025.08~2026.07, 회사 집계 기준).</p>
+                <p class="project-outcome"><strong>결과</strong> <span>영상·분석 결과 표시와 출력 기능을 개발·검증해 2024년 6월 최초 배포를 지원하고, 기관별 출력·저장·업로드 조건을 반영했습니다.</span></p>
+                <p class="project-context">제품 운영 규모(회사 집계): 한국건강관리협회 17개 지부에 DeepCatch 서비스 제공. 회사 전체 DCX 사용량은 1,037에서 9,490으로 약 9.2배 확대(2025.08~2026.07).</p>
                 <ul class="tag-row">
                   <li>C++</li><li>Qt</li><li>MVVM</li><li>WW/WL</li><li>QWebEngine</li><li>Action Queue</li>
                 </ul>
@@ -1530,22 +1537,22 @@
 
             <article class="project-card">
               <div class="project-media">
-                <img loading="lazy" decoding="async" src="resource/05/00_대표_테스트_자동화_인프라.png" alt="UI AutoTest 대표 자료">
+                <img loading="lazy" decoding="async" src="resource/05/00_대표_테스트_자동화_인프라.png" alt="Windows Qt UI 자동 테스트·로그 분석(UI AutoTest) 대표 자료">
                 <button type="button" class="project-preview-trigger project-media-trigger" data-project="autotest">자세히 보기</button>
               </div>
               <div class="project-body">
                 <span class="project-kicker">First Project · UI Automation</span>
-                <h3>C++/Qt 기반 UI AutoTest 개발</h3>
+                <h3>Windows Qt UI 자동 테스트·로그 분석 개발</h3>
                 <span class="project-period">2023.08–2024.11</span>
-                <p>반복되는 수동 UI 검증을 저장하고 재실행할 수 있는 테스트 시나리오로 전환했습니다.</p>
+                <p>Windows Qt UI 자동 테스트·로그 분석 기능(UI AutoTest)을 처음부터 구현해 수동 검증을 기록·재생 가능한 시나리오로 전환했습니다.</p>
               </div>
               <div class="project-details">
                 <ul class="bullet-list">
                   <li>버튼·콤보박스·슬라이더·트리·테이블과 키보드 입력 기록 및 재현</li>
                   <li>반복 횟수, 팝업 처리, 장시간 작업 대기와 단계별 진행·결과 표시 구현</li>
-                  <li>수동 UI 검증을 재실행 가능하고 실패 지점을 확인할 수 있는 흐름으로 전환</li>
+                  <li>기존 CI/CD의 설치 파일 생성·자동 설치 단계는 이슈 수정·마이그레이션에 참여하고, UI 테스트·로그 분석은 신규 구현</li>
                 </ul>
-                <p class="project-outcome"><strong>결과</strong> <span>장시간 반복 시험으로 수십 건의 크래시를 발견하고, 테스트 결과와 실패 위치를 일일 메일로 공유했습니다.</span></p>
+                <p class="project-outcome"><strong>결과</strong> <span>장시간 반복 시험으로 수십 건의 크래시·기능 오류를 발견하고, 테스트 결과와 실패 위치를 일일 메일로 공유했습니다.</span></p>
                 <ul class="tag-row">
                   <li>C++</li><li>Qt</li><li>UI Automation</li><li>Replay</li>
                 </ul>
@@ -1561,7 +1568,7 @@
                 <span class="project-kicker">Batch Analysis · Export</span>
                 <h3>MEDIP 배치 분석 및 결과 Export Macro 개발</h3>
                 <span class="project-period">2026.01–2026.04</span>
-                <p>다수의 DICOM·MIP 데이터를 자동 분석하고 다양한 결과를 저장하는 장시간 배치 Macro를 개발했습니다.</p>
+                <p>다수의 DICOM·커스텀 프로젝트 파일(.mip)을 순차 분석하고 결과를 저장하는 배치 Macro를 개발했습니다.</p>
               </div>
               <div class="project-details">
                 <ul class="bullet-list">
@@ -1649,7 +1656,7 @@
               <h2 id="experience-title">경력</h2>
             </div>
             <p>
-              C++/Qt 제품 클라이언트 개발자로 UI AutoTest, DeepCatch X MVVM 기능과 최초 배포, MEDIP 배치 Macro,
+              C++/Qt 제품 클라이언트 개발자로 Windows Qt UI 자동 테스트·로그 분석, 기존 MVVM 구조를 활용한 DeepCatch X 기능 개발과 최초 배포 지원, MEDIP 배치 Macro,
               기존 PACS 안정화와 DICOM C-ECHO 추가, 고객 요구사항 분석과 릴리즈 검증 업무를 수행했습니다.
             </p>
           </div>
@@ -1657,7 +1664,7 @@
             <article class="experience-card">
               <span class="period">2023.05 - 재직중</span>
               <h3>메디컬아이피 | Application / 대리</h3>
-              <p>C++/Qt 기반 UI AutoTest를 개발하고, 초기 MVVM 구조를 인계받아 TiSepX를 DeepCatch X로 전환하는 제품 기능과 Action Queue 자동화를 구현해 최초 배포했습니다. 이후 MEDIP 배치 분석·Export Macro 개발, 기존 PACS 운영 이슈 수정과 DICOM C-ECHO 추가, 병원·협회 지부 배포 검증을 수행했습니다.</p>
+              <p>기존 CI/CD 설치 파일 생성·자동 설치 단계의 이슈 수정·마이그레이션에 참여하고, Windows Qt UI 자동 테스트·로그 분석 기능은 처음부터 구현했습니다. 기존 MVVM 구조를 인계받아 분석한 뒤 DeepCatch X의 영상·리포트 출력 기능을 개발하고 2024년 6월 최초 배포를 지원했습니다. 이후 MEDIP 배치 분석, 기존 DICOM/PACS 운영 이슈 보완과 비동기 C-ECHO 추가, 기관별 배포 검증을 수행했습니다.</p>
               <a class="project-preview-trigger" href="#work">작업 사례</a>
             </article>
             <article class="experience-card">
@@ -1675,7 +1682,7 @@
               <h2 id="stack-title">기술 스택</h2>
             </div>
             <p>
-              C++/Qt 제품 구현, MVVM 기반 기능 개발, UI·배치 자동화, TCP/IP·Serial 시스템 연동, DICOM/PACS 안정화, 영상·리포트 산출물에서 주로 사용한 기술과 도구입니다.
+              C++/Qt 제품 구현, 기존 MVVM 구조 분석과 기능 개발, Windows Qt UI 자동 테스트·로그 분석, JSON 배치 처리, TCP/IP·Serial 연동과 기존 DICOM/PACS 보완에 사용한 기술과 도구입니다.
             </p>
           </div>
           <div class="stack-grid">
@@ -1700,8 +1707,32 @@
             <article class="stack-group">
               <h3>데이터·검증 자동화</h3>
               <ul class="chips">
-                <li>PostgreSQL</li><li>Qt SQL</li><li>File I/O</li><li>GitLab</li><li>SVN</li><li>TeamCity</li><li>검증 문서</li>
+                <li>PostgreSQL</li><li>Qt SQL</li><li>File I/O</li><li>Git/GitLab</li><li>SVN</li><li>Redmine</li><li>TeamCity</li><li>검증 문서</li>
               </ul>
+            </article>
+          </div>
+        </section>
+
+        <section class="section" id="collaboration" aria-labelledby="collaboration-title">
+          <div class="section-header">
+            <div>
+              <span class="section-label">Collaboration · Release · AI</span>
+              <h2 id="collaboration-title">협업·배포·AI 활용</h2>
+            </div>
+            <p>변경과 이슈를 공유하고, 현장 배포 조건을 점검하며, 생성형 AI의 제안을 실제 근거로 검토합니다.</p>
+          </div>
+          <div class="stack-grid">
+            <article class="experience-card">
+              <h3>협업·형상관리</h3>
+              <p>Git/GitLab·SVN으로 변경 이력을 관리하고 Redmine으로 이슈 진행과 확인 결과를 추적합니다. 동료와 재현 조건·검증 결과를 공유하고 현장 조건에 맞춰 접근을 조정합니다.</p>
+            </article>
+            <article class="experience-card">
+              <h3>현장 배포 준비</h3>
+              <p>현장 방문 전 설치·배포 파일과 제품 설정을 정리·점검하고, 현장에서 설치와 동작 결과를 확인합니다.</p>
+            </article>
+            <article class="experience-card">
+              <h3>생성형 AI 활용</h3>
+              <p>기존 코드 분석, 오류 원인 후보 정리, 구현·테스트 관점과 문서·설정 변경 검토에 보조적으로 사용합니다. 제안은 코드·로그·실행 결과와 대조해 판단합니다.</p>
             </article>
           </div>
         </section>
@@ -1711,12 +1742,12 @@
             <h2>제품 흐름을 끝까지 책임지는 C++/Qt 개발자</h2>
             <p>
               <span>고객 요구를 구조화된 기능으로 구현하고, 검증 가능한 배포 결과로 마무리하는 데 집중합니다.</span>
-              <span>UI 검증 자동화부터 의료영상 클라이언트 기능, 장시간 배치 처리, 기존 연동 안정화와 최초 배포까지 제품 흐름을 다뤄왔습니다.</span>
+              <span>Windows Qt UI 자동 테스트·로그 분석부터 의료영상 클라이언트 기능, 장시간 배치 처리, 기존 연동 보완과 최초 배포 지원까지 수행했습니다.</span>
             </p>
           </div>
         </section>
 
-        <div class="footer-note">C++/Qt Application Engineer Portfolio · 2026.09.08</div>
+        <div class="footer-note">C++/Qt Application Engineer Portfolio · 2026.10.06</div>
       </div>
 
       <div class="lightbox" id="project-lightbox" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="lightbox-title">
@@ -1757,7 +1788,7 @@
   <script>
     const projectPreviewsKo = {
   "autotest": {
-    "title": "C++/Qt 기반 UI AutoTest 개발",
+    "title": "Windows Qt UI 자동 테스트·로그 분석 개발",
     "meta": "2023.08–2024.11 · First Project",
     "accent": "#e7b84e",
     "mediaFolder": "resource/05",
@@ -1766,11 +1797,11 @@
       "00_대표_테스트_자동화_인프라.png",
       "01_AutoTest_결과_메일전송.png"
     ],
-    "description": "반복되는 수동 UI 검증을 저장하고 재실행할 수 있는 테스트 시나리오로 전환했습니다.",
+    "description": "Windows Qt UI 자동 테스트·로그 분석 기능(UI AutoTest)을 처음부터 구현해 수동 검증을 기록·재생 가능한 시나리오로 전환했습니다.",
     "details": [
       [
         "결과",
-        "장시간 반복 시험으로 수십 건의 크래시를 발견하고, 테스트 결과와 실패 위치를 일일 메일로 공유했습니다."
+        "장시간 반복 시험으로 수십 건의 크래시·기능 오류를 발견하고, 테스트 결과와 실패 위치를 일일 메일로 공유했습니다."
       ],
       [
         "UI 동작 기록",
@@ -1791,6 +1822,10 @@
       [
         "정기 실행과 결과 공유",
         "TeamCity 정기 실행과 테스트 결과·오류 위치의 일일 메일 알림을 연결했습니다."
+      ],
+      [
+        "기존 CI/CD 참여 범위",
+        "설치 파일 생성·자동 설치 단계에서는 기존 흐름의 이슈 수정과 마이그레이션에 참여했습니다. UI 자동 테스트·로그 분석 기능은 처음부터 구현했습니다."
       ]
     ],
     "labels": [
@@ -1869,11 +1904,11 @@
     "details": [
       [
         "결과",
-        "2024년 6월 최초 배포를 완료하고, 기관별 출력·저장·업로드 요구사항을 제품 기능과 설정에 반영했습니다."
+        "영상·분석 결과 표시와 출력 기능을 개발·검증해 2024년 6월 최초 배포를 지원하고, 기관별 출력·저장·업로드 조건을 반영했습니다."
       ],
       [
         "MVVM 구조 인계",
-        "초기 View·ViewModel 구조를 인계받아 기존 화면, 상태와 데이터 흐름을 분석하고 제품 기능을 완성했습니다."
+        "기존 View·ViewModel 구조를 인계받아 화면 상태와 데이터 흐름을 분석하고 필요한 제품 기능을 구현했습니다."
       ],
       [
         "TiSepX에서 DeepCatch X로 전환",
@@ -1892,8 +1927,8 @@
         "분석과 결과 출력 작업을 Action/Command로 분리하고 Action Queue에서 순차 실행하도록 구성했습니다."
       ],
       [
-        "최초 배포",
-        "기능 검증과 릴리즈 확인을 거쳐 2024년 6월 DeepCatch X를 최초 배포했습니다."
+        "최초 배포 지원",
+        "기능과 기관별 설정, 설치·배포 결과물을 검증해 2024년 6월 DeepCatch X 최초 배포를 지원했습니다."
       ],
       [
         "기관별 요구사항 반영",
@@ -1917,7 +1952,7 @@
       ],
       [
         "제품 사용량 증가",
-        "DCX 월별 사용량은 2025년 8월 1,037에서 2026년 7월 9,490으로 늘어 시작 월 대비 약 9.2배로 확대되었습니다(회사 집계 기준)."
+        "회사 전체 DCX 월별 사용량은 2025년 8월 1,037에서 2026년 7월 9,490으로 늘어 시작 월 대비 약 9.2배로 확대되었습니다(회사 집계 기준)."
       ],
       [
         "검진 결과와 추적관리",
@@ -1961,7 +1996,7 @@
         "title": "MEDIP Macro 파일별 실행 상태와 실패 메시지 기록"
       }
     ],
-    "description": "다수의 DICOM·MIP 데이터를 자동 분석하고 다양한 결과를 저장하는 장시간 배치 Macro를 개발했습니다.",
+    "description": "다수의 DICOM·커스텀 프로젝트 파일(.mip)을 순차 분석하고 결과를 저장하는 배치 Macro를 개발했습니다.",
     "details": [
       [
         "결과",
@@ -1981,7 +2016,7 @@
       ],
       [
         "의료영상 결과 저장",
-        "원본 DICOM HU Volume을 NII로 변환하고 Volume·Mask·Mesh·Annotation·AI 결과를 MIP로 저장했습니다. 영상 크기·Spacing과 Layer별 voxel 수·비율·체적은 CSV로 기록했습니다."
+        "원본 DICOM HU Volume을 NII로 변환하고 Volume·Mask·Mesh·Annotation·AI 결과를 커스텀 프로젝트 파일(.mip)로 저장했습니다. 영상 크기·Spacing과 Layer별 voxel 수·비율·체적은 CSV로 기록했습니다."
       ],
       [
         "Action Queue와 실패 격리",
@@ -2074,7 +2109,7 @@
 
     const projectPreviewsEn = {
   "autotest": {
-    "title": "C++/Qt UI AutoTest Development",
+    "title": "Windows Qt UI Automation and Log Analysis",
     "meta": "Aug 2023–Nov 2024 · First Project",
     "accent": "#e7b84e",
     "mediaFolder": "resource/05",
@@ -2083,11 +2118,11 @@
       "00_Test_Automation_Infrastructure_en.png",
       "01_AutoTest_결과_메일전송.png"
     ],
-    "description": "Converted repeated manual UI checks into saved, replayable test scenarios.",
+    "description": "Built Windows Qt UI automation and log analysis (UI AutoTest) from scratch, turning manual checks into recorded, replayable scenarios.",
     "details": [
       [
         "Outcome",
-        "Identified dozens of crashes through extended repeat testing and shared daily emails with test results and failure locations."
+        "Identified dozens of crashes and functional defects through extended repeat testing and shared daily emails with results and failure locations."
       ],
       [
         "UI action recording",
@@ -2108,6 +2143,10 @@
       [
         "Scheduled runs and reporting",
         "Connected scheduled TeamCity runs to daily emails containing test results and failure locations."
+      ],
+      [
+        "Existing CI/CD contribution",
+        "Contributed issue fixes and migration work to the existing installer generation and automatic installation stages. Built UI automation and log analysis from scratch."
       ]
     ],
     "labels": [
@@ -2186,7 +2225,7 @@
     "details": [
       [
         "Outcome",
-        "Delivered the first release in June 2024 and implemented institution-specific requirements for output, saving, and upload behavior."
+        "Developed and validated image and analysis-result display and output features, supported the first release in June 2024, and addressed institution-specific output, save, and upload conditions."
       ],
       [
         "Inherited MVVM foundation",
@@ -2209,8 +2248,8 @@
         "Separated analysis and output work into Action and Command units executed sequentially through the Action Queue."
       ],
       [
-        "First release",
-        "Completed feature validation and delivered the first DeepCatch X release in June 2024."
+        "First-release support",
+        "Validated features, institution-specific settings, and installation and release artifacts to support the first DeepCatch X release in June 2024."
       ],
       [
         "Institution-specific requirements",
@@ -2234,7 +2273,7 @@
       ],
       [
         "Product usage growth",
-        "Monthly DCX usage rose from 1,037 in August 2025 to 9,490 in July 2026, approximately 9.2 times the starting value, based on company-reported figures."
+        "Company-wide monthly DCX usage rose from 1,037 in August 2025 to 9,490 in July 2026, approximately 9.2 times the starting value, based on company-reported figures."
       ],
       [
         "Screening results and follow-up",
@@ -2278,7 +2317,7 @@
         "title": "MEDIP Macro Per-file Status and Failure-message Logging"
       }
     ],
-    "description": "Developed a long-running batch Macro that analyzes multiple DICOM and MIP inputs and saves multiple result formats.",
+    "description": "Developed a batch Macro that sequentially analyzes DICOM and custom project files (.mip) and saves results in multiple formats.",
     "details": [
       [
         "Outcome",
@@ -2298,7 +2337,7 @@
       ],
       [
         "Medical-image outputs",
-        "Converted the original DICOM HU volume to NII, saved volume, mask, mesh, annotation, and AI results in MIP, and wrote image dimensions, spacing, and per-layer voxel and volume metrics to CSV."
+        "Converted the original DICOM HU volume to NII, saved volume, mask, mesh, annotation, and AI results in custom project files (.mip), and wrote image dimensions, spacing, and per-layer voxel and volume metrics to CSV."
       ],
       [
         "Action Queue and failure isolation",
@@ -2406,11 +2445,11 @@
     "print": "PDF",
     "heroAria": "소개",
     "heroTitle": [
-      "의료영상 제품을 개발하는",
+      "화면부터 현장까지",
       "C++/Qt 개발자"
     ],
     "summaryLabel": "Summary",
-    "summaryText": "6년 이상 Windows 애플리케이션과 장비 연동 소프트웨어를 개발했습니다. 메디컬아이피에서는 C++/Qt 기반 의료영상 클라이언트의 기능 개발과 최초 배포를 담당했습니다. UI 테스트·배치 자동화와 DICOM/PACS 연동 안정화까지 구현하고 운영했습니다.",
+    "summaryText": "2026년 9월 기준 6년 8개월 동안 Windows 애플리케이션과 장비 연동 소프트웨어를 개발했습니다. 메디컬아이피에서는 기존 MVVM 구조를 분석해 C++/Qt 의료영상 클라이언트 기능을 개발하고 2024년 6월 최초 배포를 지원했습니다. Windows Qt UI 자동 테스트·로그 분석과 JSON 배치 처리를 구현하고 기존 DICOM/PACS 연동을 보완했습니다. 이전에는 Python/Qt 장비 테스트와 AMX 제어 프로그램을 개발하고 TCP/IP·Serial 연동과 현장 검증을 수행했습니다.",
     "summaryCta": "작업 사례 보기",
     "metricsAria": "핵심 요약",
     "metrics": [
@@ -2431,7 +2470,7 @@
       ],
       [
         "강점",
-        "C++/Qt, UI·배치 자동화, TCP/IP·Serial 시스템 연동, DICOM/PACS 안정화"
+        "C++/Qt 의료영상 클라이언트·기존 MVVM 분석, Windows Qt UI 자동 테스트·로그 분석, DICOM/PACS 보완, JSON 배치 실패 격리, Git·SVN·Redmine 협업"
       ],
       [
         "연락처",
@@ -2454,29 +2493,29 @@
             "TiSepX 기능과 리소스를 DeepCatch X 제품 구성에 맞게 변경",
             "WW/WL을 반영한 X-ray 영상에 Segmentation Mask와 Annotation을 합성해 결과 이미지 생성",
             "AI 분석 결과와 생성 이미지를 리포트 데이터로 연결하고 PDF 출력 구현",
-            "Action/Command와 Action Queue 기반 분석·출력 자동화 구현 후 2024년 6월 최초 배포",
+            "Action/Command와 Action Queue 기반 분석·출력 기능 구현, 2024년 6월 최초 배포 지원",
             "기관별 리포트·저장·업로드 옵션과 운영 이슈를 분석해 제품 개선 및 릴리즈 검증에 반영"
           ],
-          "outcome": "2024년 6월 최초 배포를 완료하고, 기관별 출력·저장·업로드 요구사항을 제품 기능과 설정에 반영했습니다.",
-          "context": "제품 운영 규모: 한국건강관리협회 17개 지부에 DeepCatch 서비스 제공. DCX 사용량은 1,037에서 9,490으로 약 9.2배 확대(2025.08~2026.07, 회사 집계 기준).",
+          "outcome": "영상·분석 결과 표시와 출력 기능을 개발·검증해 2024년 6월 최초 배포를 지원하고, 기관별 출력·저장·업로드 조건을 반영했습니다.",
+          "context": "제품 운영 규모(회사 집계): 한국건강관리협회 17개 지부에 DeepCatch 서비스 제공. 회사 전체 DCX 사용량은 1,037에서 9,490으로 약 9.2배 확대(2025.08~2026.07).",
           "id": "deepcatch"
         },
         {
-          "alt": "UI AutoTest 대표 자료",
-          "title": "C++/Qt 기반 UI AutoTest 개발",
-          "body": "반복되는 수동 UI 검증을 저장하고 재실행할 수 있는 테스트 시나리오로 전환했습니다.",
+          "alt": "Windows Qt UI 자동 테스트·로그 분석(UI AutoTest) 대표 자료",
+          "title": "Windows Qt UI 자동 테스트·로그 분석 개발",
+          "body": "Windows Qt UI 자동 테스트·로그 분석 기능(UI AutoTest)을 처음부터 구현해 수동 검증을 기록·재생 가능한 시나리오로 전환했습니다.",
           "bullets": [
             "버튼·콤보박스·슬라이더·트리·테이블과 키보드 입력 기록 및 재현",
             "반복 횟수, 팝업 처리, 장시간 작업 대기와 단계별 진행·결과 표시 구현",
-            "수동 UI 검증을 재실행 가능하고 실패 지점을 확인할 수 있는 흐름으로 전환"
+            "기존 CI/CD의 설치 파일 생성·자동 설치 단계는 이슈 수정·마이그레이션에 참여하고, UI 테스트·로그 분석은 신규 구현"
           ],
-          "outcome": "장시간 반복 시험으로 수십 건의 크래시를 발견하고, 테스트 결과와 실패 위치를 일일 메일로 공유했습니다.",
+          "outcome": "장시간 반복 시험으로 수십 건의 크래시·기능 오류를 발견하고, 테스트 결과와 실패 위치를 일일 메일로 공유했습니다.",
           "id": "autotest"
         },
         {
           "alt": "MEDIP Macro 배치 실행 대표 자료",
           "title": "MEDIP 배치 분석 및 결과 Export Macro 개발",
-          "body": "다수의 DICOM·MIP 데이터를 자동 분석하고 다양한 결과를 저장하는 장시간 배치 Macro를 개발했습니다.",
+          "body": "다수의 DICOM·커스텀 프로젝트 파일(.mip)을 순차 분석하고 결과를 저장하는 배치 Macro를 개발했습니다.",
           "bullets": [
             "복수 AI Segmentation, Surface 생성, Layer·Mesh Export와 원본 HU Volume NII 변환",
             "JSON 실행 설정과 Command/Action Queue 기반 순차 처리",
@@ -2530,7 +2569,7 @@
     "experience": {
       "label": "Experience",
       "title": "경력",
-      "body": "의료영상 제품 개발과 전시·공간의 장비 제어 소프트웨어를 경험했습니다.",
+      "body": "기존 MVVM 분석과 의료영상 기능 개발, 최초 배포 지원, Windows Qt UI 자동 테스트·로그 분석, 기존 DICOM/PACS 보완을 수행했습니다.",
       "buttons": [
         "작업 사례",
         "작업 사례"
@@ -2539,7 +2578,7 @@
         [
           "2023.05 - 재직중",
           "메디컬아이피 | Application / 대리",
-          "의료영상 클라이언트 기능 개발, UI·배치 자동화, DICOM/PACS 연동과 병원·검진기관 배포 검증을 담당했습니다."
+          "기존 CI/CD 설치 파일 생성·자동 설치 단계의 이슈 수정·마이그레이션에 참여하고, Windows Qt UI 자동 테스트·로그 분석 기능은 처음부터 구현했습니다. 기존 MVVM 구조를 분석해 DeepCatch X 기능을 개발하고 2024년 6월 최초 배포를 지원했습니다. JSON 배치 처리와 기존 DICOM/PACS 보완, 기관별 배포 검증도 수행했습니다."
         ],
         [
           "2019.10 - 2023.02",
@@ -2550,7 +2589,7 @@
     },
     "stack": {
       "title": "기술 스택",
-      "body": "프로젝트 구현과 운영에 사용한 기술입니다.",
+      "body": "C++/Qt 제품 구현, 기존 MVVM 구조 분석과 기능 개발, Windows Qt UI 자동 테스트·로그 분석, JSON 배치 처리, TCP/IP·Serial 연동과 기존 DICOM/PACS 보완에 사용한 기술과 도구입니다.",
       "groups": [
         [
           "C++/Qt 개발",
@@ -2593,12 +2632,22 @@
             "PostgreSQL",
             "Qt SQL",
             "File I/O",
-            "GitLab",
+            "Git/GitLab",
             "SVN",
+            "Redmine",
             "TeamCity",
             "검증 문서"
           ]
         ]
+      ]
+    },
+    "collaboration": {
+      "title": "협업·배포·AI 활용",
+      "body": "변경과 이슈를 공유하고, 현장 배포 조건을 점검하며, 생성형 AI의 제안을 실제 근거로 검토합니다.",
+      "cards": [
+        ["협업·형상관리", "Git/GitLab·SVN으로 변경 이력을 관리하고 Redmine으로 이슈 진행과 확인 결과를 추적합니다. 동료와 재현 조건·검증 결과를 공유하고 현장 조건에 맞춰 접근을 조정합니다."],
+        ["현장 배포 준비", "현장 방문 전 설치·배포 파일과 제품 설정을 정리·점검하고, 현장에서 설치와 동작 결과를 확인합니다."],
+        ["생성형 AI 활용", "기존 코드 분석, 오류 원인 후보 정리, 구현·테스트 관점과 문서·설정 변경 검토에 보조적으로 사용합니다. 제안은 코드·로그·실행 결과와 대조해 판단합니다."]
       ]
     },
     "closing": {
@@ -2606,10 +2655,10 @@
       "title": "제품 흐름을 끝까지 책임지는 C++/Qt 개발자",
       "lines": [
         "고객 요구와 배포 환경 조건을 구조화된 기능으로 구현하고, 검증 가능한 배포 결과로 마무리하는 데 집중합니다.",
-        "UI 검증 자동화부터 의료영상 클라이언트 기능, 장시간 배치 처리, 기존 연동 안정화와 최초 배포까지 제품 흐름을 다뤄왔습니다."
+        "Windows Qt UI 자동 테스트·로그 분석부터 의료영상 클라이언트 기능, 장시간 배치 처리, 기존 연동 보완과 최초 배포 지원까지 수행했습니다."
       ]
     },
-    "footer": "C++/Qt Application Engineer Portfolio · 2026.09.08",
+    "footer": "C++/Qt Application Engineer Portfolio · 2026.10.06",
     "lightbox": {
       "close": "닫기",
       "zoomOut": "이미지 축소",
@@ -2641,11 +2690,11 @@
     "print": "PDF",
     "heroAria": "Introduction",
     "heroTitle": [
-      "Medical Imaging Applications",
+      "From UI to Field",
       "C++/Qt Developer"
     ],
     "summaryLabel": "Summary",
-    "summaryText": "I have over six years of experience developing Windows applications and device integration software. At Medical IP, I developed C++/Qt medical-imaging client features and delivered the first DeepCatch X release. My work also covers UI test automation, batch processing, and DICOM/PACS reliability.",
+    "summaryText": "As of September 2026, I have six years and eight months of experience developing Windows applications and device integration software. At Medical IP, I analyzed an inherited MVVM structure, developed C++/Qt medical-imaging client features, and supported the first release in June 2024. I built Windows Qt UI automation and log analysis and JSON batch processing, and improved existing DICOM/PACS integration. Earlier, I built Python/Qt device tests and AMX control software, including TCP/IP and Serial integration and on-site validation.",
     "summaryCta": "View Projects",
     "metricsAria": "Key summary",
     "metrics": [
@@ -2666,7 +2715,7 @@
       ],
       [
         "Strengths",
-        "C++/Qt, UI and batch automation, TCP/IP and Serial system integration, DICOM/PACS stabilization"
+        "C++/Qt medical-imaging client and inherited MVVM analysis, Windows Qt UI automation and log analysis, DICOM/PACS improvements, JSON batch failure isolation, Git/SVN/Redmine collaboration"
       ],
       [
         "Contact",
@@ -2689,29 +2738,29 @@
             "Transitioned TiSepX features and resources into the DeepCatch X product configuration",
             "Applied WW/WL to X-ray images and composited segmentation masks and annotations",
             "Connected AI results and generated images to report data and PDF output",
-            "Built Action/Command and Action Queue automation and completed the first release in June 2024",
+            "Built Action/Command and Action Queue analysis and output features; supported the first release in June 2024",
             "Reflected institution-specific report, save, and upload options and operational issues in product improvements and release validation"
           ],
-          "outcome": "Delivered the first release in June 2024 and implemented institution-specific requirements for output, saving, and upload behavior.",
-          "context": "Product operations: DeepCatch services at 17 Korea Association of Health Promotion branches. DCX usage rose from 1,037 to 9,490, approximately 9.2 times, from August 2025 to July 2026 (company-reported figures).",
+          "outcome": "Developed and validated image and analysis-result display and output features, supported the first release in June 2024, and addressed institution-specific output, save, and upload conditions.",
+          "context": "Company-reported product operations: DeepCatch services at 17 Korea Association of Health Promotion branches. Company-wide DCX usage rose from 1,037 to 9,490, approximately 9.2 times, from August 2025 to July 2026.",
           "id": "deepcatch"
         },
         {
-          "alt": "UI AutoTest representative material",
-          "title": "C++/Qt UI AutoTest Development",
-          "body": "Converted repeated manual UI checks into saved, replayable test scenarios.",
+          "alt": "Windows Qt UI automation and log analysis (UI AutoTest) representative material",
+          "title": "Windows Qt UI Automation and Log Analysis",
+          "body": "Built Windows Qt UI automation and log analysis (UI AutoTest) from scratch, turning manual checks into recorded, replayable scenarios.",
           "bullets": [
             "Recorded and replayed buttons, combo boxes, sliders, trees, tables, and keyboard input",
             "Implemented repeat counts, popup handling, long task waits, and step-level progress and results",
-            "Turned manual UI checks into reproducible flows with traceable failure points"
+            "Contributed issue fixes and migration work to existing CI/CD installer generation and automatic installation; built UI automation and log analysis from scratch"
           ],
-          "outcome": "Identified dozens of crashes through extended repeat testing and shared daily emails with test results and failure locations.",
+          "outcome": "Identified dozens of crashes and functional defects through extended repeat testing and shared daily emails with results and failure locations.",
           "id": "autotest"
         },
         {
           "alt": "MEDIP Macro batch execution material",
           "title": "MEDIP Batch Analysis and Export Macro",
-          "body": "Developed a long-running batch Macro that analyzes multiple DICOM and MIP inputs and saves multiple result formats.",
+          "body": "Developed a batch Macro that sequentially analyzes DICOM and custom project files (.mip) and saves results in multiple formats.",
           "bullets": [
             "Automated multiple AI segmentations, surface creation, layer and mesh exports, and original HU volume NII conversion",
             "Used JSON execution settings and sequential Command/Action Queue processing",
@@ -2765,7 +2814,7 @@
     "experience": {
       "label": "Experience",
       "title": "Experience",
-      "body": "Experience across medical-imaging products and device-control software for exhibition spaces.",
+      "body": "Analyzed an inherited MVVM structure, developed medical-imaging features, supported the first release, built Windows Qt UI automation and log analysis, and improved existing DICOM/PACS integration.",
       "buttons": [
         "Work Samples",
         "Work Samples"
@@ -2774,7 +2823,7 @@
         [
           "May 2023 - Present",
           "Medical IP | Application / Assistant Manager",
-          "Developed medical-imaging client features, UI and batch automation, DICOM/PACS integration, and deployment validation for hospitals and screening sites."
+          "Contributed issue fixes and migration to existing CI/CD installer generation and automatic installation stages, and built Windows Qt UI automation and log analysis from scratch. Analyzed inherited MVVM code, developed DeepCatch X features, and supported the first release in June 2024. Also implemented JSON batch processing, improved existing DICOM/PACS integration, and validated site-specific releases."
         ],
         [
           "Oct 2019 - Feb 2023",
@@ -2785,7 +2834,7 @@
     },
     "stack": {
       "title": "Tech Stack",
-      "body": "Technologies used in project implementation and operation.",
+      "body": "Tools used for C++/Qt product features, inherited MVVM analysis, Windows Qt UI automation and log analysis, JSON batch processing, TCP/IP and Serial integration, and existing DICOM/PACS improvements.",
       "groups": [
         [
           "C++/Qt Development",
@@ -2828,12 +2877,22 @@
             "PostgreSQL",
             "Qt SQL",
             "File I/O",
-            "GitLab",
+            "Git/GitLab",
             "SVN",
+            "Redmine",
             "TeamCity",
             "Validation Docs"
           ]
         ]
+      ]
+    },
+    "collaboration": {
+      "title": "Collaboration, Deployment, and AI Use",
+      "body": "I share code changes and issue findings, check site deployment conditions, and evaluate generative AI suggestions against actual evidence.",
+      "cards": [
+        ["Collaboration and Version Control", "I use Git/GitLab and SVN to track changes and Redmine to follow issues and verification results. I share reproduction conditions and validation results with colleagues and adapt to site conditions."],
+        ["Site Deployment Preparation", "Before site visits, I organize and check installation and deployment files and product settings, then verify installation and operation on site."],
+        ["Generative AI as a Tool", "I use generative AI to assist with existing-code analysis, possible error causes, implementation and test perspectives, and documentation and configuration change reviews. I check suggestions against code, logs, and execution results."]
       ]
     },
     "closing": {
@@ -2841,10 +2900,10 @@
       "title": "C++/Qt Developer Responsible for the Full Product Flow",
       "lines": [
         "I focus on turning customer and deployment requirements into structured features and closing the loop with verifiable release results.",
-        "My work spans UI validation automation, medical-image client features, long-running batch execution, existing integration stabilization, and first-release delivery."
+        "My work spans Windows Qt UI automation and log analysis, medical-imaging client features, long-running batch processing, improvements to existing integration, and first-release support."
       ]
     },
-    "footer": "C++/Qt Application Engineer Portfolio · 2026.09.08",
+    "footer": "C++/Qt Application Engineer Portfolio · 2026.10.06",
     "lightbox": {
       "close": "Close",
       "zoomOut": "Zoom out",
@@ -3019,7 +3078,7 @@
       setText("#experience .section-label", text.experience.label);
       setText("#experience-title", text.experience.title);
       setText("#experience .section-header p", text.experience.body);
-      document.querySelectorAll(".experience-card").forEach((card, index) => {
+      document.querySelectorAll("#experience .experience-card").forEach((card, index) => {
         const [period, title, body] = text.experience.cards[index];
         card.querySelector(".period").textContent = period;
         card.querySelector("h3").textContent = title;
@@ -3035,6 +3094,14 @@
         const [title, chips] = text.stack.groups[index];
         group.querySelector("h3").textContent = title;
         setChipList(group.querySelector(".chips"), chips);
+      });
+
+      setText("#collaboration-title", text.collaboration.title);
+      setText("#collaboration .section-header p", text.collaboration.body);
+      document.querySelectorAll("#collaboration .experience-card").forEach((card, index) => {
+        const [title, body] = text.collaboration.cards[index];
+        card.querySelector("h3").textContent = title;
+        card.querySelector("p").textContent = body;
       });
 
       setAttribute(".closing", "aria-label", text.closing.aria);
