@@ -20,7 +20,7 @@
 
     sections.push(`<span class="print-kicker">C++ / Qt APPLICATION ENGINEER</span>
       <h1>${text("한재성", "JaeSung Han")}</h1><p>${e(t.summaryText)}</p>
-      <p class="print-meta">${text("2026.09 기준 경력 6년 8개월 · Windows 애플리케이션 · 의료영상 / 장비 연동", "6 years 8 months as of Sep 2026 · Windows applications · Medical imaging / device integration")}</p>
+      <p class="print-meta">${text("2026.10 기준 경력 6년 9개월 · Windows 애플리케이션 · 의료영상 / 장비 연동", "six years nine months as of October 2026 · Windows applications · Medical imaging / device integration")}</p>
       <h3>${text("주요 작업", "Selected projects")}</h3>
       <div class="print-index">${t.work.projects.map((item, i) => `<div><strong>0${i + 1}</strong><div><b>${e(item.title)}</b><p>${e(item.outcome)}</p></div></div>`).join("")}</div>
       <h3>${e(t.experience.title)}</h3>${pairs(t.experience.cards.map(([period, title, body]) => [title + " · " + period, body]))}
