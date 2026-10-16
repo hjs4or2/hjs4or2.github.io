@@ -20,7 +20,8 @@ window.portfolioMediaManifest = {
   "resource/05": [
     "00_Test_Automation_Infrastructure_en.png",
     "00_대표_테스트_자동화_인프라.png",
-    "01_AutoTest_결과_메일전송.png"
+    "01_AutoTest_결과_메일전송.png",
+    "qt-input-record-replay-demo.webm"
   ],
   "resource/07": [
     "01_MEDIP_Macro_입력_설정.gif",
