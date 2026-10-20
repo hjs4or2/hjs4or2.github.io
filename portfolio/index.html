@@ -2080,8 +2080,9 @@
         "title": "i-Controller · 장비 제어"
       },
       {
-        "file": "touchdesigner-butterfly.mp4",
-        "title": "TouchDesigner · 인터랙션 영상"
+        "file": "touchdesigner-butterfly-vp9-silent.webm",
+        "title": "TouchDesigner · 인터랙션 영상",
+        "muted": true
       }
     ],
     "description": "AMX 통합 제어·Python/Qt 테스트 앱 개발",
@@ -2451,8 +2452,9 @@
         "title": "i-Controller · device control"
       },
       {
-        "file": "touchdesigner-butterfly.mp4",
-        "title": "TouchDesigner · interaction video"
+        "file": "touchdesigner-butterfly-vp9-silent.webm",
+        "title": "TouchDesigner · interaction video",
+        "muted": true
       }
     ],
     "description": "AMX control programs and Python/Qt test applications",
@@ -3270,6 +3272,7 @@
               : `${project.mediaFolder}/${fileName}`,
             title: getMediaTitle(fileName, title),
             poster: typeof file === "object" ? file.poster : undefined,
+            muted: typeof file === "object" && file.muted === true,
             type: videoExtensions.includes(extension) ? "video" : "image"
           };
         });
@@ -3355,6 +3358,8 @@
         media.controls = true;
         media.playsInline = true;
         media.preload = "metadata";
+        media.defaultMuted = candidate.muted === true;
+        media.muted = candidate.muted === true;
         if (candidate.poster) media.poster = candidate.poster;
         media.setAttribute("aria-label", `${project.title} ${lightboxText.videoSuffix}`);
       } else {

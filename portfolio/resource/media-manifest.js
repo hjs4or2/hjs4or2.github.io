@@ -41,6 +41,6 @@ window.portfolioMediaManifest = {
     "the-arc-scheduler.jpg",
     "the-arc-scheduler-settings.jpg",
     "the-arc-projector.jpg",
-    "touchdesigner-butterfly.mp4"
+    "touchdesigner-butterfly-vp9-silent.webm"
   ]
 };
