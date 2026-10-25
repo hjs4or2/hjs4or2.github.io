@@ -1,0 +1,153 @@
+{
+  "upstream": "https://github.com/simple-icons/simple-icons",
+  "retrieved": "2026-10-25",
+  "packageLicense": "CC0-1.0; see skill-icons.LICENSE.md. Package CC0 does not waive third-party brand trademarks or imply that every brand mark is CC0. See skill-icons.DISCLAIMER.md and individual metadata.",
+  "adaptation": "SVG path geometry unchanged; wrappers converted to local symbols. Monochrome currentColor applied by CSS. No official endorsement is claimed.",
+  "gitAttribution": "Git Logo by Jason Long, licensed under CC BY 3.0 Unported (https://creativecommons.org/licenses/by/3.0/). Source: https://git-scm.com/community/logos. Geometry unchanged; monochrome styling via Simple Icons.",
+  "brandMetadata": [
+    {
+      "title": "C++",
+      "hex": "00599C",
+      "source": "https://github.com/isocpp/logos/tree/64ef037049f87ac74875dbe72695e59118b52186"
+    },
+    {
+      "title": "CSS",
+      "hex": "663399",
+      "source": "https://github.com/CSS-Next/logo.css/blob/bacc20878227204b283c68a6b935f8279e06b0cd/css.svg",
+      "guidelines": "https://github.com/CSS-Next/logo.css"
+    },
+    {
+      "title": "Git",
+      "hex": "F03C2E",
+      "source": "https://git-scm.com/community/logos",
+      "license": {
+        "type": "CC-BY-3.0"
+      }
+    },
+    {
+      "title": "GitLab",
+      "hex": "FC6D26",
+      "source": "https://about.gitlab.com/press/press-kit/",
+      "guidelines": "https://about.gitlab.com/handbook/marketing/corporate-marketing/brand-activation/trademark-guidelines/"
+    },
+    {
+      "title": "HTML5",
+      "hex": "E34F26",
+      "source": "https://www.w3.org/html/logo/"
+    },
+    {
+      "title": "JSON",
+      "hex": "000000",
+      "source": "https://commons.wikimedia.org/wiki/File:JSON_vector_logo.svg"
+    },
+    {
+      "title": "PostgreSQL",
+      "hex": "4169E1",
+      "source": "https://wiki.postgresql.org/wiki/Logo",
+      "guidelines": "https://www.postgresql.org/about/policies/trademarks/"
+    },
+    {
+      "title": "Python",
+      "hex": "3776AB",
+      "source": "https://www.python.org/community/logos/",
+      "guidelines": "https://www.python.org/community/logos/"
+    },
+    {
+      "title": "Qt",
+      "hex": "41CD52",
+      "source": "https://www.qt.io",
+      "guidelines": "https://www.qt.io/brand"
+    },
+    {
+      "title": "TeamCity",
+      "hex": "000000",
+      "source": "https://www.jetbrains.com/company/brand/logos",
+      "guidelines": "https://www.jetbrains.com/company/brand"
+    }
+  ],
+  "files": {
+    "cplusplus": {
+      "upstream": "https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/cplusplus.svg",
+      "sha256": "adf33f5026f3f70d54f1068cb5d1a790c37b2105cbe728edd170251759d13f18",
+      "symbol": "brand-cplusplus"
+    },
+    "qt": {
+      "upstream": "https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/qt.svg",
+      "sha256": "5beada80050689e08f124bfbdb2336dbad0b8db53805f3a79be47e5d35988b20",
+      "symbol": "brand-qt"
+    },
+    "python": {
+      "upstream": "https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/python.svg",
+      "sha256": "ad9468e1c4903f73ae7eebfbe980f0f727a10db695be3d914e7d8bd25356a862",
+      "symbol": "brand-python"
+    },
+    "postgresql": {
+      "upstream": "https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/postgresql.svg",
+      "sha256": "c8ccadbd88c9312c2ad3734c4861b31d3485ce179ee91d64793143f83cfa745c",
+      "symbol": "brand-postgresql"
+    },
+    "teamcity": {
+      "upstream": "https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/teamcity.svg",
+      "sha256": "0a397c8f3d0e04319dcb12744c5456fde74921c95d92496b91510c9aab3fec4c",
+      "symbol": "brand-teamcity"
+    },
+    "gitlab": {
+      "upstream": "https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/gitlab.svg",
+      "sha256": "c7c39058bd1b6f9f40334383bd5136bb8c5ba5e6a24200f2d1f18365e2526e28",
+      "symbol": "brand-gitlab"
+    },
+    "html5": {
+      "upstream": "https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/html5.svg",
+      "sha256": "dfd65fdd7e4f997c6b163e48793de5ad18c4c99e191807a61752ea702f123d1d",
+      "symbol": "brand-html5"
+    },
+    "css": {
+      "upstream": "https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/css.svg",
+      "sha256": "9a97b95e3207aa4a6545dbb862e22450a01f37201c00e6b7d9c2958b59ca9ff9",
+      "symbol": "brand-css"
+    },
+    "json": {
+      "upstream": "https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/json.svg",
+      "sha256": "8cbb06b00889977af13c20b92c4ff8b1c3913f340db49070abc1d582c1e06d5b",
+      "symbol": "brand-json"
+    },
+    "git": {
+      "upstream": "https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/git.svg",
+      "sha256": "95724d436215d483de82288610c3c144854138f49945424697fcdf8be66e17d6",
+      "symbol": "brand-git"
+    },
+    "LICENSE.md": {
+      "upstream": "https://raw.githubusercontent.com/simple-icons/simple-icons/develop/LICENSE.md",
+      "sha256": "9046848b63a5c92bff14e4accca80bd987e0623b74adf9226ce5198d312b79d5"
+    },
+    "DISCLAIMER.md": {
+      "upstream": "https://raw.githubusercontent.com/simple-icons/simple-icons/develop/DISCLAIMER.md",
+      "sha256": "5757a1f28eff735a8b5e7425478f367812d71e974530f5bedd01219480965f4a"
+    }
+  },
+  "conceptSymbols": {
+    "author": "Created for this portfolio, generic concepts rather than official brand logos",
+    "symbols": [
+      "concept-layers",
+      "concept-command",
+      "concept-network",
+      "concept-serial",
+      "concept-imaging",
+      "concept-medical-file",
+      "concept-controls",
+      "concept-document"
+    ]
+  },
+  "reuse": {
+    "QWebEngine": "brand-qt (Qt-based technology)",
+    "Qt SQL": "brand-qt (Qt-based technology)",
+    "HTML/CSS": [
+      "brand-html5",
+      "brand-css"
+    ],
+    "Git/GitLab": [
+      "brand-git",
+      "brand-gitlab"
+    ]
+  }
+}

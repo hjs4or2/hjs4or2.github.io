@@ -1521,9 +1521,15 @@
     }
   </style>
   <link rel="stylesheet" href="resource/print-portfolio.css">
+  <link rel="stylesheet" href="resource/dark-portfolio.css" media="screen">
+  <style media="print">.skill-icon { display: none; }</style>
+  <script src="resource/intro.js"></script>
 </head>
 <body>
   <div class="site-shell">
+    <div class="site-intro" hidden aria-hidden="true">
+      <div class="intro-signature"><span class="intro-monogram">C++ / Qt</span><span class="intro-wordmark">PORTFOLIO</span><span class="intro-line"></span></div>
+    </div>
     <header class="topbar">
       <div class="topbar-inner">
         <a class="brand" href="#top" aria-label="처음으로 이동">
@@ -1534,10 +1540,11 @@
     </header>
     <nav class="nav" aria-label="주요 섹션">
       <a href="#top">맨 위로</a>
+      <a href="#stack">기술 역량</a>
       <a href="#work">작업 사례</a>
-      <a href="#flow">개발 흐름</a>
       <a href="#experience">경력</a>
-      <a href="#stack">스택</a>
+      <a href="#flow">개발 흐름</a>
+      <a href="#collaboration">협업</a>
       <div class="language-switch" aria-label="언어 선택">
         <button type="button" data-language-button="ko" aria-pressed="true">KO</button>
         <button type="button" data-language-button="en" aria-pressed="false">EN</button>
@@ -1548,12 +1555,23 @@
     <main class="page" id="top">
       <section class="hero" aria-label="소개">
         <div class="hero-heading">
-          <h1 class="hero-title"><span>화면부터 현장까지</span><span>C++/Qt 개발자</span></h1>
+          <p class="eyebrow" data-design-copy="heroEyebrow">APPLICATION ENGINEER / PORTFOLIO 2026</p>
+          <h1 class="hero-title"><span>한재성</span><span>C++/Qt 개발자</span></h1>
+          <ul class="hero-platforms" aria-label="Core technologies"><li>C++</li><li>Qt</li><li>Windows</li></ul>
         </div>
         <div class="hero-summary">
           <p class="summary-text">C++/Qt 기반 Windows 의료영상 소프트웨어와 장비 연동 프로그램을 개발해 온 한재성입니다. 기존 코드와 로그로 문제를 재현하고, 기능 구현부터 테스트·배포와 현장 확인까지 이어서 맡습니다. 밝고 유연한 태도로 동료의 의견을 듣고, 팀의 방향에 맞춰 필요한 일을 찾아 실행합니다. 경력 6년 9개월(2026.10 기준).</p>
           <a class="summary-cta" href="#work">작업 사례 보기</a>
         </div>
+        <figure class="hero-showcase">
+          <div class="showcase-topline"><span>01 / DEEPCATCH X</span><span data-design-copy="heroProductLabel">의료영상 클라이언트</span></div>
+          <button class="hero-preview project-preview-trigger" type="button" data-project="deepcatch" aria-label="DeepCatch X 상세 자료 열기" data-design-aria="heroPreviewAria">
+            <img src="resource/products/deepcatch-x-overview.png" alt="DeepCatch X 제품 소개 · 분석 화면 및 리포트" data-design-alt="heroImageAlt" decoding="async" fetchpriority="high">
+            <span class="showcase-open" data-design-copy="heroOpen">프로젝트 살펴보기 ↗</span>
+          </button>
+          <figcaption class="showcase-caption" data-design-copy="heroCaption">영상·리포트 출력에서 분석 자동화까지</figcaption>
+          <div class="practice-board"><span data-design-copy="boardLabel">실무 키워드</span><ul><li>MVVM / Action·Command</li><li>DICOM / PACS</li><li data-design-copy="boardAutomation">테스트·배치 자동화</li><li data-design-copy="boardRelease">검증·배포·현장 대응</li></ul></div>
+        </figure>
         <article class="hero-card hero-profile" aria-labelledby="profile-title">
           <h2 class="hero-label" id="profile-title">Profile</h2>
           <dl class="profile-table">
@@ -1566,8 +1584,25 @@
       </section>
 
       <div class="sections">
-<section class="section" id="work" aria-labelledby="work-title">
+<section class="section" id="stack" aria-labelledby="stack-title">
           <div class="section-header">
+            <span class="section-index"></span>
+            <div>
+              <h2 id="stack-title">기술을 실제 기능으로</h2>
+              <p class="stack-intro">사용한 도구와 직접 구현한 기능을 함께 소개합니다.</p>
+            </div>
+          </div>
+          <div class="stack-grid">
+            <article class="stack-group"><h3>개발</h3><ul class="chips"><li><svg class="skill-icon" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="resource/skill-icons.svg#brand-cplusplus"></use></svg><span class="skill-name">C++</span></li><li><svg class="skill-icon" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="resource/skill-icons.svg#brand-qt"></use></svg><span class="skill-name">Qt</span></li><li><svg class="skill-icon" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="resource/skill-icons.svg#brand-python"></use></svg><span class="skill-name">Python</span></li><li><svg class="skill-icon" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="resource/skill-icons.svg#concept-layers"></use></svg><span class="skill-name">MVVM</span></li><li><svg class="skill-icon" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="resource/skill-icons.svg#concept-command"></use></svg><span class="skill-name">Action/Command</span></li></ul><p class="stack-practice">기존 MVVM 구조에서 영상·리포트 출력과 분석 자동화 구현.</p><button type="button" class="project-preview-trigger stack-evidence" data-project="deepcatch">구현 사례 ↗</button></article>
+            <article class="stack-group"><h3>연동</h3><ul class="chips"><li><svg class="skill-icon" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="resource/skill-icons.svg#concept-network"></use></svg><span class="skill-name">TCP/IP</span></li><li><svg class="skill-icon" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="resource/skill-icons.svg#concept-serial"></use></svg><span class="skill-name">Serial</span></li><li><svg class="skill-icon" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="resource/skill-icons.svg#concept-imaging"></use></svg><span class="skill-name">DICOM</span></li><li><svg class="skill-icon" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="resource/skill-icons.svg#concept-medical-file"></use></svg><span class="skill-name">DCMTK</span></li><li><svg class="skill-icon" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="resource/skill-icons.svg#concept-controls"></use></svg><span class="skill-name">AMX</span></li></ul><p class="stack-practice">DICOM/PACS 오류 보완, 비동기 C-ECHO와 장비 통신 예외 처리.</p><button type="button" class="project-preview-trigger stack-evidence" data-project="pacs">구현 사례 ↗</button></article>
+            <article class="stack-group"><h3>영상·출력</h3><ul class="chips"><li><svg class="skill-icon" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="resource/skill-icons.svg#brand-qt"></use></svg><span class="skill-name">QWebEngine</span></li><li><svg class="skill-icon" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="resource/skill-icons.svg#brand-html5"></use></svg><svg class="skill-icon" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="resource/skill-icons.svg#brand-css"></use></svg><span class="skill-name">HTML/CSS</span></li><li><svg class="skill-icon" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="resource/skill-icons.svg#concept-document"></use></svg><span class="skill-name">PDF/CSV</span></li><li><svg class="skill-icon" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="resource/skill-icons.svg#brand-json"></use></svg><span class="skill-name">JSON</span></li></ul><p class="stack-practice">QWebEngine 기반 리포트와 기관별 출력 조건 반영.</p><button type="button" class="project-preview-trigger stack-evidence" data-project="deepcatch">구현 사례 ↗</button></article>
+            <article class="stack-group"><h3>데이터·검증</h3><ul class="chips"><li><svg class="skill-icon" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="resource/skill-icons.svg#brand-postgresql"></use></svg><span class="skill-name">PostgreSQL</span></li><li><svg class="skill-icon" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="resource/skill-icons.svg#brand-qt"></use></svg><span class="skill-name">Qt SQL</span></li><li><svg class="skill-icon" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="resource/skill-icons.svg#brand-teamcity"></use></svg><span class="skill-name">TeamCity</span></li><li><svg class="skill-icon" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="resource/skill-icons.svg#brand-git"></use></svg><svg class="skill-icon" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="resource/skill-icons.svg#brand-gitlab"></use></svg><span class="skill-name">Git/GitLab</span></li></ul><p class="stack-practice">Qt 입력 기록·재생 프레임워크로 반복 테스트와 오류 재현.</p><button type="button" class="project-preview-trigger stack-evidence" data-project="autotest">구현 사례 ↗</button></article>
+          </div>
+        </section>
+
+        <section class="section" id="work" aria-labelledby="work-title">
+          <div class="section-header">
+            <span class="section-index"></span>
             <div>
               <h2 id="work-title"><span class="section-title-line">작업 사례</span></h2>
             </div>
@@ -1581,6 +1616,7 @@
                 <button type="button" class="project-preview-trigger project-media-trigger" data-project="deepcatch" aria-label="DeepCatch X 클라이언트 자세히 보기">자세히 보기</button>
               </div>
               <div class="project-body">
+                <span class="project-category" data-project-category="0">의료영상 · 제품 개발</span>
                 <h3>DeepCatch X 클라이언트</h3>
                 <span class="project-period">2024.04–2026.06</span>
                 <p class="project-role">기존 MVVM 기반 영상·리포트 출력과 분석 자동화 구현</p>
@@ -1595,6 +1631,7 @@
                 <button type="button" class="project-preview-trigger project-media-trigger" data-project="autotest" aria-label="Qt 입력 기록·재생 프레임워크 자세히 보기">자세히 보기</button>
               </div>
               <div class="project-body">
+                <span class="project-category" data-project-category="1">품질 · 테스트 자동화</span>
                 <h3>Qt 입력 기록·재생 프레임워크</h3>
                 <span class="project-period">2023.08–2024.11</span>
                 <p class="project-role">Qt Widgets 입력 이벤트 자동화 구조 설계·개발</p>
@@ -1609,6 +1646,7 @@
                 <button type="button" class="project-preview-trigger project-media-trigger" data-project="medipmacro" aria-label="MEDIP 배치 분석 자세히 보기">자세히 보기</button>
               </div>
               <div class="project-body">
+                <span class="project-category" data-project-category="2">워크플로 · 배치 분석</span>
                 <h3>MEDIP 배치 분석</h3>
                 <span class="project-period">2026.01–2026.04</span>
                 <p class="project-role">다중 파일 분석·Export와 파일별 실패 처리 구현</p>
@@ -1623,6 +1661,7 @@
                 <button type="button" class="project-preview-trigger project-media-trigger" data-project="pacs" aria-label="DICOM/PACS 기능 보완 자세히 보기">자세히 보기</button>
               </div>
               <div class="project-body">
+                <span class="project-category" data-project-category="3">통신 · 의료 시스템 연동</span>
                 <h3>DICOM/PACS 기능 보완</h3>
                 <span class="project-period">2024.06–2026.06</span>
                 <p class="project-role">기존 연동 오류 수정·비동기 C-ECHO 추가</p>
@@ -1637,6 +1676,7 @@
                 <button type="button" class="project-preview-trigger project-media-trigger" data-project="validation" aria-label="Validation 문서 작성 자세히 보기">자세히 보기</button>
               </div>
               <div class="project-body">
+                <span class="project-category" data-project-category="4">문서 · 소프트웨어 검증</span>
                 <h3>Validation 문서 작성</h3>
                 <span class="project-period">DeepCatch X · SVR</span>
                 <p class="project-role">인허가용 소프트웨어 Validation 문서 작성</p>
@@ -1651,6 +1691,7 @@
                 <button type="button" class="project-preview-trigger project-media-trigger" data-project="impeach" aria-label="장비 통합 제어 자세히 보기">자세히 보기</button>
               </div>
               <div class="project-body">
+                <span class="project-category" data-project-category="5">시스템 · 장비 통합 제어</span>
                 <h3>장비 통합 제어</h3>
                 <span class="project-period">IMPEACH · 2019.10–2023.02</span>
                 <p class="project-role">AMX 통합 제어·WATCHOUT 연동 개발</p>
@@ -1661,8 +1702,32 @@
           </div>
         </section>
 
-<section class="section" id="flow" aria-labelledby="flow-title">
+        <section class="section" id="experience" aria-labelledby="experience-title">
           <div class="section-header">
+            <span class="section-index"></span>
+            <div>
+              <h2 id="experience-title">경력</h2>
+            </div>
+          </div>
+          <div class="experience-grid">
+            <article class="experience-card">
+              <span class="period">2023.05 - 재직중</span>
+              <h3>메디컬아이피 | Application / 대리</h3>
+              <p>의료영상 클라이언트·자동화 개발, PACS 보완·Validation 문서 작성.</p>
+              <a class="project-preview-trigger" href="#work">작업 사례</a>
+            </article>
+            <article class="experience-card">
+              <span class="period">2019.10 - 2023.02</span>
+              <h3>IMPEACH | R&D / 주임</h3>
+              <p>AMX 통합 제어·Python/Qt 테스트 앱, 장비 연동·현장 검증.</p>
+              <button type="button" class="project-preview-trigger" data-project="impeach">작업 사례</button>
+            </article>
+          </div>
+        </section>
+
+        <section class="section" id="flow" aria-labelledby="flow-title">
+          <div class="section-header">
+            <span class="section-index"></span>
             <div>
               <h2 id="flow-title"><span class="section-title-line">개발 흐름</span></h2>
             </div>
@@ -1691,44 +1756,9 @@
           </div>
         </section>
 
-        <section class="section" id="experience" aria-labelledby="experience-title">
-          <div class="section-header">
-            <div>
-              <h2 id="experience-title">경력</h2>
-            </div>
-          </div>
-          <div class="experience-grid">
-            <article class="experience-card">
-              <span class="period">2023.05 - 재직중</span>
-              <h3>메디컬아이피 | Application / 대리</h3>
-              <p>의료영상 클라이언트·자동화 개발, PACS 보완·Validation 문서 작성.</p>
-              <a class="project-preview-trigger" href="#work">작업 사례</a>
-            </article>
-            <article class="experience-card">
-              <span class="period">2019.10 - 2023.02</span>
-              <h3>IMPEACH | R&D / 주임</h3>
-              <p>AMX 통합 제어·Python/Qt 테스트 앱, 장비 연동·현장 검증.</p>
-              <button type="button" class="project-preview-trigger" data-project="impeach">작업 사례</button>
-            </article>
-          </div>
-        </section>
-
-        <section class="section" id="stack" aria-labelledby="stack-title">
-          <div class="section-header">
-            <div>
-              <h2 id="stack-title">기술 스택</h2>
-            </div>
-          </div>
-          <div class="stack-grid">
-            <article class="stack-group"><h3>개발</h3><ul class="chips"><li>C++</li><li>Qt</li><li>Python</li><li>MVVM</li><li>Action/Command</li></ul></article>
-            <article class="stack-group"><h3>연동</h3><ul class="chips"><li>TCP/IP</li><li>Serial</li><li>DICOM</li><li>DCMTK</li><li>AMX</li></ul></article>
-            <article class="stack-group"><h3>영상·출력</h3><ul class="chips"><li>QWebEngine</li><li>HTML/CSS</li><li>PDF/CSV</li><li>JSON</li></ul></article>
-            <article class="stack-group"><h3>데이터·검증</h3><ul class="chips"><li>PostgreSQL</li><li>Qt SQL</li><li>TeamCity</li><li>Git/GitLab</li></ul></article>
-          </div>
-        </section>
-
         <section class="section" id="collaboration" aria-labelledby="collaboration-title">
           <div class="section-header">
+            <span class="section-index"></span>
             <div>
               <h2 id="collaboration-title">협업·배포·AI 활용</h2>
             </div>
@@ -2530,15 +2560,16 @@
     "navAria": "주요 섹션",
     "nav": [
       "맨 위로",
+      "기술 역량",
       "작업 사례",
-      "개발 흐름",
       "경력",
-      "스택"
+      "개발 흐름",
+      "협업"
     ],
     "print": "PDF",
     "heroAria": "소개",
     "heroTitle": [
-      "화면부터 현장까지",
+      "한재성",
       "C++/Qt 개발자"
     ],
     "summaryLabel": "Summary",
@@ -2683,7 +2714,7 @@
       ]
     },
     "stack": {
-      "title": "기술 스택",
+      "title": "기술을 실제 기능으로",
       "body": "",
       "groups": [
         [
@@ -2768,15 +2799,16 @@
     "navAria": "Primary sections",
     "nav": [
       "Top",
+      "Expertise",
       "Projects",
-      "Flow",
       "Experience",
-      "Stack"
+      "Process",
+      "Collaboration"
     ],
     "print": "PDF",
     "heroAria": "Introduction",
     "heroTitle": [
-      "From UI to Field",
+      "JaeSung Han",
       "C++/Qt Developer"
     ],
     "summaryLabel": "Summary",
@@ -2921,7 +2953,7 @@
       ]
     },
     "stack": {
-      "title": "Tech Stack",
+      "title": "Engineering in practice",
       "body": "",
       "groups": [
         [
@@ -3051,6 +3083,43 @@
       }));
     }
 
+    // Brand marks come from the local sprite; concepts use non-brand symbols.
+    const stackChipSymbols = {
+      "C++": ["brand-cplusplus"], "Qt": ["brand-qt"], "Python": ["brand-python"],
+      "MVVM": ["concept-layers"], "Action/Command": ["concept-command"],
+      "TCP/IP": ["concept-network"], "Serial": ["concept-serial"],
+      "DICOM": ["concept-imaging"], "DCMTK": ["concept-medical-file"], "AMX": ["concept-controls"],
+      "QWebEngine": ["brand-qt"], "HTML/CSS": ["brand-html5", "brand-css"],
+      "PDF/CSV": ["concept-document"], "JSON": ["brand-json"],
+      "PostgreSQL": ["brand-postgresql"], "Qt SQL": ["brand-qt"],
+      "TeamCity": ["brand-teamcity"], "Git/GitLab": ["brand-git", "brand-gitlab"]
+    };
+
+    function setStackChipList(list, values) {
+      const namespace = "http://www.w3.org/2000/svg";
+      list.replaceChildren(...values.map((value) => {
+        const item = document.createElement("li");
+        (stackChipSymbols[value] || []).forEach((symbol) => {
+          const icon = document.createElementNS(namespace, "svg");
+          icon.setAttribute("class", "skill-icon");
+          icon.setAttribute("width", "22");
+          icon.setAttribute("height", "22");
+          icon.setAttribute("viewBox", "0 0 24 24");
+          icon.setAttribute("aria-hidden", "true");
+          icon.setAttribute("focusable", "false");
+          const use = document.createElementNS(namespace, "use");
+          use.setAttribute("href", `resource/skill-icons.svg#${symbol}`);
+          icon.append(use);
+          item.append(icon);
+        });
+        const label = document.createElement("span");
+        label.className = "skill-name";
+        label.textContent = value;
+        item.append(label);
+        return item;
+      }));
+    }
+
     function renderLightboxCopy(project) {
       lightboxMeta.textContent = project.meta || "";
       lightboxMeta.hidden = !project.meta;
@@ -3065,6 +3134,46 @@
         return item;
       }));
     }
+
+    // Screen-only editorial copy. The printable summary and source evidence stay intact.
+    const designTranslations = {
+      ko: {
+        heroEyebrow: "APPLICATION ENGINEER / PORTFOLIO 2026",
+        heroProductLabel: "의료영상 클라이언트",
+        heroPreviewAria: "DeepCatch X 상세 자료 열기",
+        heroImageAlt: "DeepCatch X 제품 소개 · 분석 화면 및 리포트",
+        heroOpen: "프로젝트 살펴보기 ↗",
+        heroCaption: "영상·리포트 출력에서 분석 자동화까지",
+        boardLabel: "실무 키워드",
+        boardAutomation: "테스트·배치 자동화",
+        boardRelease: "검증·배포·현장 대응",
+        summary: "C++/Qt 기반 Windows 의료영상 소프트웨어와 장비 연동 프로그램을 개발합니다. 코드와 로그로 문제를 재현하고, 구현부터 테스트·배포와 현장 확인까지 이어서 맡습니다. 동료의 의견을 듣고 팀의 방향에 맞춰 필요한 일을 실행합니다. 총경력 6년 9개월(2026.10 기준).",
+        stackIntro: "사용한 도구와 직접 구현한 기능을 함께 소개합니다.",
+        stackTitles: ["애플리케이션 구조", "시스템·장비 연동", "영상·리포트 출력", "데이터·테스트 자동화"],
+        stackPractice: ["기존 MVVM 구조에서 영상·리포트 출력과 분석 자동화 구현.", "DICOM/PACS 오류 보완, 비동기 C-ECHO와 장비 통신 예외 처리.", "QWebEngine 기반 리포트와 기관별 출력 조건 반영.", "Qt 입력 기록·재생 프레임워크로 반복 테스트와 오류 재현."],
+        evidence: ["DeepCatch X 구현 사례 ↗", "DICOM/PACS 구현 사례 ↗", "리포트 출력 구현 사례 ↗", "테스트 자동화 구현 사례 ↗"],
+        categories: ["의료영상 · 제품 개발", "품질 · 테스트 자동화", "워크플로 · 배치 분석", "통신 · 의료 시스템 연동", "문서 · 소프트웨어 검증", "시스템 · 장비 통합 제어"],
+        sectionLabels: ["01 / EXPERTISE", "02 / SELECTED WORK", "03 / EXPERIENCE", "04 / PROCESS", "05 / COLLABORATION"]
+      },
+      en: {
+        heroEyebrow: "APPLICATION ENGINEER / PORTFOLIO 2026",
+        heroProductLabel: "Medical imaging client",
+        heroPreviewAria: "Open DeepCatch X project details",
+        heroImageAlt: "DeepCatch X product overview, analysis screens and reports",
+        heroOpen: "Explore the project ↗",
+        heroCaption: "From imaging and reports to analysis automation",
+        boardLabel: "In practice",
+        boardAutomation: "Test & batch automation",
+        boardRelease: "Validation, release & field support",
+        summary: "I develop C++/Qt Windows applications for medical imaging and device integration. I reproduce issues with code and logs, then follow through on implementation, testing, deployment, and field checks. I listen to colleagues and take initiative in support of the team's goals. 6 years 9 months of experience as of Oct 2026.",
+        stackIntro: "The tools I use, connected to the features I have implemented.",
+        stackTitles: ["Application structure", "Systems & device integration", "Imaging & report output", "Data & test automation"],
+        stackPractice: ["Implemented imaging, report output and analysis automation within an existing MVVM architecture.", "Improved DICOM/PACS integration, added asynchronous C-ECHO and handled device communication failures.", "Implemented QWebEngine-based reports and institution-specific output requirements.", "Built a Qt input recording and replay framework for repeated testing and issue reproduction."],
+        evidence: ["DeepCatch X implementation ↗", "DICOM/PACS implementation ↗", "Report output implementation ↗", "Test automation implementation ↗"],
+        categories: ["Medical imaging · Product engineering", "Quality · Test automation", "Workflow · Batch analysis", "Communication · Medical integration", "Documentation · Software validation", "Systems · Device control"],
+        sectionLabels: ["01 / EXPERTISE", "02 / SELECTED WORK", "03 / EXPERIENCE", "04 / PROCESS", "05 / COLLABORATION"]
+      }
+    };
 
     function applyLanguage(language, options = {}) {
       const lang = language === "en" ? "en" : "ko";
@@ -3100,7 +3209,7 @@
       setText(".hero-title span:nth-child(1)", text.heroTitle[0]);
       setText(".hero-title span:nth-child(2)", text.heroTitle[1]);
       setText("#summary-title", text.summaryLabel);
-      setText(".summary-text", text.summaryText);
+      setText(".summary-text", designTranslations[lang].summary);
       setText(".summary-cta", text.summaryCta);
       setAttribute(".summary-metrics", "aria-label", text.metricsAria);
       document.querySelectorAll(".summary-metric span").forEach((item, index) => {
@@ -3169,7 +3278,7 @@
       document.querySelectorAll(".stack-group").forEach((group, index) => {
         const [title, chips] = text.stack.groups[index];
         group.querySelector("h3").textContent = title;
-        setChipList(group.querySelector(".chips"), chips);
+        setStackChipList(group.querySelector(".chips"), chips);
       });
 
       setText("#collaboration-title", text.collaboration.title);
@@ -3178,6 +3287,29 @@
         const [title, body] = text.collaboration.cards[index];
         card.querySelector("h3").textContent = title;
         card.querySelector("p").textContent = body;
+      });
+
+      const design = designTranslations[lang];
+      document.querySelectorAll("[data-design-copy]").forEach((element) => {
+        element.textContent = design[element.dataset.designCopy];
+      });
+      document.querySelectorAll("[data-design-aria]").forEach((element) => {
+        element.setAttribute("aria-label", design[element.dataset.designAria]);
+      });
+      document.querySelectorAll("[data-design-alt]").forEach((element) => {
+        element.alt = design[element.dataset.designAlt];
+      });
+      document.querySelectorAll("#stack .stack-group").forEach((group, index) => {
+        group.querySelector("h3").textContent = design.stackTitles[index];
+        group.querySelector(".stack-practice").textContent = design.stackPractice[index];
+        group.querySelector(".stack-evidence").textContent = design.evidence[index];
+      });
+      setText(".stack-intro", design.stackIntro);
+      document.querySelectorAll("[data-project-category]").forEach((element) => {
+        element.textContent = design.categories[Number(element.dataset.projectCategory)];
+      });
+      document.querySelectorAll(".section-index").forEach((element, index) => {
+        element.textContent = design.sectionLabels[index];
       });
 
       setText(".footer-note", text.footer);
@@ -3636,5 +3768,6 @@
     });
   </script>
   <script src="resource/print-portfolio.js"></script>
+  <script src="resource/flow.js"></script>
 </body>
 </html>
