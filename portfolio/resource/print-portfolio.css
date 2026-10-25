@@ -22,6 +22,7 @@
   .print-index > div { display: grid; grid-template-columns: 10mm 1fr; gap: 3mm; padding: 3mm 0; border-bottom: 1px solid #dde2de; }
   .print-index strong { color: #0f6f68; }
   .print-index p { margin: 1mm 0 0; font-size: 9pt; }
+  #print-portfolio [data-print-project="overview"] .print-index > div { grid-template-columns: minmax(0, 1fr); gap: 1mm; }
   .print-columns { display: grid; grid-template-columns: 1fr 1fr; gap: 5mm; }
   .print-figure { min-width: 0; margin: 4mm 0; }
   .print-figure img { display: block; width: 100%; height: 67mm; object-fit: contain; background: #f4f6f2; border: 1px solid #dde2de; }
