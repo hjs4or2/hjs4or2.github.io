@@ -1507,6 +1507,8 @@
       .lightbox-copy { padding: 16px 20px; }
     }
     @media print {
+      .section-rail { display: none !important; }
+      .ambient-background, .ambient-toggle { display: none !important; }
       #print-portfolio .print-page { display: flow-root; height: 270mm; break-inside: avoid; }
       #print-portfolio .print-page.is-visual .print-figure img { height: 113mm; }
       #print-portfolio .print-page.is-visual .print-figure.is-document img { height: 155mm; background: white; }
@@ -1526,7 +1528,17 @@
   <script src="resource/intro.js"></script>
 </head>
 <body>
+  <div class="ambient-background" aria-hidden="true"><div class="ambient-light ambient-light-mint"></div><div class="ambient-light ambient-light-blue"></div></div>
+  <button class="ambient-toggle" type="button" hidden aria-pressed="false">배경 정지</button>
   <div class="site-shell">
+    <nav class="section-rail" aria-label="주요 섹션">
+      <a href="#top" class="is-current" aria-current="location">맨 위로</a>
+      <a href="#stack">기술 역량</a>
+      <a href="#work">작업 사례</a>
+      <a href="#experience">경력</a>
+      <a href="#flow">개발 흐름</a>
+      <a href="#collaboration">협업</a>
+    </nav>
     <div class="site-intro" hidden aria-hidden="true">
       <div class="intro-signature"><span class="intro-monogram">C++ / Qt</span><span class="intro-wordmark">PORTFOLIO</span><span class="intro-line"></span></div>
     </div>
@@ -3611,6 +3623,10 @@
       setText(".brand span:last-child", text.brand);
       setAttribute(".language-switch", "aria-label", text.languageLabel);
       setAttribute(".nav", "aria-label", text.navAria);
+      setAttribute(".section-rail", "aria-label", text.navAria);
+      document.querySelectorAll(".section-rail a").forEach((item, index) => {
+        item.textContent = text.nav[index];
+      });
       document.querySelectorAll(".nav a").forEach((item, index) => {
         item.textContent = text.nav[index];
       });
@@ -3750,6 +3766,7 @@
         }
       }
       if (window.renderPortfolioThrowCopy) window.renderPortfolioThrowCopy();
+      if (window.renderPortfolioAmbientCopy) window.renderPortfolioAmbientCopy();
     }
 
     function escapeXml(value) {
@@ -4187,5 +4204,7 @@
   <script src="resource/print-portfolio.js"></script>
   <script src="resource/flow.js"></script>
   <script src="resource/tech-throw.js" defer></script>
+  <script src="resource/section-rail.js" defer></script>
+  <script src="resource/ambient-background.js" defer></script>
 </body>
 </html>

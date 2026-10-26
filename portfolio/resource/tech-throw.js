@@ -1,4 +1,4 @@
-/* A single, silent throw on entry or native button activation. */
+/* Silent throws every 15 visible seconds or on native button activation. */
 (() => {
   "use strict";
 
@@ -43,7 +43,7 @@
     let hasPlayed = false;
     let running = false;
     let timer = null;
-    let autoPending = true;
+    let nextDue = null;
     let inViewport = false;
     let pageActive = true;
     let printing = false;
@@ -69,8 +69,9 @@
     }
 
     function clearTimer() {
-      if (timer !== null) window.clearTimeout(timer);
+      const pending = timer;
       timer = null;
+      if (pending !== null) window.clearTimeout(pending);
     }
 
     function settle() {
@@ -84,6 +85,21 @@
       renderCopy();
     }
 
+    function suspend() {
+      nextDue = null;
+      settle();
+    }
+
+    function failOpen() {
+      effectsEnabled = false;
+      nextDue = null;
+      try {
+        settle();
+        button.classList.remove("is-throwing");
+        button.classList.add("is-landed");
+      } catch (_) { /* Cleanup errors must not escape into the portfolio. */ }
+    }
+
     // Optional browser features may fail in restricted or older environments.
     // Keep native manual selection working with a static pose in that case.
     function guarded(action) {
@@ -91,9 +107,7 @@
         try {
           action(event);
         } catch (_) {
-          autoPending = false;
-          effectsEnabled = false;
-          settle();
+          failOpen();
         }
       };
     }
@@ -102,11 +116,22 @@
       return pageActive && !printing && !document.hidden && inViewport;
     }
 
+    function readNow() {
+      const time = window.performance && typeof window.performance.now === "function"
+        ? window.performance.now() : Date.now();
+      if (!Number.isFinite(time)) throw new Error("Clock unavailable");
+      return time;
+    }
+
+    function finish() {
+      settle();
+      resumeAuto();
+    }
+
     function play() {
       if (running || !pageActive || printing || document.hidden) return;
-      // Manual interaction consumes the pending entry playback too.
-      autoPending = false;
       clearTimer();
+      nextDue = null;
       // The first throw keeps the skill already held on screen. Later throws
       // promote the waiting head and send the previous skill to the tail.
       if (hasPlayed) {
@@ -125,64 +150,69 @@
         return;
       }
 
+      nextDue = readNow() + 15000;
       running = true;
       button.setAttribute("aria-disabled", "true");
       renderCopy();
       // Commit the reset before restarting the same CSS animation.
       void button.offsetWidth;
       // One escape hatch covers a missing/cancelled CSS animationend.
-      timer = window.setTimeout(guarded(settle), 1400);
+      timer = window.setTimeout(guarded(finish), 1400);
       button.classList.add("is-throwing");
     }
 
-    function resumePending() {
-      if (!autoPending || timer !== null || running || reduced || !effectsEnabled || !eligible()) return;
-      // intro.js has an 1800ms escape hatch; do not overlap its entrance.
+    function resumeAuto() {
+      if (reduced || !effectsEnabled || !eligible()) {
+        nextDue = null;
+        return;
+      }
+      if (timer !== null || running) return;
+      const time = readNow();
+      if (nextDue === null) nextDue = time + 15000;
+      // The finish fallback and the next automatic throw share one timer.
       timer = window.setTimeout(guarded(() => {
         timer = null;
-        if (autoPending && !reduced && effectsEnabled && eligible()) play();
-      }), 1900);
+        if (!reduced && effectsEnabled && eligible()) play();
+        else suspend();
+      }), Math.max(0, nextDue - time));
     }
 
     const copyCallback = guarded(renderCopy);
     window.renderPortfolioThrowCopy = copyCallback;
     button.addEventListener("click", guarded(play));
     button.addEventListener("animationend", guarded((event) => {
-      if (running && event.target === block && event.animationName === "tech-throw-block") settle();
+      if (running && event.target === block && event.animationName === "tech-throw-block") finish();
     }));
     document.addEventListener("visibilitychange", guarded(() => {
-      if (document.hidden) settle();
-      else resumePending();
+      if (document.hidden) suspend();
+      else resumeAuto();
     }));
     window.addEventListener("pagehide", guarded(() => {
       pageActive = false;
-      settle();
+      suspend();
     }));
     window.addEventListener("pageshow", guarded(() => {
       pageActive = true;
-      resumePending();
+      resumeAuto();
     }));
     window.addEventListener("beforeprint", guarded(() => {
       printing = true;
-      settle();
+      suspend();
     }));
     window.addEventListener("afterprint", guarded(() => {
       printing = false;
-      resumePending();
+      resumeAuto();
     }));
 
     try {
-      if (typeof window.matchMedia === "function" && typeof window.IntersectionObserver === "function") {
+      if (typeof window.matchMedia === "function" && typeof window.IntersectionObserver === "function"
+        && typeof window.setTimeout === "function" && typeof window.clearTimeout === "function") {
         motion = window.matchMedia("(prefers-reduced-motion: reduce)");
         reduced = motion.matches;
-        // Starting with reduced motion never schedules a later entry playback.
-        if (reduced) autoPending = false;
         const onMotionChange = guarded((event) => {
           reduced = event.matches;
-          if (reduced) {
-            autoPending = false;
-            settle();
-          }
+          if (reduced) suspend();
+          else resumeAuto();
         });
         if (typeof motion.addEventListener === "function") motion.addEventListener("change", onMotionChange);
         else if (typeof motion.addListener === "function") motion.addListener(onMotionChange);
@@ -192,22 +222,18 @@
           entries.forEach((entry) => {
             if (entry.target !== root) return;
             inViewport = entry.isIntersecting && entry.intersectionRatio > 0;
-            if (!inViewport) settle();
-            else resumePending();
+            if (!inViewport) suspend();
+            else resumeAuto();
           });
         }), { threshold: 0 });
         effectsEnabled = true;
         observer.observe(root);
-      } else {
-        autoPending = false;
       }
     } catch (_) {
-      autoPending = false;
-      effectsEnabled = false;
+      failOpen();
       if (observer) {
         try { observer.disconnect(); } catch (_) { /* Static manual fallback. */ }
       }
-      settle();
     }
 
     renderCopy();

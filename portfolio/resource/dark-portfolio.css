@@ -21,7 +21,49 @@
 }
 html { scroll-padding-top: 150px; }
 body { background: var(--bg); color: var(--ink); line-height: 1.7; }
+body { isolation: isolate; }
+.ambient-background { position: fixed; inset: 0; z-index: -1; overflow: hidden; pointer-events: none; background-image: linear-gradient(#a5cce90a 1px, transparent 1px), linear-gradient(90deg, #a5cce90a 1px, transparent 1px); background-size: 72px 72px; }
+.ambient-light { position: absolute; width: 110vw; height: 85vh; pointer-events: none; }
+.ambient-light-mint { left: -30vw; top: -22vh; background: radial-gradient(ellipse at center, #6ae2c52e 0%, #6ae2c514 30%, transparent 65%); }
+.ambient-light-blue { right: -35vw; bottom: -28vh; background: radial-gradient(ellipse at center, #91bfea29 0%, #91bfea12 32%, transparent 65%); }
+.ambient-toggle { position: fixed; z-index: 10; left: 12px; bottom: 12px; min-height: 44px; padding: 8px 12px; color: var(--ink-soft); background: var(--bg); border: 1px solid var(--line); border-radius: 4px; font-size: .72rem; }
+.ambient-toggle[hidden] { display: none; }
+.ambient-toggle:hover { color: var(--teal); }
+@media (prefers-reduced-motion: no-preference) and (min-width: 768px) and (forced-colors: none) {
+  .ambient-light-mint { animation: ambient-mint-drift 28s ease-in-out infinite alternate paused; }
+  .ambient-light-blue { animation: ambient-blue-drift 34s ease-in-out infinite alternate paused; }
+  .ambient-running .ambient-light { animation-play-state: running; }
+}
+@keyframes ambient-mint-drift { from { transform: translate(0, 0) rotate(-8deg); opacity: .8; } to { transform: translate(15vw, 18vh) rotate(8deg); opacity: 1; } }
+@keyframes ambient-blue-drift { from { transform: translate(0, 0) rotate(8deg); opacity: 1; } to { transform: translate(-18vw, -15vh) rotate(-8deg); opacity: .75; } }
+@media (max-width: 767px) {
+  .ambient-light-blue { display: none; }
+  .ambient-light-mint { opacity: .6; }
+  .ambient-toggle { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ambient-background .ambient-light { animation: none; }
+  .ambient-toggle { display: none; }
+}
+@media (forced-colors: active) {
+  .ambient-background, .ambient-toggle { display: none; }
+  .ambient-background .ambient-light { animation: none; }
+}
 .site-shell { overflow: clip; }
+.section-rail { display: none; }
+@media screen and (min-width: 1280px) {
+  .site-shell { padding-right: 160px; }
+  .section-rail { position: fixed; z-index: 18; top: 50%; right: 8px; transform: translateY(-50%); display: flex; flex-direction: column; width: 144px; padding: 8px; border-left: 1px solid var(--line); background: var(--bg); }
+  .section-rail a { display: flex; align-items: center; min-height: 44px; padding: 8px 10px; color: var(--muted); font-size: .75rem; line-height: 1.4; overflow-wrap: anywhere; border-left: 2px solid transparent; }
+  .section-rail a:hover, .section-rail a.is-current { color: var(--teal); border-left-color: var(--teal); }
+  .section-rail a:focus-visible { outline: 2px solid var(--teal); outline-offset: -2px; }
+}
+@media (forced-colors: active) {
+  .section-rail { background: Canvas; border-color: CanvasText; }
+  .section-rail a { color: CanvasText; }
+  .section-rail a.is-current { color: Highlight; border-left-color: Highlight; }
+  .section-rail a:focus-visible { outline-color: Highlight; }
+}
 button, a { -webkit-tap-highlight-color: transparent; }
 button { cursor: pointer; }
 a:focus-visible, button:focus-visible, select:focus-visible {
