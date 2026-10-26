@@ -1,4 +1,4 @@
-/* Silent throws every 15 visible seconds or on native button activation. */
+/* Silent throws every 5 visible seconds or on native button activation. */
 (() => {
   "use strict";
 
@@ -150,7 +150,7 @@
         return;
       }
 
-      nextDue = readNow() + 15000;
+      nextDue = readNow() + 5000;
       running = true;
       button.setAttribute("aria-disabled", "true");
       renderCopy();
@@ -168,7 +168,7 @@
       }
       if (timer !== null || running) return;
       const time = readNow();
-      if (nextDue === null) nextDue = time + 15000;
+      if (nextDue === null) nextDue = time + 5000;
       // The finish fallback and the next automatic throw share one timer.
       timer = window.setTimeout(guarded(() => {
         timer = null;
