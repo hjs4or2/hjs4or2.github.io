@@ -132,7 +132,10 @@ body[data-language="en"] .hero-title { font-size: clamp(2.8rem, 4.5vw, 4.4rem); 
 #stack .stack-group .chips li { display: inline-flex; align-items: center; gap: 7px; min-height: 36px; max-width: 100%; padding: 6px 9px; }
 #stack .skill-icon { display: block; flex: 0 0 22px; width: 22px; height: 22px; fill: currentColor; color: var(--teal); }
 #stack .skill-name { min-width: 0; overflow-wrap: anywhere; }
-.stack-practice { max-width: 48ch; margin-bottom: 20px; color: var(--ink-soft); font-size: .85rem; line-height: 1.8; }
+.stack-practice { max-width: none; white-space: normal; margin-bottom: 20px; color: var(--ink-soft); font-size: .85rem; line-height: 1.8; }
+@media (min-width: 1100px) {
+  .stack-practice { white-space: nowrap; }
+}
 .project-preview-trigger { color: var(--ink); background: var(--surface-2); border: 1px solid var(--line-strong); border-radius: 3px; box-shadow: none; font-size: .75rem; font-weight: 500; }
 .project-preview-trigger:hover, .project-preview-trigger:focus-visible { color: var(--teal); background: #1c2c3a; border-color: var(--teal); transform: none; }
 .hero-preview.project-preview-trigger { padding: 26px 20px 42px; background: #000; border: 0; border-radius: 0; }
@@ -163,6 +166,43 @@ body[data-language="en"] .hero-title { font-size: clamp(2.8rem, 4.5vw, 4.4rem); 
 .project-disclosure summary { min-height: 44px; padding: 12px 2px; color: var(--teal); font-size: .8rem; line-height: 1.7; cursor: pointer; }
 .project-disclosure summary:focus-visible { outline: 2px solid var(--teal); outline-offset: 3px; }
 .project-disclosure[open] summary { border-bottom: 1px solid var(--line); }
+@media screen {
+  .project-disclosure-label { position: relative; display: inline-block; width: max-content; max-width: 100%; }
+  .project-disclosure-text { color: var(--teal); }
+  .project-disclosure-shine { display: none; position: absolute; inset: 0; pointer-events: none; font: inherit; line-height: inherit; animation: none; background: none; background-clip: border-box; -webkit-background-clip: border-box; color: inherit; -webkit-text-fill-color: currentColor; filter: none; }
+  .project-disclosure[open] .project-disclosure-shine { display: none; animation: none; background: none; background-clip: border-box; -webkit-background-clip: border-box; color: inherit; -webkit-text-fill-color: currentColor; filter: none; }
+}
+@media screen and (prefers-reduced-motion: no-preference) and (forced-colors: none) {
+  @supports ((background-clip: text) or (-webkit-background-clip: text)) {
+    .project-disclosure:not([open]) > summary > .project-disclosure-label > .project-disclosure-shine,
+    .stack-evidence > .project-disclosure-label > .project-disclosure-shine {
+      display: block;
+      background-image: linear-gradient(90deg, transparent 42%, #e5c27a 47%, #fff0b3 50%, #e5c27a 53%, transparent 58%);
+      background-size: 300% 100%;
+      background-position: 100% 0;
+      background-repeat: no-repeat;
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      -webkit-text-fill-color: transparent;
+      filter: drop-shadow(0 0 3px rgba(255, 208, 102, .8)) drop-shadow(0 0 8px rgba(255, 208, 102, .65));
+      animation: disclosure-gold-sweep 2.8s ease-in-out infinite;
+    }
+  }
+  @keyframes disclosure-gold-sweep {
+    0%, 12% { background-position: 100% 0; }
+    82%, 100% { background-position: 0% 0; }
+  }
+}
+@media screen and (prefers-reduced-motion: reduce) {
+  .project-disclosure-shine { display: none; animation: none; background: none; background-clip: border-box; -webkit-background-clip: border-box; color: inherit; -webkit-text-fill-color: currentColor; filter: none; }
+  .project-disclosure-text { color: var(--teal); }
+}
+@media screen and (forced-colors: active) {
+  .project-disclosure-shine { display: none; animation: none; background: none; background-clip: border-box; -webkit-background-clip: border-box; color: CanvasText; -webkit-text-fill-color: currentColor; filter: none; }
+  .project-disclosure-text { color: CanvasText; }
+  .project-disclosure > summary:focus-visible { outline-color: Highlight; }
+}
 .project-design-notes { min-width: 0; padding: 20px 0; border-bottom: 1px solid var(--line); }
 .project-design-notes h4, .project-implementation-heading { margin: 0 0 14px; color: var(--teal); font-size: .76rem; line-height: 1.6; font-weight: 550; }
 .project-design-qa { margin: 0; }
