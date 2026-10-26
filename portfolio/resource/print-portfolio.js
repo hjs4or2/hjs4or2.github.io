@@ -19,7 +19,7 @@
       deepcatch: [
         "기존 MVVM 기본 구조를 바탕으로 DeepCatch X 주요 클라이언트 기능 개발.",
         "영상 합성·리포트 PDF 출력, Action/Command·Queue 기반 분석 자동화.",
-        "기관별 설정·배포 결과물을 검증해 2024.06 최초 배포 지원."
+        "기관별 설정·배포 결과물 검증 및 최초 배포 담당."
       ],
       autotest: [
         "Qt Widgets UI 기록·재생과 로그 분석을 신규 설계·구현.",
@@ -51,7 +51,7 @@
       deepcatch: [
         "Developed key DeepCatch X client features on an existing MVVM foundation.",
         "Image compositing, report PDF output, and Action/Command queue-based analysis automation.",
-        "Validated institution-specific settings and deployment artifacts to support the first release in Jun 2024."
+        "Validated institution-specific settings and deployment artifacts, and handled the initial release."
       ],
       autotest: [
         "Designed and built Qt Widgets UI recording/replay and log analysis from scratch.",

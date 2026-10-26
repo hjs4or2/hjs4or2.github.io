@@ -1621,9 +1621,9 @@
                 <span class="project-period">2024.04–2026.06</span>
                 <section class="product-intro project-product-intro" aria-labelledby="deepcatch-product-intro-title"><h4 class="product-intro-label" id="deepcatch-product-intro-title">제품 소개</h4><p class="product-intro-body">DeepCatch X는 흉부 X-ray를 AI로 분석하는 메디컬아이피의 의료영상 소프트웨어입니다. 분석 항목에 따라 심장·대동맥·폐 등의 정량 정보와 시각화 결과를 제공합니다.</p><a class="product-intro-source" href="https://medicalip.com/deepcatch-x/" target="_blank" rel="noopener noreferrer">공식 제품 소개 ↗</a></section>
                 <p class="project-role">기존 MVVM 기본 구조를 바탕으로 DeepCatch X 클라이언트의 주요 기능 개발</p>
-                <p class="project-result">2024.06 최초 배포 지원 · 기관별 출력 조건 반영</p>
+                <p class="project-result">최초 배포 담당 · 기관별 출력 조건 반영</p>
                 <p class="project-caption">DeepCatch X 제품 소개 · 분석 화면 및 리포트</p>
-                <details class="project-disclosure"><summary>구현 내용 보기</summary><section class="project-design-notes" aria-labelledby="design-notes-deepcatch"><h4 id="design-notes-deepcatch">구조와 구현 이유</h4><dl class="project-design-qa"><div><dt>왜 MVVM 기본 구조를 활용했나?</dt><dd>화면 표시와 입력·상태 처리의 역할을 나눠 다루는 기본 구조입니다. 기존 MVVM 기본 구조를 바탕으로 영상·분석 결과 표시, 분석·출력 자동화, 리포트 생성과 기관별 설정 등 주요 클라이언트 기능을 개발했습니다.</dd></div><div><dt>왜 Action과 Command로 나눴나?</dt><dd>Action은 전체 작업 흐름을, Command는 분석·출력 같은 내부 실행 단계를 구분하기 위한 구성입니다. Action Queue에서 순차 실행하고, 상태·완료·실패는 Qt Signal/Slot으로 전달해 실행 흐름과 상태 알림을 나눴습니다. 이 알림 구조를 Observer 관점에서 설명할 수 있습니다.</dd></div></dl><dl class="project-role-map"><div><dt>Action</dt><dd>전체 작업 흐름</dd></div><div><dt>Command</dt><dd>내부 실행 단계</dd></div><div><dt>Signal/Slot</dt><dd>상태·완료·실패 알림</dd></div></dl></section><h4 class="project-implementation-heading">구현 내용</h4><dl class="project-implementation"><div><dt>MVVM 기반 주요 기능 개발</dt><dd>기존 MVVM 기본 구조를 바탕으로 DeepCatch X의 주요 클라이언트 기능을 개발했습니다. 영상·분석 결과 표시, 분석·출력 자동화, 리포트 생성과 기관별 설정 기능을 구현했습니다.</dd></div><div><dt>영상·결과 표시</dt><dd>WW/WL을 반영한 X-ray 영상에 AI Segmentation Mask와 Annotation을 합성했습니다. 분석 결과를 화면에 표시하고 저장용 결과 이미지로 생성하는 흐름을 연결했습니다.</dd></div><div><dt>리포트·분석 자동화</dt><dd>AI 분석 결과와 생성 이미지를 리포트 데이터로 구성해 QWebEngine 렌더링·PDF 출력에 연결했습니다. 분석과 출력 작업은 Action/Command로 나누고 Action Queue에서 순차 실행하도록 구현했습니다.</dd></div><div><dt>기관별 설정 반영</dt><dd>리포트 형식·파일명·저장 경로·업로드 조건을 제품 설정에 반영했습니다. 기관별 템플릿과 리소스, 패키지 구성도 배포 조건에 맞춰 조정했습니다.</dd></div><div><dt>검증·배포 지원</dt><dd>기능, 기관별 설정과 설치·배포 결과물을 검증해 2024.06 최초 배포를 지원했습니다. 이후 로그·덤프·환경 차이로 운영 이슈를 재현하고 수정·예외 처리에 반영했습니다.</dd></div></dl></details>
+                <details class="project-disclosure"><summary>구현 내용 보기</summary><section class="project-design-notes" aria-labelledby="design-notes-deepcatch"><h4 id="design-notes-deepcatch">구조와 구현 이유</h4><dl class="project-design-qa"><div><dt>왜 MVVM 기본 구조를 활용했나?</dt><dd>화면 표시와 입력·상태 처리의 역할을 나눠 다루는 기본 구조입니다. 기존 MVVM 기본 구조를 바탕으로 영상·분석 결과 표시, 분석·출력 자동화, 리포트 생성과 기관별 설정 등 주요 클라이언트 기능을 개발했습니다.</dd></div><div><dt>왜 Action과 Command로 나눴나?</dt><dd>Action은 전체 작업 흐름을, Command는 분석·출력 같은 내부 실행 단계를 구분하기 위한 구성입니다. Action Queue에서 순차 실행하고, 상태·완료·실패는 Qt Signal/Slot으로 전달해 실행 흐름과 상태 알림을 나눴습니다. 이 알림 구조를 Observer 관점에서 설명할 수 있습니다.</dd></div></dl><dl class="project-role-map"><div><dt>Action</dt><dd>전체 작업 흐름</dd></div><div><dt>Command</dt><dd>내부 실행 단계</dd></div><div><dt>Signal/Slot</dt><dd>상태·완료·실패 알림</dd></div></dl></section><h4 class="project-implementation-heading">구현 내용</h4><dl class="project-implementation"><div><dt>MVVM 기반 주요 기능 개발</dt><dd>기존 MVVM 기본 구조를 바탕으로 DeepCatch X의 주요 클라이언트 기능을 개발했습니다. 영상·분석 결과 표시, 분석·출력 자동화, 리포트 생성과 기관별 설정 기능을 구현했습니다.</dd></div><div><dt>영상·결과 표시</dt><dd>WW/WL을 반영한 X-ray 영상에 AI Segmentation Mask와 Annotation을 합성했습니다. 분석 결과를 화면에 표시하고 저장용 결과 이미지로 생성하는 흐름을 연결했습니다.</dd></div><div><dt>리포트·분석 자동화</dt><dd>AI 분석 결과와 생성 이미지를 리포트 데이터로 구성해 QWebEngine 렌더링·PDF 출력에 연결했습니다. 분석과 출력 작업은 Action/Command로 나누고 Action Queue에서 순차 실행하도록 구현했습니다.</dd></div><div><dt>기관별 설정 반영</dt><dd>리포트 형식·파일명·저장 경로·업로드 조건을 제품 설정에 반영했습니다. 기관별 템플릿과 리소스, 패키지 구성도 배포 조건에 맞춰 조정했습니다.</dd></div><div><dt>검증·최초 배포</dt><dd>기능, 기관별 설정과 설치·배포 결과물을 검증하고 최초 배포를 담당했습니다. 이후 로그·덤프·환경 차이로 운영 이슈를 재현하고 수정·예외 처리에 반영했습니다.</dd></div></dl></details>
               </div>
             </article>
 
@@ -1954,8 +1954,8 @@
         "리포트 형식·파일명·저장 경로·업로드 조건을 제품 설정에 반영했습니다. 기관별 템플릿과 리소스, 패키지 구성도 배포 조건에 맞춰 조정했습니다."
       ],
       [
-        "검증·배포 지원",
-        "기능, 기관별 설정과 설치·배포 결과물을 검증해 2024.06 최초 배포를 지원했습니다. 이후 로그·덤프·환경 차이로 운영 이슈를 재현하고 수정·예외 처리에 반영했습니다."
+        "검증·최초 배포",
+        "기능, 기관별 설정과 설치·배포 결과물을 검증하고 최초 배포를 담당했습니다. 이후 로그·덤프·환경 차이로 운영 이슈를 재현하고 수정·예외 처리에 반영했습니다."
       ]
     ],
     "labels": [
@@ -2326,8 +2326,8 @@
         "Implemented report format, filename, storage path and upload settings. Adapted templates, resources and package contents to each deployment environment."
       ],
       [
-        "Validation and release",
-        "Verified features, site settings and installation packages to support the June 2024 initial release. Used logs, dumps and environment differences to reproduce operational issues and implement fixes."
+        "Validation and initial release",
+        "Verified features, site settings and installation packages, and handled the initial release. Used logs, dumps and environment differences to reproduce operational issues and implement fixes."
       ]
     ],
     "labels": [
@@ -2628,7 +2628,7 @@
           "role": "기존 MVVM 기본 구조를 바탕으로 DeepCatch X 클라이언트의 주요 기능 개발",
           "cardBody": "DeepCatch X 제품 소개 · 분석 화면 및 리포트",
           "alt": "DeepCatch X 제품 소개 · 분석 화면 및 리포트",
-          "outcome": "2024.06 최초 배포 지원 · 기관별 출력 조건 반영"
+          "outcome": "최초 배포 담당 · 기관별 출력 조건 반영"
         },
         {
           "id": "autotest",
@@ -2867,7 +2867,7 @@
           "role": "Developed key DeepCatch X client features on an existing MVVM foundation",
           "cardBody": "DeepCatch X product overview · analysis interface and reports",
           "alt": "DeepCatch X product overview · analysis interface and reports",
-          "outcome": "Supported the June 2024 initial release and site-specific output settings"
+          "outcome": "Handled the initial release and implemented site-specific output settings"
         },
         {
           "id": "autotest",
