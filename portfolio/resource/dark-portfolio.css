@@ -1,4 +1,11 @@
 /* Midnight / Engineering showcase. Loaded for screen only; print stays white. */
+@font-face {
+  font-family: 'Portfolio Pretendard';
+  src: url('fonts/PretendardVariable.woff2') format('woff2');
+  font-weight: 45 920;
+  font-style: normal;
+  font-display: swap;
+}
 :root {
   color-scheme: dark;
   --bg: #0b111b;
@@ -964,4 +971,27 @@ body[data-language="en"] .hero-title { font-size: clamp(2.8rem, 4.5vw, 4.4rem); 
   .intro-active .hero-heading, .intro-active .hero-summary, .intro-active .hero-showcase { animation: none; opacity: 1; transform: none; }
   html { scroll-behavior: auto; }
   *, *::before, *::after { animation: none; transition: none; }
+}
+
+/* Screen typography: stronger hierarchy without changing scene or layout geometry. */
+body { font-family: 'Portfolio Pretendard', Pretendard, 'Noto Sans KR', 'Malgun Gothic', 'Segoe UI', sans-serif; font-weight: 430; line-height: 1.75; }
+button, input, select, textarea { font-family: inherit; }
+.hero-title, body[data-language="en"] .hero-title { font-weight: 880; }
+.hero-title span:nth-child(2), body[data-language="en"] .hero-title span:nth-child(2) { font-weight: 680; }
+.section-header h2 { font-weight: 800; }
+.project-card h3 { font-weight: 780; }
+.stack-group h3, .experience-card h3 { font-weight: 720; }
+.flow-step strong { font-weight: 700; }
+.project-design-notes h4, .project-implementation-heading, .project-design-qa dt, .project-implementation dt { font-weight: 680; }
+.hero-profile .profile-row dt, .product-intro .product-intro-label { font-weight: 650; }
+.project-card .project-role { font-weight: 500; }
+.project-card .project-result { font-weight: 550; }
+.project-design-qa dd, .project-implementation dd, .product-intro .product-intro-body { font-size: .88rem; font-weight: 430; line-height: 1.8; }
+.experience-card p { font-weight: 430; }
+.nav a, .section-rail a, .project-disclosure summary, .stack-evidence { font-weight: 600; }
+.hero-profile .profile-row dd { font-weight: 450; }
+/* Keep the compact single-line practice summaries at their established size. */
+.stack-practice { font-weight: 400; }
+@media (max-width: 600px) {
+  .project-design-qa dd, .project-implementation dd, .product-intro .product-intro-body { font-size: .84rem; }
 }

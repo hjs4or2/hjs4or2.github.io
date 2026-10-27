@@ -90,7 +90,7 @@
   }
 
   try {
-    if (!grid || !button || steps.length !== 5
+    if (!grid || steps.length !== 5
       || typeof window.IntersectionObserver !== "function"
       || typeof window.matchMedia !== "function") return;
     motion = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -104,7 +104,7 @@
     }, { threshold: 0.12 });
     if (typeof motion.addEventListener === "function") motion.addEventListener("change", onMotionChange);
     else motion.addListener(onMotionChange);
-    button.addEventListener("click", onPause);
+    button?.addEventListener("click", onPause);
     document.addEventListener("visibilitychange", reconcile);
     window.addEventListener("beforeprint", beforePrint);
     window.addEventListener("afterprint", afterPrint);
