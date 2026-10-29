@@ -1509,6 +1509,9 @@
     @media print {
       .section-rail { display: none !important; }
       .ambient-background, .ambient-toggle { display: none !important; }
+      .deepcatch-implementation-media { display: none !important; }
+      .paired-project-media { display: none !important; }
+      .paired-project-infrastructure { display: none !important; }
       #print-portfolio .print-page { display: flow-root; height: 270mm; break-inside: avoid; }
       #print-portfolio .print-page.is-visual .print-figure img { height: 113mm; }
       #print-portfolio .print-page.is-visual .print-figure.is-document img { height: 155mm; background: white; }
@@ -1743,7 +1746,7 @@
 
             <article class="project-card">
               <div class="project-media">
-                <img loading="lazy" decoding="async" src="resource/01/03_반복_분석_결과표시.png" alt="테스트 대상 제품의 반복 분석 결과 화면">
+                <img loading="lazy" decoding="async" src="resource/05/qt-input-record-replay-demo-poster.png" alt="Qt 입력 기록·재생 자동 테스트 실행 예시">
                 <button type="button" class="project-preview-trigger project-media-trigger" data-project="autotest" aria-label="Qt 입력 기록·재생 프레임워크 · 화면·영상 보기">화면·영상 보기</button>
               </div>
               <div class="project-body">
@@ -1752,8 +1755,8 @@
                 <span class="project-period">2023.08–2024.11</span>
                 <p class="project-role">Qt Widgets 입력 이벤트 자동화 구조 설계·개발</p>
                 <p class="project-result">수십 건의 크래시·기능 오류 발견 · 일일 결과 공유</p>
-                <p class="project-caption">테스트 대상 제품의 반복 분석 결과 화면</p>
-                <details class="project-disclosure"><summary><span class="project-disclosure-label"><span class="project-disclosure-text">구현 내용 보기</span><span class="project-disclosure-shine" aria-hidden="true" hidden>구현 내용 보기</span></span></summary><section class="project-design-notes" aria-labelledby="design-notes-autotest"><h4 id="design-notes-autotest">구조와 구현 이유</h4><dl class="project-design-qa"><div><dt>왜 입력을 기록하고 재생했나?</dt><dd>수동 조작만으로는 오류가 발생한 동작 순서를 다시 맞추기 어렵습니다. 입력을 시나리오로 저장해 같은 절차를 반복하고 이슈 재현에 사용했습니다.</dd></div><div><dt>왜 고정 시간 대기보다 작업 상태를 확인했나?</dt><dd>AI 분석 시간은 데이터에 따라 달라집니다. 정해진 시간만 기다리는 대신 작업 상태를 확인하며 진행하고, 진행 단계와 실패 위치를 로그로 남겨 문제가 발생한 동작을 찾도록 했습니다.</dd></div></dl></section><h4 class="project-implementation-heading">구현 내용</h4><dl class="project-implementation"><div><dt>구조 설계·개발</dt><dd>Qt Widgets 기반 사용자 입력 이벤트 기록·재생 구조를 설계·개발했습니다. 수동 UI 조작을 저장한 시나리오로 반복 실행하는 프레임워크와 로그 분석 기능을 처음부터 구현했습니다.</dd></div><div><dt>입력 수집·재생</dt><dd>Qt 객체 식별 정보, 이벤트 유형, 마우스 좌표와 키 입력을 수집·저장했습니다. 버튼·콤보박스·슬라이더·트리·테이블 등의 조작과 키보드·단축키 입력을 재현하도록 구성했습니다.</dd></div><div><dt>반복 실행 제어</dt><dd>QThread를 이용한 반복 실행 흐름에 팝업 처리와 장시간 작업 완료 대기를 연결했습니다. 단계별 진행 상태와 실패 위치를 기록해 중단 지점과 로그를 함께 확인하도록 구현했습니다.</dd></div><div><dt>검증·결과 공유</dt><dd>장시간 반복 시험으로 수십 건의 크래시·기능 오류를 발견했습니다. TeamCity 정기 실행과 결과 메일을 연결해 테스트 결과·오류 위치를 일일 공유했습니다.</dd></div><div><dt>기존 CI/CD 참여 범위</dt><dd>UI 기록·재생과 로그 분석은 신규 구현했습니다. 기존 설치 파일 생성·자동 설치 단계는 이슈 수정과 마이그레이션 참여 범위입니다.</dd></div><div><dt>화면 자료</dt><dd>대표 이미지는 테스트 대상 DeepCatch X의 반복 분석 결과 화면입니다. 갤러리의 결과 메일과 구현 요약에서 자동 테스트·로그 분석 작업을 확인할 수 있습니다.</dd></div></dl></details>
+                <p class="project-caption">Qt 입력 기록·재생 자동 테스트 실행 예시</p>
+                <details class="project-disclosure"><summary><span class="project-disclosure-label"><span class="project-disclosure-text">구현 내용 보기</span><span class="project-disclosure-shine" aria-hidden="true" hidden>구현 내용 보기</span></span></summary><section class="project-design-notes" aria-labelledby="design-notes-autotest"><h4 id="design-notes-autotest">구조와 구현 이유</h4><dl class="project-design-qa"><div><dt>왜 입력을 기록하고 재생했나?</dt><dd>수동 조작만으로는 오류가 발생한 동작 순서를 다시 맞추기 어렵습니다. 입력을 시나리오로 저장해 같은 절차를 반복하고 이슈 재현에 사용했습니다.</dd></div><div><dt>왜 고정 시간 대기보다 작업 상태를 확인했나?</dt><dd>AI 분석 시간은 데이터에 따라 달라집니다. 정해진 시간만 기다리는 대신 작업 상태를 확인하며 진행하고, 진행 단계와 실패 위치를 로그로 남겨 문제가 발생한 동작을 찾도록 했습니다.</dd></div></dl></section><h4 class="project-implementation-heading">구현 내용</h4><dl class="project-implementation"><div><dt>구조 설계·개발</dt><dd>Qt Widgets 기반 사용자 입력 이벤트 기록·재생 구조를 설계·개발했습니다. 수동 UI 조작을 저장한 시나리오로 반복 실행하는 프레임워크와 로그 분석 기능을 처음부터 구현했습니다.</dd></div><div><dt>입력 수집·재생</dt><dd>Qt 객체 식별 정보, 이벤트 유형, 마우스 좌표와 키 입력을 수집·저장했습니다. 버튼·콤보박스·슬라이더·트리·테이블 등의 조작과 키보드·단축키 입력을 재현하도록 구성했습니다.</dd></div><div><dt>반복 실행 제어</dt><dd>QThread를 이용한 반복 실행 흐름에 팝업 처리와 장시간 작업 완료 대기를 연결했습니다. 단계별 진행 상태와 실패 위치를 기록해 중단 지점과 로그를 함께 확인하도록 구현했습니다.</dd></div><div><dt>검증·결과 공유</dt><dd>장시간 반복 시험으로 수십 건의 크래시·기능 오류를 발견했습니다. TeamCity 정기 실행과 결과 메일을 연결해 테스트 결과·오류 위치를 일일 공유했습니다.</dd></div><div><dt>기존 CI/CD 참여 범위</dt><dd>UI 기록·재생과 로그 분석은 신규 구현했습니다. 기존 설치 파일 생성·자동 설치 단계는 이슈 수정과 마이그레이션 참여 범위입니다.</dd></div><div><dt>화면 자료</dt><dd>갤러리의 실행 영상, 결과 메일과 구현 요약에서 자동 테스트·로그 분석 작업을 확인할 수 있습니다.</dd></div></dl></details>
               </div>
             </article>
 
@@ -1939,12 +1942,8 @@
     "meta": "2023.08–2024.11",
     "accent": "#e7b84e",
     "mediaFolder": "resource/05",
-    "previewImage": "resource/01/03_반복_분석_결과표시.png",
+    "previewImage": "resource/05/qt-input-record-replay-demo-poster.png",
     "mediaFiles": [
-      {
-        "src": "resource/01/03_반복_분석_결과표시.png",
-        "title": "테스트 대상 제품의 반복 분석 결과 화면"
-      },
       {
         "src": "resource/05/qt-input-record-replay-demo.webm",
         "poster": "resource/05/qt-input-record-replay-demo-poster.png",
@@ -1977,7 +1976,7 @@
       ],
       [
         "화면 자료",
-        "대표 이미지는 테스트 대상 DeepCatch X의 반복 분석 결과 화면입니다. 갤러리의 결과 메일과 구현 요약에서 자동 테스트·로그 분석 작업을 확인할 수 있습니다."
+        "갤러리의 실행 영상, 결과 메일과 구현 요약에서 자동 테스트·로그 분석 작업을 확인할 수 있습니다."
       ]
     ],
     "labels": [
@@ -2029,15 +2028,15 @@
       },
       {
         "src": "resource/products/deepcatch-cardiovascular-report.png",
-        "title": "심장·대동맥 보고서 예시"
+        "title": "심장·대동맥 리포트 예시"
       },
       {
         "src": "resource/products/deepcatch-health-age-report.png",
-        "title": "심폐 건강나이 보고서 예시"
+        "title": "심폐 건강나이 리포트 예시"
       },
       {
         "src": "resource/products/deepcatch-ct-followup-report.png",
-        "title": "CT 제품군 체성분 추적 보고서 예시"
+        "title": "CT 제품군 체성분 추적 리포트 예시"
       },
       {
         "src": "resource/products/deepcatch-screening-site.png",
@@ -2311,12 +2310,8 @@
     "meta": "Aug 2023–Nov 2024",
     "accent": "#e7b84e",
     "mediaFolder": "resource/05",
-    "previewImage": "resource/01/03_반복_분석_결과표시.png",
+    "previewImage": "resource/05/qt-input-record-replay-demo-poster.png",
     "mediaFiles": [
-      {
-        "src": "resource/01/03_반복_분석_결과표시.png",
-        "title": "Repeated analysis results in the product under test"
-      },
       {
         "src": "resource/05/qt-input-record-replay-demo.webm",
         "poster": "resource/05/qt-input-record-replay-demo-poster.png",
@@ -2349,7 +2344,7 @@
       ],
       [
         "Materials",
-        "The cover shows repeated analysis in DeepCatch X, the product under test. The gallery includes result emails and an implementation summary of the automation and log analysis work."
+        "The gallery includes an execution video, result emails and an implementation summary of the automation and log analysis work."
       ]
     ],
     "labels": [
@@ -2747,8 +2742,8 @@
           "id": "autotest",
           "title": "Qt 입력 기록·재생 프레임워크",
           "role": "Qt Widgets 입력 이벤트 자동화 구조 설계·개발",
-          "cardBody": "테스트 대상 제품의 반복 분석 결과 화면",
-          "alt": "테스트 대상 제품의 반복 분석 결과 화면",
+          "cardBody": "Qt 입력 기록·재생 자동 테스트 실행 예시",
+          "alt": "Qt 입력 기록·재생 자동 테스트 실행 예시",
           "outcome": "수십 건의 크래시·기능 오류 발견 · 일일 결과 공유"
         },
         {
@@ -2986,8 +2981,8 @@
           "id": "autotest",
           "title": "Qt input record/replay framework",
           "role": "Designed and built Qt Widgets input event automation",
-          "cardBody": "Repeated analysis in the product under test",
-          "alt": "Repeated analysis in the product under test",
+          "cardBody": "Qt input record/replay automated test demo",
+          "alt": "Qt input record/replay automated test demo",
           "outcome": "Found dozens of crashes/errors and shared daily test results"
         },
         {
@@ -3470,6 +3465,302 @@
       }
     }
 
+    const deepcatchImplementationStates = new WeakMap();
+    const deepcatchImplementationMedia = [[2], [3, 6], [5, 8, 9, 10], [12]];
+    const deepcatchMediaDimensions = [[1329, 743], [1909, 1001], [1903, 990], [1907, 997], [1084, 836], [590, 224], [1170, 739], [2400, 1998], [952, 1356], [746, 1058], [1354, 1941], [1846, 950], [1664, 903]];
+
+    function renderDeepcatchImplementation(card, rows, language) {
+      const disclosure = card.querySelector(".project-disclosure");
+      if (!disclosure) return;
+      let state = deepcatchImplementationStates.get(card);
+      if (!state) {
+        card.classList.add("project-deepcatch");
+        const body = card.querySelector(".project-body");
+        const summary = document.createElement("div");
+        summary.className = "project-summary";
+        Array.from(body.children).filter(child => child !== disclosure).forEach(child => summary.append(child));
+        body.insertBefore(summary, disclosure);
+        const expanded = document.createElement("div");
+        expanded.className = "deepcatch-expanded-content";
+        Array.from(disclosure.children).filter(child => child.tagName !== "SUMMARY").forEach(child => expanded.append(child));
+        disclosure.append(expanded);
+        const implementation = disclosure.querySelector(".project-implementation");
+        const originalRows = Array.from(implementation.children);
+        const firstDescription = originalRows[0].querySelector("dd");
+        const firstBody = document.createElement("p");
+        const secondTitle = document.createElement("h5");
+        const secondBody = document.createElement("p");
+        secondTitle.className = "deepcatch-implementation-subheading";
+        firstDescription.replaceChildren(firstBody, secondTitle, secondBody);
+        const copy = originalRows.map(row => [row.querySelector("dt"), row.querySelector("dd")]);
+        copy[0][1] = firstBody;
+        copy[1] = [secondTitle, secondBody];
+        implementation.removeChild(originalRows[1]);
+        const validationBody = document.createElement("p");
+        validationBody.className = "deepcatch-validation-copy";
+        copy[3][1].replaceChildren();
+        const settingsBody = document.createElement("p");
+        copy[3][1].append(settingsBody, validationBody);
+        const operationBody = copy[4][1];
+        copy[3][1] = settingsBody;
+        state = { rows: Array.from(implementation.children), copy, validationBody, operationBody, expanded, media: [] };
+        deepcatchImplementationStates.set(card, state);
+        disclosure.addEventListener("toggle", () => renderDeepcatchImplementation(card, projectPreviews.deepcatch.details, activeLanguage));
+      }
+      state.expanded.hidden = !disclosure.open;
+      state.copy.slice(0, 4).forEach(([title, body], index) => {
+        title.textContent = rows[index][0];
+        body.textContent = rows[index][1];
+      });
+      state.copy[3][0].textContent = language === "en" ? "Institution-specific settings, validation and initial deployment" : "기관별 설정 반영 및 검증·최초 배포";
+      state.validationBody.textContent = rows[4][1];
+      state.copy[4][0].textContent = language === "en" ? "Product operation and post-release support" : "제품 운영 및 사후 대응";
+      state.operationBody.textContent = language === "en" ? "Supported EMR integration and automation system setup tailored to each site's environment. The aim is to improve usability by reflecting requests and issues identified during on-site use. Ongoing feature improvements and updates are intended to help sites use the product in ways that fit their environments. Usage figures are company-wide product totals." : "각 현장 환경에 맞춘 EMR 연동과 자동화 시스템 구축을 지원했습니다. 현장 사용 중 확인되는 요청과 이슈를 반영해 사용 편의를 높이는 데 중점을 둡니다. 필요한 기능을 꾸준히 보완하고 업데이트해 현장 환경에 맞는 제품 활용을 돕고자 합니다. 사용량은 제품 전체에 대한 회사 집계입니다.";
+      if (!disclosure.open && !state.media.length) return;
+      const project = (language === "en" ? projectPreviewsEn : projectPreviewsKo).deepcatch;
+      const candidates = getMediaCandidates(project);
+      deepcatchImplementationMedia.forEach((indices, rowIndex) => {
+        let group = state.media[rowIndex];
+        if (!group) {
+          const container = document.createElement("dd");
+          container.className = "deepcatch-implementation-media";
+          state.rows[rowIndex].append(container);
+          group = { container, items: [] };
+          state.media[rowIndex] = group;
+        }
+        group.container.hidden = !disclosure.open;
+        indices.forEach(index => {
+        const media = candidates[index];
+        if (!media || media.type !== "image") return;
+        let item = group.items.find(entry => entry.index === index);
+        if (!item) {
+          const button = document.createElement("button");
+          button.type = "button";
+          button.className = "deepcatch-implementation-image";
+          const image = document.createElement("img");
+          image.loading = "lazy";
+          image.decoding = "async";
+          if (deepcatchMediaDimensions[index]) {
+            [image.width, image.height] = deepcatchMediaDimensions[index];
+          }
+          image.src = media.src;
+          const caption = document.createElement("span");
+          caption.className = "deepcatch-implementation-caption";
+          button.append(image, caption);
+          button.addEventListener("click", () => openLightbox("deepcatch", button, index));
+          if (rowIndex === 2 && index >= 8 && index <= 10) {
+            if (!group.carousel) {
+              const carousel = document.createElement("div");
+              carousel.id = "deepcatch-report-carousel";
+              carousel.className = "deepcatch-report-carousel";
+              carousel.setAttribute("role", "region");
+              carousel.setAttribute("aria-roledescription", "carousel");
+              const stage = document.createElement("div");
+              stage.className = "deepcatch-report-stage";
+              const controls = document.createElement("div");
+              controls.className = "deepcatch-report-controls";
+              [["prev", "이전 리포트", "←"], ["toggle", "자동전환 일시정지", "Ⅱ"], ["next", "다음 리포트", "→"]].forEach(([action, label, symbol]) => {
+                const control = document.createElement("button");
+                control.type = "button";
+                control.setAttribute(`data-carousel-${action}`, "");
+                control.setAttribute("aria-label", label);
+                control.textContent = symbol;
+                if (action === "toggle") control.setAttribute("aria-pressed", "false");
+                controls.append(control);
+              });
+              const count = document.createElement("span");
+              count.setAttribute("data-carousel-count", "");
+              count.textContent = "1 / 3";
+              controls.append(count);
+              carousel.append(stage, controls);
+              group.container.append(carousel);
+              group.carousel = carousel;
+              group.stage = stage;
+            }
+            button.className += " deepcatch-report-slide";
+            button.setAttribute("data-media-index", String(index));
+            button.hidden = index !== 8;
+            group.stage.append(button);
+          } else group.container.append(button);
+          item = { index, button, image, caption };
+          group.items.push(item);
+        }
+        item.image.alt = media.title;
+        item.caption.textContent = media.title;
+        item.button.setAttribute("aria-label", media.title);
+        });
+        if (group.carousel) {
+          group.carousel.setAttribute("aria-label", language === "en" ? "Report examples" : "리포트 예시");
+          if (window.mountDeepcatchReportCarousel) window.mountDeepcatchReportCarousel(group.carousel);
+        }
+      });
+    }
+
+    const qtInfrastructureCopy = {
+      ko: {
+        title: "테스트 자동화 인프라",
+        intro: "UI AutoTest 설정과 로그를 재생해 장시간 반복 검증을 수행하고 실패 지점을 기록",
+        stages: [
+          ["테스트 설정 로드", ["반복 횟수와 시작 위치", "테스트/매크로 파일 경로"], ["재시작 기준 확보", "마지막 작업 번호 기록", "CrashTask로 실패 구간 추적"]],
+          ["UI 로그 재생", ["객체명과 이벤트 타입", "버튼/키보드/마우스 재현"]],
+          ["반복 실행 제어", ["세트 단위 반복 루프", "진행/성공/실패 상태 표시"], ["실행 중복 방지", "ThreadLock과 busy 상태 확인", "분석 완료 전 다음 입력 차단"]],
+          ["작업 완료 대기", ["Action, Progress 상태 확인", "작업 처리 후 다음 단계"], ["PACS 자동 분석 대기", "PACS 분석 실행 상태 감시", "완료 후 다음 UI 입력 진행"]],
+          ["결과 저장", ["TestCaseResult CSV", "Macro Success/Failed CSV"], ["운영 검증 결과화", "테스트 케이스별 결과 CSV", "반복 실패 항목 정리"]]
+        ],
+        pointTitle: "핵심 활용 포인트",
+        point: "수동 클릭 로그를 재사용 가능한 테스트 케이스로 만들고, 장시간 반복 실행에서 실패 위치와 결과 파일을 남겨 운영 이슈 재현 기준을 확보"
+      },
+      en: {
+        title: "Test automation infrastructure",
+        intro: "Replay UI AutoTest settings and logs for long-running repeated validation and record failure points",
+        stages: [
+          ["Load test settings", ["Repeat count and starting position", "Test/macro file paths"], ["Establish restart points", "Record the last task number", "Track failed segments with CrashTask"]],
+          ["Replay UI logs", ["Object names and event types", "Reproduce buttons, keyboard and mouse input"]],
+          ["Control repeated runs", ["Repeat loops by test set", "Show progress, success and failure states"], ["Prevent overlapping execution", "Check ThreadLock and busy state", "Block the next input until analysis completes"]],
+          ["Wait for completion", ["Check Action and Progress states", "Continue after task processing"], ["Wait for PACS analysis", "Monitor PACS analysis execution", "Continue UI input after completion"]],
+          ["Save results", ["TestCaseResult CSV", "Macro Success/Failed CSV"], ["Produce validation results", "CSV results per test case", "Organize recurring failures"]]
+        ],
+        pointTitle: "Key use",
+        point: "Turn manual click logs into reusable test cases and retain failure locations and result files from long-running repeated execution as a basis for reproducing operational issues"
+      }
+    };
+
+    function renderQtInfrastructure(entry, active, language) {
+      if (!entry.infrastructure && !active) return;
+      const copy = qtInfrastructureCopy[language === "en" ? "en" : "ko"];
+      if (!entry.infrastructure) {
+        const section = document.createElement("section");
+        section.className = "paired-project-infrastructure";
+        section.setAttribute("aria-labelledby", "qt-infrastructure-title");
+        const title = document.createElement("h4");
+        title.id = "qt-infrastructure-title";
+        const intro = document.createElement("p");
+        const steps = document.createElement("ol");
+        steps.className = "qt-infrastructure-steps";
+        const stageNodes = copy.stages.map(stage => {
+          const item = document.createElement("li");
+          const heading = document.createElement("h5");
+          const body = document.createElement("p");
+          item.append(heading, body);
+          let branch;
+          if (stage[2]) {
+            branch = document.createElement("div");
+            branch.className = "qt-infrastructure-branch";
+            branch.append(document.createElement("h6"), document.createElement("p"));
+            item.append(branch);
+          }
+          steps.append(item);
+          return { heading, body, branch };
+        });
+        const pointTitle = document.createElement("h5");
+        const point = document.createElement("p");
+        section.append(title, intro, steps, pointTitle, point);
+        entry.card.append(section);
+        entry.infrastructure = { section, title, intro, stageNodes, pointTitle, point };
+      }
+      const nodes = entry.infrastructure;
+      nodes.section.hidden = !active;
+      nodes.title.textContent = copy.title;
+      nodes.intro.textContent = copy.intro;
+      nodes.stageNodes.forEach((node, i) => {
+        const stage = copy.stages[i];
+        node.heading.textContent = stage[0];
+        node.body.textContent = stage[1].join(" · ");
+        if (node.branch) {
+          node.branch.children[0].textContent = stage[2][0];
+          node.branch.children[1].textContent = stage[2].slice(1).join(" · ");
+        }
+      });
+      nodes.pointTitle.textContent = copy.pointTitle;
+      nodes.point.textContent = copy.point;
+    }
+
+    const pairedProjectStates = new Map();
+
+    function renderPairedProjectMedia(language) {
+      [["autotest", "medipmacro"], ["pacs", "validation"]].forEach(ids => renderProjectMediaPair(ids, language));
+    }
+
+    function renderProjectMediaPair(ids, language) {
+      let state = pairedProjectStates.get(ids[0]);
+      if (!state) {
+        const entries = ids.map(id => {
+          const trigger = document.querySelector(`#work .project-preview-trigger[data-project="${id}"]`);
+          const card = trigger?.closest(".project-card");
+          return card ? { id, card, disclosure: card.querySelector(".project-disclosure"), items: [] } : null;
+        });
+        if (entries.some(entry => !entry?.disclosure)) return;
+        const wrapper = document.createElement("div");
+        wrapper.className = "paired-projects";
+        entries[0].card.parentNode.insertBefore(wrapper, entries[0].card);
+        state = { entries, intent: null, selected: null };
+        pairedProjectStates.set(ids[0], state);
+        entries.forEach((entry, index) => {
+          wrapper.append(entry.card);
+          entry.card.classList.add("paired-project-card", index === 0 ? "paired-project-left" : "paired-project-right");
+          const body = entry.card.querySelector(".project-body");
+          const summary = document.createElement("div");
+          summary.className = "paired-project-summary";
+          Array.from(body.children).filter(child => child !== entry.disclosure).forEach(child => summary.append(child));
+          body.insertBefore(summary, entry.disclosure);
+          const gallery = document.createElement("section");
+          gallery.className = "paired-project-media";
+          gallery.hidden = true;
+          gallery.setAttribute("aria-labelledby", `paired-media-${entry.id}`);
+          const heading = document.createElement("h4");
+          heading.id = `paired-media-${entry.id}`;
+          gallery.append(heading);
+          entry.card.append(gallery);
+          Object.assign(entry, { gallery, heading });
+          entry.disclosure.querySelector("summary").addEventListener("click", () => {
+            state.intent = entry.id;
+          });
+          entry.disclosure.addEventListener("toggle", () => renderPairedProjectMedia(activeLanguage));
+        });
+      }
+      const open = state.entries.filter(entry => entry.disclosure.open);
+      const selected = open.find(entry => entry.id === state.intent) || open[open.length - 1];
+      state.selected = selected?.id || null;
+      state.entries.forEach(entry => {
+        const active = entry === selected;
+        if (!active && entry.disclosure.open) entry.disclosure.open = false;
+        entry.gallery.hidden = !active;
+        const project = (language === "en" ? projectPreviewsEn : projectPreviewsKo)[entry.id];
+        entry.heading.textContent = project.title;
+        if (entry.id === "autotest") renderQtInfrastructure(entry, active, language);
+        if (!active && !entry.items.length) return;
+        getMediaCandidates(project).forEach((media, index) => {
+          if (entry.id === "autotest" && index === 2) return;
+          const src = media.type === "video" ? media.poster : media.src;
+          if (!src) return;
+          let item = entry.items.find(item => item.index === index);
+          if (!item) {
+            const button = document.createElement("button");
+            button.type = "button";
+            button.className = "paired-project-image";
+            const image = document.createElement("img");
+            image.loading = "lazy";
+            image.decoding = "async";
+            image.src = src;
+            const caption = document.createElement("span");
+            caption.className = "paired-project-caption";
+            button.append(image, caption);
+            button.addEventListener("click", () => openLightbox(entry.id, button, index));
+            entry.gallery.append(button);
+            item = { index, button, image, caption, src };
+            entry.items.push(item);
+          }
+          if (item.src !== src) {
+            item.image.src = src;
+            item.src = src;
+          }
+          item.image.alt = media.title;
+          item.caption.textContent = media.title;
+          item.button.setAttribute("aria-label", `${project.title} · ${media.title}`);
+        });
+      });
+    }
+
     function renderProjectDisclosure(card, rows, language) {
       const disclosure = card.querySelector(".project-disclosure");
       if (!disclosure) return;
@@ -3485,6 +3776,10 @@
         }
       } else {
         label.textContent = text;
+      }
+      if (card.querySelector('.project-preview-trigger[data-project="deepcatch"]')) {
+        renderDeepcatchImplementation(card, rows, language);
+        return;
       }
       disclosure.querySelector(".project-implementation").replaceChildren(...rows.map(([title, body]) => {
         const row = document.createElement("div");
@@ -3680,6 +3975,7 @@
 
 
       setText("#flow .section-label", text.flow.label);
+      renderPairedProjectMedia(lang);
       setText("#flow-title .section-title-line", text.flow.title);
       setText("#flow-title .section-title-note", text.flow.note);
       setText("#flow .section-header p", text.flow.body);
@@ -3766,6 +4062,7 @@
       }
       if (window.renderPortfolioThrowCopy) window.renderPortfolioThrowCopy();
       if (window.renderPortfolioAmbientCopy) window.renderPortfolioAmbientCopy();
+      if (window.renderDeepcatchReportCarouselCopy) window.renderDeepcatchReportCarouselCopy();
     }
 
     function escapeXml(value) {
@@ -3983,21 +4280,21 @@
       lightboxNext.disabled = currentMediaItems.length <= 1;
     }
 
-    function loadProjectMedia(project) {
+    function loadProjectMedia(project, mediaIndex = 0) {
       mediaRequestId += 1;
       const candidates = getMediaCandidates(project);
       currentMediaItems = candidates;
-      currentMediaIndex = 0;
+      currentMediaIndex = Number.isInteger(mediaIndex) ? Math.max(0, Math.min(mediaIndex, Math.max(0, candidates.length - 1))) : 0;
       renderCurrentMedia(project);
     }
 
-    function openLightbox(projectId, trigger) {
+    function openLightbox(projectId, trigger, mediaIndex = 0) {
       const project = projectPreviews[projectId];
       if (!project) return;
 
       lastFocusedTrigger = trigger;
       lightbox.classList.toggle("is-media-only", Boolean(project.mediaOnly));
-      loadProjectMedia(project);
+      loadProjectMedia(project, mediaIndex);
       renderLightboxCopy(project, projectId);
       lightbox.dataset.projectId = projectId;
       lightbox.setAttribute("aria-hidden", "false");
@@ -4205,5 +4502,6 @@
   <script src="resource/tech-throw.js" defer></script>
   <script src="resource/section-rail.js" defer></script>
   <script src="resource/ambient-background.js" defer></script>
+  <script src="resource/deepcatch-report-carousel.js" defer></script>
 </body>
 </html>
