@@ -51,6 +51,78 @@
     let effectsEnabled = false;
     let observer;
     let motion;
+    let activeThrow = null;
+    const landedRoot = document.getElementById("tech-throw-landed-pile");
+    const landedTemplate = document.getElementById("tech-throw-landed-template");
+    let pileEnabled = !!(landedRoot && landedTemplate && typeof landedTemplate.cloneNode === "function"
+      && typeof landedRoot.appendChild === "function" && typeof landedRoot.removeChild === "function");
+    const landedCards = [];
+    let nextSlot = 0;
+
+    function removeCard(record) {
+      if (record && record.node.parentNode === landedRoot) landedRoot.removeChild(record.node);
+    }
+
+    function disablePile() {
+      pileEnabled = false;
+      // Keep completed boxes if a later optional clone cannot be created.
+      button.classList.remove("has-landed-pile");
+      clearLandingSlot();
+    }
+
+    function clearLandingSlot() {
+      try {
+        if (typeof button.removeAttribute === "function") button.removeAttribute("data-landing-slot");
+      } catch (_) { /* Optional landing metadata must not block manual throws. */ }
+    }
+
+    function planLanding(skillIndex) {
+      if (!pileEnabled) return null;
+      try {
+        if (!landedTemplate.querySelector(".tech-landed-icon") || !landedTemplate.querySelector(".tech-landed-name")) {
+          throw new Error("Incomplete landed template");
+        }
+        button.setAttribute("data-landing-slot", String(nextSlot));
+        if (typeof button.getAttribute !== "function" || button.getAttribute("data-landing-slot") !== String(nextSlot)) {
+          throw new Error("Landing slot unavailable");
+        }
+        return { skillIndex, slot: nextSlot };
+      } catch (_) { disablePile(); return null; }
+    }
+
+    function addLandedCard(landing) {
+      if (!pileEnabled) return;
+      let card;
+      let committed = false;
+      try {
+        const { skillIndex, slot } = landing;
+        card = landedTemplate.cloneNode(true);
+        card.removeAttribute("id");
+        if (card.querySelector("[id]")) throw new Error("Landed template contains nested IDs");
+        const cardIcon = card.querySelector(".tech-landed-icon");
+        const cardName = card.querySelector(".tech-landed-name");
+        if (!cardIcon || !cardName) throw new Error("Incomplete landed template");
+        card.setAttribute("class", "tech-landed-card");
+        card.setAttribute("data-pile-slot", String(slot));
+        cardIcon.setAttribute("href", "resource/skill-icons.svg#" + skills[skillIndex][1]);
+        cardName.textContent = skills[skillIndex][0];
+        // Cover the reused slot before removing its old box in the same task.
+        landedRoot.appendChild(card);
+        if (landedCards.length === 10) {
+          removeCard(landedCards[0]);
+          landedCards.shift();
+        }
+        landedCards.push({ node: card });
+        nextSlot = (slot + 1) % 10;
+        committed = true;
+        button.classList.add("has-landed-pile");
+      } catch (_) {
+        if (!committed && card) {
+          try { removeCard({ node: card }); } catch (_) { /* Best-effort rollback. */ }
+        }
+        disablePile();
+      }
+    }
 
     function renderCopy() {
       const english = /^en(?:-|$)/i.test(document.documentElement.lang || "");
@@ -76,6 +148,7 @@
 
     function settle() {
       clearTimer();
+      activeThrow = null;
       if (running) {
         running = false;
         button.classList.remove("is-throwing");
@@ -88,6 +161,7 @@
     function suspend() {
       nextDue = null;
       settle();
+      clearLandingSlot();
     }
 
     function failOpen() {
@@ -95,9 +169,10 @@
       nextDue = null;
       try {
         settle();
-        button.classList.remove("is-throwing");
+        button.classList.remove("is-throwing", "has-landed-pile");
         button.classList.add("is-landed");
       } catch (_) { /* Cleanup errors must not escape into the portfolio. */ }
+      clearLandingSlot();
     }
 
     // Optional browser features may fail in restricted or older environments.
@@ -124,7 +199,11 @@
     }
 
     function finish() {
+      if (!running) return;
+      if (reduced || !effectsEnabled || !eligible()) { suspend(); return; }
+      const landing = activeThrow;
       settle();
+      if (landing !== null) addLandedCard(landing);
       resumeAuto();
     }
 
@@ -143,7 +222,8 @@
       }
       icon.setAttribute("href", "resource/skill-icons.svg#" + skills[selected][1]);
       name.textContent = skills[selected][0];
-      button.classList.remove("is-landed", "is-throwing");
+      button.classList.remove("is-landed", "is-throwing", "has-landed-pile");
+      clearLandingSlot();
       if (reduced || !effectsEnabled || !inViewport) {
         button.classList.add("is-landed");
         renderCopy();
@@ -151,6 +231,7 @@
       }
 
       nextDue = readNow() + 5000;
+      activeThrow = planLanding(selected);
       running = true;
       button.setAttribute("aria-disabled", "true");
       renderCopy();

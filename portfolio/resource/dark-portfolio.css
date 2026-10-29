@@ -152,6 +152,49 @@ body[data-language="en"] .hero-title { font-size: clamp(2.8rem, 4.5vw, 4.4rem); 
 .throw-stage:disabled { opacity: 1; cursor: default; }
 .throw-stage:focus-visible { outline: 2px solid var(--teal); outline-offset: 5px; }
 .throw-stage svg { display: block; width: 100%; height: auto; overflow: hidden; pointer-events: none; }
+/* Static final pile: the active flight already ends in each box pose. */
+#hero-easter-egg #tech-throw-landed-pile > .tech-landed-card { transform-box: view-box; transform-origin: 0 0; transform: translate(var(--pile-x), var(--pile-y)) rotate(var(--pile-angle)) scale(.62); opacity: 1; pointer-events: none; }
+#hero-easter-egg #tech-throw-landed-pile > .tech-landed-card[data-pile-slot="0"] { --pile-x: 55.18px; --pile-y: 263.340px; --pile-angle: 90deg; }
+#hero-easter-egg #tech-throw-landed-pile > .tech-landed-card[data-pile-slot="1"] { --pile-x: 81px; --pile-y: 257.717px; --pile-angle: 72deg; }
+#hero-easter-egg #tech-throw-landed-pile > .tech-landed-card[data-pile-slot="2"] { --pile-x: 108px; --pile-y: 258.450px; --pile-angle: 105deg; }
+#hero-easter-egg #tech-throw-landed-pile > .tech-landed-card[data-pile-slot="3"] { --pile-x: 68px; --pile-y: 255.469px; --pile-angle: 58deg; }
+#hero-easter-egg #tech-throw-landed-pile > .tech-landed-card[data-pile-slot="4"] { --pile-x: 132px; --pile-y: 256.513px; --pile-angle: 114deg; }
+#hero-easter-egg #tech-throw-landed-pile > .tech-landed-card[data-pile-slot="5"] { --pile-x: 95px; --pile-y: 260.169px; --pile-angle: 81deg; }
+#hero-easter-egg #tech-throw-landed-pile > .tech-landed-card[data-pile-slot="6"] { --pile-x: 148px; --pile-y: 256.191px; --pile-angle: 64deg; }
+#hero-easter-egg #tech-throw-landed-pile > .tech-landed-card[data-pile-slot="7"] { --pile-x: 77px; --pile-y: 259.860px; --pile-angle: 100deg; }
+#hero-easter-egg #tech-throw-landed-pile > .tech-landed-card[data-pile-slot="8"] { --pile-x: 120px; --pile-y: 257.952px; --pile-angle: 73deg; }
+#hero-easter-egg #tech-throw-landed-pile > .tech-landed-card[data-pile-slot="9"] { --pile-x: 103px; --pile-y: 255.784px; --pile-angle: 119deg; }
+/* A slot is chosen before flight; local endpoints invert the fixed performer matrix. */
+#hero-easter-egg .throw-stage[data-landing-slot="0"] { --landing-x: -165.0px; --landing-y: 247.0px; --landing-angle: -270.0deg; }
+#hero-easter-egg .throw-stage[data-landing-slot="1"] { --landing-x: -123.354839px; --landing-y: 237.930645px; --landing-angle: -288.0deg; }
+#hero-easter-egg .throw-stage[data-landing-slot="2"] { --landing-x: -79.806452px; --landing-y: 239.112903px; --landing-angle: -255.0deg; }
+#hero-easter-egg .throw-stage[data-landing-slot="3"] { --landing-x: -144.322581px; --landing-y: 234.304839px; --landing-angle: -302.0deg; }
+#hero-easter-egg .throw-stage[data-landing-slot="4"] { --landing-x: -41.096774px; --landing-y: 235.98871px; --landing-angle: -246.0deg; }
+#hero-easter-egg .throw-stage[data-landing-slot="5"] { --landing-x: -100.774194px; --landing-y: 241.885484px; --landing-angle: -279.0deg; }
+#hero-easter-egg .throw-stage[data-landing-slot="6"] { --landing-x: -15.290323px; --landing-y: 235.469355px; --landing-angle: -296.0deg; }
+#hero-easter-egg .throw-stage[data-landing-slot="7"] { --landing-x: -129.806452px; --landing-y: 241.387097px; --landing-angle: -260.0deg; }
+#hero-easter-egg .throw-stage[data-landing-slot="8"] { --landing-x: -60.451613px; --landing-y: 238.309677px; --landing-angle: -287.0deg; }
+#hero-easter-egg .throw-stage[data-landing-slot="9"] { --landing-x: -87.870968px; --landing-y: 234.812903px; --landing-angle: -241.0deg; }
+#hero-easter-egg .throw-stage[data-landing-slot] .throw-impact { cx: var(--landing-x); }
+#hero-easter-egg .throw-stage[data-landing-slot] .throw-flight-line { visibility: hidden; }
+#hero-easter-egg #tech-throw-landed-pile .tech-landed-face { fill: var(--surface-2); stroke: var(--teal); stroke-width: 2; }
+#hero-easter-egg #tech-throw-landed-pile .tech-landed-edge { fill: none; stroke: var(--line-strong); stroke-width: 1; }
+#hero-easter-egg #tech-throw-landed-pile .tech-landed-icon { color: var(--teal); fill: currentColor; }
+#hero-easter-egg #tech-throw-landed-pile .tech-landed-name { fill: var(--ink); font: 9px Consolas, monospace; }
+#hero-easter-egg #tech-throw-landed-pile > .tech-landed-card.is-entering { animation: none; }
+#hero-easter-egg #tech-throw-landed-pile > .tech-landed-card.is-retiring { animation: tech-landed-retire 320ms ease-in both; }
+#hero-easter-egg .throw-stage.has-landed-pile .throw-block { visibility: hidden; }
+@keyframes tech-landed-retire { from { opacity: 1; } to { opacity: 0; } }
+@media (prefers-reduced-motion: reduce), (forced-colors: active) {
+  #hero-easter-egg #tech-throw-landed-pile > .tech-landed-card { animation: none; }
+  #hero-easter-egg #tech-throw-landed-pile > .tech-landed-card.is-retiring { opacity: 0; }
+}
+@media (forced-colors: active) {
+  #hero-easter-egg #tech-throw-landed-pile .tech-landed-face { fill: Canvas; stroke: CanvasText; }
+  #hero-easter-egg #tech-throw-landed-pile .tech-landed-edge { stroke: CanvasText; }
+  #hero-easter-egg #tech-throw-landed-pile .tech-landed-icon { color: CanvasText; }
+  #hero-easter-egg #tech-throw-landed-pile .tech-landed-name { fill: CanvasText; }
+}
 .throw-ground { fill: none; stroke: var(--line-strong); stroke-width: 1.5; }
 .throw-flight-line { fill: none; stroke: var(--teal); stroke-width: 1.5; stroke-dasharray: 4 8; opacity: 0; }
 .throw-head, .throw-neck, .throw-body, .throw-limb, .throw-foot-shape, .throw-hand { fill: var(--ink-soft); stroke: none; }
@@ -196,7 +239,7 @@ body[data-language="en"] .hero-title { font-size: clamp(2.8rem, 4.5vw, 4.4rem); 
 .throw-stage.is-throwing .throw-foot-back { animation: tech-throw-foot-back 1s linear both; }
 .throw-stage.is-throwing .throw-impact { animation: tech-throw-impact 1s linear both; }
 .throw-stage.is-throwing .throw-flight-line { animation: tech-throw-flight 1s linear both; }
-.throw-stage.is-landed .throw-block { transform: translate(-165px, 247px) rotate(-270deg); }
+.throw-stage.is-landed .throw-block { transform: translate(var(--landing-x, -165px), var(--landing-y, 247px)) rotate(var(--landing-angle, -270deg)); }
 .throw-stage.is-landed .throw-upper { transform: translate(-2px, 0px) rotate(-14deg); }
 .throw-stage.is-landed .throw-arm-front { transform: translate(257px, 166px) rotate(-320deg); }
 .throw-stage.is-landed .throw-forearm-front { transform: translate(0px, 36px) rotate(35deg); }
@@ -238,11 +281,15 @@ body[data-language="en"] .hero-title { font-size: clamp(2.8rem, 4.5vw, 4.4rem); 
   52% { transform: translate(224.333px, 102.667px) rotate(-92deg); }
   54% { transform: translate(214.667px, 99.333px) rotate(-104deg); }
   56% { transform: translate(205px, 96px) rotate(-116deg); }
-  62% { transform: translate(105px, 100px) rotate(-145deg); }
-  68% { transform: translate(5px, 125px) rotate(-180deg); }
-  76% { transform: translate(-95px, 180px) rotate(-220deg); }
-  88% { transform: translate(-165px, 247px) rotate(-270deg); }
-  100% { transform: translate(-165px, 247px) rotate(-270deg); }
+  60% { transform: translate(calc(var(--landing-x, -165px) * 0.04296875 + 166.09122984px), calc(var(--landing-y, 247px) * 0.04296875 + 89.42729335px)) rotate(calc(var(--landing-angle, -270deg) * 0.12500000 - 101.50000000deg)); }
+  64% { transform: translate(calc(var(--landing-x, -165px) * 0.15625000 + 133.27620968px), calc(var(--landing-y, 247px) * 0.15625000 + 68.97883065px)) rotate(calc(var(--landing-angle, -270deg) * 0.25000000 - 87.00000000deg)); }
+  68% { transform: translate(calc(var(--landing-x, -165px) * 0.31640625 + 105.40574597px), calc(var(--landing-y, 247px) * 0.31640625 + 40.81716230px)) rotate(calc(var(--landing-angle, -270deg) * 0.37500000 - 72.50000000deg)); }
+  72% { transform: translate(calc(var(--landing-x, -165px) * 0.50000000 + 81.33064516px), calc(var(--landing-y, 247px) * 0.50000000 + 11.10483871px)) rotate(calc(var(--landing-angle, -270deg) * 0.50000000 - 58.00000000deg)); }
+  76% { transform: translate(calc(var(--landing-x, -165px) * 0.68359375 + 59.90171371px), calc(var(--landing-y, 247px) * 0.68359375 + -13.99558972px)) rotate(calc(var(--landing-angle, -270deg) * 0.62500000 - 43.50000000deg)); }
+  80% { transform: translate(calc(var(--landing-x, -165px) * 0.84375000 + 39.96975806px), calc(var(--landing-y, 247px) * 0.84375000 + -28.32157258px)) rotate(calc(var(--landing-angle, -270deg) * 0.75000000 - 29.00000000deg)); }
+  84% { transform: translate(calc(var(--landing-x, -165px) * 0.95703125 + 20.38558468px), calc(var(--landing-y, 247px) * 0.95703125 + -25.71055948px)) rotate(calc(var(--landing-angle, -270deg) * 0.87500000 - 14.50000000deg)); }
+  88% { transform: translate(var(--landing-x, -165px), var(--landing-y, 247px)) rotate(var(--landing-angle, -270deg)); }
+  100% { transform: translate(var(--landing-x, -165px), var(--landing-y, 247px)) rotate(var(--landing-angle, -270deg)); }
 }
 @keyframes tech-throw-upper {
   0% { transform: translate(0px, 0px) rotate(0deg); }
@@ -640,7 +687,7 @@ body[data-language="en"] .hero-title { font-size: clamp(2.8rem, 4.5vw, 4.4rem); 
 }
 @media (prefers-reduced-motion: reduce) {
   #hero-easter-egg .throw-stage * { animation: none; transition: none; }
-  #hero-easter-egg .throw-block { transform: translate(-165px, 247px) rotate(-270deg); }
+  #hero-easter-egg .throw-block { transform: translate(var(--landing-x, -165px), var(--landing-y, 247px)) rotate(var(--landing-angle, -270deg)); }
   #hero-easter-egg .throw-upper { transform: translate(-2px, 0px) rotate(-14deg); }
   #hero-easter-egg .throw-arm-front { transform: translate(257px, 166px) rotate(-320deg); }
   #hero-easter-egg .throw-forearm-front { transform: translate(0px, 36px) rotate(35deg); }

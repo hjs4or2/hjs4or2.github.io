@@ -1582,7 +1582,16 @@
           <button id="tech-throw-button" class="throw-stage" type="button" disabled aria-label="기술 블록 엎어치기 다시 재생">
             <svg viewBox="0 70 520 270" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
               <defs><symbol id="tech-throw-windows" viewBox="0 0 24 24" fill="currentColor"><rect x="2" y="2" width="9" height="9" rx=".5"/><rect x="13" y="2" width="9" height="9" rx=".5"/><rect x="2" y="13" width="9" height="9" rx=".5"/><rect x="13" y="13" width="9" height="9" rx=".5"/></symbol></defs>
+              <defs>
+                <g id="tech-throw-landed-template">
+                  <rect class="tech-landed-face" x="-42" y="-36" width="84" height="72" rx="9"/>
+                  <path class="tech-landed-edge" d="M-32-26H32"/>
+                  <use class="tech-landed-icon" href="resource/skill-icons.svg#brand-cplusplus" x="-15" y="-23" width="30" height="30"/>
+                  <text class="tech-landed-name" x="0" y="24" text-anchor="middle">C++</text>
+                </g>
+              </defs>
                 <path class="throw-ground" d="M28 290H492"/>
+                <g id="tech-throw-landed-pile" aria-hidden="true" pointer-events="none"></g>
                 <g class="throw-queue">
                   <g id="tech-throw-queue-0" transform="translate(346 270) rotate(-13) scale(0.44)">
                     <g class="throw-queue-card"><rect x="-42" y="-36" width="84" height="72" rx="9"/><use id="tech-throw-queue-icon-0" href="resource/skill-icons.svg#brand-qt" x="-15" y="-23" width="30" height="30"/><text id="tech-throw-queue-name-0" x="0" y="24" text-anchor="middle">Qt</text></g>
