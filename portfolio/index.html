@@ -1756,7 +1756,7 @@
                 <p class="project-role">Qt Widgets 입력 이벤트 자동화 구조 설계·개발</p>
                 <p class="project-result">수십 건의 크래시·기능 오류 발견 · 일일 결과 공유</p>
                 <p class="project-caption">Qt 입력 기록·재생 자동 테스트 실행 예시</p>
-                <details class="project-disclosure"><summary><span class="project-disclosure-label"><span class="project-disclosure-text">구현 내용 보기</span><span class="project-disclosure-shine" aria-hidden="true" hidden>구현 내용 보기</span></span></summary><section class="project-design-notes" aria-labelledby="design-notes-autotest"><h4 id="design-notes-autotest">구조와 구현 이유</h4><dl class="project-design-qa"><div><dt>왜 입력을 기록하고 재생했나?</dt><dd>수동 조작만으로는 오류가 발생한 동작 순서를 다시 맞추기 어렵습니다. 입력을 시나리오로 저장해 같은 절차를 반복하고 이슈 재현에 사용했습니다.</dd></div><div><dt>왜 고정 시간 대기보다 작업 상태를 확인했나?</dt><dd>AI 분석 시간은 데이터에 따라 달라집니다. 정해진 시간만 기다리는 대신 작업 상태를 확인하며 진행하고, 진행 단계와 실패 위치를 로그로 남겨 문제가 발생한 동작을 찾도록 했습니다.</dd></div></dl></section><h4 class="project-implementation-heading">구현 내용</h4><dl class="project-implementation"><div><dt>구조 설계·개발</dt><dd>Qt Widgets 기반 사용자 입력 이벤트 기록·재생 구조를 설계·개발했습니다. 수동 UI 조작을 저장한 시나리오로 반복 실행하는 프레임워크와 로그 분석 기능을 처음부터 구현했습니다.</dd></div><div><dt>입력 수집·재생</dt><dd>Qt 객체 식별 정보, 이벤트 유형, 마우스 좌표와 키 입력을 수집·저장했습니다. 버튼·콤보박스·슬라이더·트리·테이블 등의 조작과 키보드·단축키 입력을 재현하도록 구성했습니다.</dd></div><div><dt>반복 실행 제어</dt><dd>QThread를 이용한 반복 실행 흐름에 팝업 처리와 장시간 작업 완료 대기를 연결했습니다. 단계별 진행 상태와 실패 위치를 기록해 중단 지점과 로그를 함께 확인하도록 구현했습니다.</dd></div><div><dt>검증·결과 공유</dt><dd>장시간 반복 시험으로 수십 건의 크래시·기능 오류를 발견했습니다. TeamCity 정기 실행과 결과 메일을 연결해 테스트 결과·오류 위치를 일일 공유했습니다.</dd></div><div><dt>기존 CI/CD 참여 범위</dt><dd>UI 기록·재생과 로그 분석은 신규 구현했습니다. 기존 설치 파일 생성·자동 설치 단계는 이슈 수정과 마이그레이션 참여 범위입니다.</dd></div><div><dt>화면 자료</dt><dd>갤러리의 실행 영상, 결과 메일과 구현 요약에서 자동 테스트·로그 분석 작업을 확인할 수 있습니다.</dd></div></dl></details>
+                <details class="project-disclosure"><summary><span class="project-disclosure-label"><span class="project-disclosure-text">구현 내용 보기</span><span class="project-disclosure-shine" aria-hidden="true" hidden>구현 내용 보기</span></span></summary><section class="project-design-notes" aria-labelledby="design-notes-autotest"><h4 id="design-notes-autotest">구조와 구현 이유</h4><dl class="project-design-qa"><div><dt>왜 입력을 기록하고 재생했나?</dt><dd>수동 조작만으로는 오류가 발생한 동작 순서를 다시 맞추기 어렵습니다. 입력을 시나리오로 저장해 같은 절차를 반복하고 이슈 재현에 사용했습니다.</dd></div><div><dt>왜 고정 시간 대기보다 작업 상태를 확인했나?</dt><dd>AI 분석 시간은 데이터에 따라 달라집니다. 작업 상태 확인과 대기 시간을 함께 사용하며 진행하고, 진행 단계와 실패 위치를 로그로 남겨 문제가 발생한 동작을 찾도록 했습니다.</dd></div></dl></section><h4 class="project-implementation-heading">구현 내용</h4><dl class="project-implementation"><div><dt>구조 설계·개발</dt><dd>Qt Widgets 기반 사용자 입력 이벤트 기록·재생 구조를 설계·개발했습니다. 수동 UI 조작을 저장한 시나리오로 반복 실행하는 프레임워크와 로그 분석 기능을 처음부터 구현했습니다.</dd></div><div><dt>입력 수집·재생</dt><dd>Qt 객체 식별 정보, 이벤트 유형, 마우스 좌표와 키 입력을 수집·저장했습니다. 버튼·콤보박스·슬라이더·트리·테이블 등의 조작과 키보드·단축키 입력을 재현하도록 구성했습니다.</dd></div><div><dt>반복 실행 제어</dt><dd>QThread를 이용한 반복 실행 흐름에 팝업 처리와 장시간 작업 완료 대기를 연결했습니다. 단계별 진행 상태와 실패 위치를 기록해 중단 지점과 로그를 함께 확인하도록 구현했습니다.</dd></div><div><dt>검증·결과 공유</dt><dd>장시간 반복 시험으로 수십 건의 크래시·기능 오류를 발견했습니다. TeamCity 정기 실행과 결과 메일을 연결해 테스트 결과·오류 위치를 일일 공유했습니다.</dd></div><div><dt>기존 CI/CD 참여 범위</dt><dd>UI 기록·재생과 로그 분석은 신규 구현했습니다. 기존 설치 파일 생성·자동 설치 단계는 이슈 수정과 마이그레이션 참여 범위입니다.</dd></div><div><dt>화면 자료</dt><dd>갤러리의 실행 영상, 결과 메일과 구현 요약에서 자동 테스트·로그 분석 작업을 확인할 수 있습니다.</dd></div></dl></details>
               </div>
             </article>
 
@@ -1772,7 +1772,7 @@
                 <p class="project-role">다중 파일 분석·Export와 파일별 실패 처리 구현</p>
                 <p class="project-result">실패 후 다음 파일 계속 처리 · JSONL 상태 추적</p>
                 <p class="project-caption">파일별 실행 상태와 중단 메시지</p>
-                <details class="project-disclosure"><summary><span class="project-disclosure-label"><span class="project-disclosure-text">구현 내용 보기</span><span class="project-disclosure-shine" aria-hidden="true" hidden>구현 내용 보기</span></span></summary><section class="project-design-notes" aria-labelledby="design-notes-medipmacro"><h4 id="design-notes-medipmacro">구조와 구현 이유</h4><dl class="project-design-qa"><div><dt>왜 파일별 Action과 내부 Command로 나눴나?</dt><dd>파일마다 로딩·분석·출력 단계가 이어지므로 파일을 하나의 Action으로, 내부 처리 단계를 Command로 구분했습니다. 실행 순서와 실패한 단계를 파일 단위로 다룰 수 있습니다.</dd></div><div><dt>왜 한 파일 실패 후에도 계속 실행했나?</dt><dd>한 파일의 오류로 나머지 파일까지 중단하지 않도록 실패 범위를 파일 단위로 나눴습니다. JSONL에 상태와 실패 메시지를 남겨 후속 확인·재처리할 대상을 구분했습니다.</dd></div></dl></section><h4 class="project-implementation-heading">구현 내용</h4><dl class="project-implementation"><div><dt>입력·실행 설정</dt><dd>DICOM과 커스텀 프로젝트 파일(.mip)을 순차 분석하는 Macro를 개발했습니다. 파일·폴더 입력과 하위 폴더 탐색을 지원하고, 분석 프로젝트·Export 옵션을 JSON으로 저장·불러오도록 구성했습니다.</dd></div><div><dt>분석·결과 출력</dt><dd>파일별 복수 AI 분석과 Mask 기반 Surface 생성을 순차 실행했습니다. Layer·Mesh를 NII·STL·OBJ 등으로 출력하고, 영상 정보와 Layer별 voxel 수·비율·체적을 CSV로 기록했습니다.</dd></div><div><dt>실패 격리</dt><dd>파일마다 독립 Action을 두고 내부 단계를 Command로 구성했습니다. 한 파일의 Command가 실패하면 해당 파일만 Failed로 기록하고 다음 파일의 Action을 계속 실행하도록 처리했습니다.</dd></div><div><dt>상태·로그 관리</dt><dd>NotStarted·Running·Success·Failed·Interrupted 상태와 실패 메시지를 JSONL로 남겼습니다. 파일별 처리 결과와 재처리 대상을 로그에서 확인할 수 있도록 했습니다.</dd></div><div><dt>장시간 실행 대응</dt><dd>결과 폴더 중복과 실행 중 창 종료를 방지하고 취소·완료 후 UI를 복원했습니다. 갤러리에는 설정부터 분석·결과 폴더 확인까지의 동작과 파일별 상태·중단 메시지가 포함돼 있습니다.</dd></div></dl></details>
+                <details class="project-disclosure"><summary><span class="project-disclosure-label"><span class="project-disclosure-text">구현 내용 보기</span><span class="project-disclosure-shine" aria-hidden="true" hidden>구현 내용 보기</span></span></summary><section class="project-design-notes" aria-labelledby="design-notes-medipmacro"><h4 id="design-notes-medipmacro">구조와 구현 이유</h4><dl class="project-design-qa"><div><dt>왜 파일별 Action과 내부 Command로 나눴나?</dt><dd>파일마다 로딩·분석·출력 단계가 이어지므로 파일을 하나의 Action으로, 내부 처리 단계를 Command로 구분했습니다. 실행 순서와 실패한 단계를 파일 단위로 다룰 수 있습니다.</dd></div><div><dt>왜 한 파일 실패 후에도 계속 실행했나?</dt><dd>한 파일의 오류로 나머지 파일까지 중단하지 않도록 실패 범위를 파일 단위로 나눴습니다. JSONL에 상태와 실패 메시지를 남겨 후속 확인·재처리할 대상을 구분했습니다.</dd></div></dl></section><h4 class="project-implementation-heading">구현 내용</h4><dl class="project-implementation"><div><dt>입력·실행 설정</dt><dd>DICOM과 커스텀 프로젝트 파일(.mip)을 순차 분석하는 Macro를 개발했습니다. 파일·폴더 입력과 하위 폴더 탐색을 지원하고, 분석 프로젝트·Export 옵션을 JSON으로 저장·불러오도록 구성했습니다.</dd></div><div><dt>분석·결과 출력</dt><dd>파일별 복수 AI 분석과 Mask 기반 Surface 생성을 순차 실행했습니다. Layer·Mesh를 NII·STL·OBJ 등으로 출력하고, 영상 정보와 Layer별 voxel 수·비율·체적을 CSV로 기록했습니다.</dd></div><div><dt>실패 격리</dt><dd>파일마다 독립 Action을 두고 내부 단계를 Command로 구성했습니다. 한 파일의 Command가 실패하면 해당 파일만 Failed로 기록하고 다음 파일의 Action을 계속 실행하도록 처리했습니다.</dd></div><div><dt>상태·로그 관리</dt><dd>NotStarted·Running·Success·Failed·Interrupted 상태와 실패 메시지를 JSONL로 남겼습니다. 진행 상태와 실패 메시지를 JSONL로 기록해 후속 확인에 사용하고, 전체 성공 시 해당 로그를 삭제하도록 했습니다.</dd></div><div><dt>장시간 실행 대응</dt><dd>결과 폴더 중복과 실행 중 창 종료를 방지하고 취소·완료 후 UI를 복원했습니다. 갤러리에는 설정부터 분석·결과 폴더 확인까지의 동작과 파일별 상태·중단 메시지가 포함돼 있습니다.</dd></div></dl></details>
               </div>
             </article>
 
@@ -2119,7 +2119,7 @@
       ],
       [
         "상태·로그 관리",
-        "NotStarted·Running·Success·Failed·Interrupted 상태와 실패 메시지를 JSONL로 남겼습니다. 파일별 처리 결과와 재처리 대상을 로그에서 확인할 수 있도록 했습니다."
+        "NotStarted·Running·Success·Failed·Interrupted 상태와 실패 메시지를 JSONL로 남겼습니다. 진행 상태와 실패 메시지를 JSONL로 기록해 후속 확인에 사용하고, 전체 성공 시 해당 로그를 삭제하도록 했습니다."
       ],
       [
         "장시간 실행 대응",
@@ -2487,7 +2487,7 @@
       ],
       [
         "Execution records",
-        "Recorded NotStarted, Running, Success, Failed and Interrupted states with failure messages in JSONL. This made per-file results and retry candidates traceable in the log."
+        "Recorded NotStarted, Running, Success, Failed and Interrupted states with failure messages in JSONL. Recorded execution states and failure messages in JSONL for follow-up checks; removed the log when all files completed successfully."
       ],
       [
         "Long-running jobs",
@@ -3280,7 +3280,7 @@
               ],
               [
                 "왜 고정 시간 대기보다 작업 상태를 확인했나?",
-                "AI 분석 시간은 데이터에 따라 달라집니다. 정해진 시간만 기다리는 대신 작업 상태를 확인하며 진행하고, 진행 단계와 실패 위치를 로그로 남겨 문제가 발생한 동작을 찾도록 했습니다."
+                "AI 분석 시간은 데이터에 따라 달라집니다. 작업 상태 확인과 대기 시간을 함께 사용하며 진행하고, 진행 단계와 실패 위치를 로그로 남겨 문제가 발생한 동작을 찾도록 했습니다."
               ]
             ]
           },
@@ -3371,7 +3371,7 @@
               ],
               [
                 "Why check task state instead of waiting a fixed time?",
-                "AI analysis time varies with the data. Rather than waiting a set time, I proceeded while checking task state and logged execution stages and failure locations to identify the action where the issue occurred."
+                "AI analysis time varies with the data. I combined task-state checks with timed waits, and logged execution stages and failure locations to identify the action where the issue occurred."
               ]
             ]
           },
@@ -3603,9 +3603,9 @@
         stages: [
           ["테스트 설정 로드", ["반복 횟수와 시작 위치", "테스트/매크로 파일 경로"], ["재시작 기준 확보", "마지막 작업 번호 기록", "CrashTask로 실패 구간 추적"]],
           ["UI 로그 재생", ["객체명과 이벤트 타입", "버튼/키보드/마우스 재현"]],
-          ["반복 실행 제어", ["세트 단위 반복 루프", "진행/성공/실패 상태 표시"], ["실행 중복 방지", "ThreadLock과 busy 상태 확인", "분석 완료 전 다음 입력 차단"]],
+          ["반복 실행 제어", ["세트 단위 반복 루프", "UI 재생 진행·이벤트 전달 결과 표시"], ["작업 중 입력 진행 제어", "ThreadLock과 busy 상태 확인", "작업 상태를 확인한 뒤 다음 입력 진행"]],
           ["작업 완료 대기", ["Action, Progress 상태 확인", "작업 처리 후 다음 단계"], ["PACS 자동 분석 대기", "PACS 분석 실행 상태 감시", "완료 후 다음 UI 입력 진행"]],
-          ["결과 저장", ["TestCaseResult CSV", "Macro Success/Failed CSV"], ["운영 검증 결과화", "테스트 케이스별 결과 CSV", "반복 실패 항목 정리"]]
+          ["결과 저장", ["TestCaseResult CSV", "Macro Success/Failed CSV"], ["실행 결과 파일 저장", "테스트 케이스별 결과 CSV", "반복 실패 항목 정리"]]
         ],
         pointTitle: "핵심 활용 포인트",
         point: "수동 클릭 로그를 재사용 가능한 테스트 케이스로 만들고, 장시간 반복 실행에서 실패 위치와 결과 파일을 남겨 운영 이슈 재현 기준을 확보"
@@ -3616,9 +3616,9 @@
         stages: [
           ["Load test settings", ["Repeat count and starting position", "Test/macro file paths"], ["Establish restart points", "Record the last task number", "Track failed segments with CrashTask"]],
           ["Replay UI logs", ["Object names and event types", "Reproduce buttons, keyboard and mouse input"]],
-          ["Control repeated runs", ["Repeat loops by test set", "Show progress, success and failure states"], ["Prevent overlapping execution", "Check ThreadLock and busy state", "Block the next input until analysis completes"]],
+          ["Control repeated runs", ["Repeat loops by test set", "Show UI replay progress and event-delivery results"], ["Control input progression during tasks", "Check ThreadLock and busy state", "Check task state before advancing input"]],
           ["Wait for completion", ["Check Action and Progress states", "Continue after task processing"], ["Wait for PACS analysis", "Monitor PACS analysis execution", "Continue UI input after completion"]],
-          ["Save results", ["TestCaseResult CSV", "Macro Success/Failed CSV"], ["Produce validation results", "CSV results per test case", "Organize recurring failures"]]
+          ["Save results", ["TestCaseResult CSV", "Macro Success/Failed CSV"], ["Save execution result files", "CSV results per test case", "Organize recurring failures"]]
         ],
         pointTitle: "Key use",
         point: "Turn manual click logs into reusable test cases and retain failure locations and result files from long-running repeated execution as a basis for reproducing operational issues"
