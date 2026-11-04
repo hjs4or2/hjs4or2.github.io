@@ -42,7 +42,7 @@
         "시험 결과·검증 기록을 Software Validation Report(SVR)로 문서화."
       ],
       impeach: [
-        "IMPEACH에서 비의료 장비 AMX 통합 제어·WATCHOUT 연동 개발.",
+        "IMPEACH에서 미디어 장비 AMX 통합 제어·WATCHOUT 연동 개발.",
         "Python/Qt 장비 테스트 앱과 TCP/IP·Serial 명령/응답 처리.",
         "연결 상태·통신 예외 처리와 현장 검증."
       ]
@@ -74,7 +74,7 @@
         "Documented test results and verification records in the Software Validation Report (SVR)."
       ],
       impeach: [
-        "Developed non-medical AMX device control and WATCHOUT integration at IMPEACH.",
+        "Developed AMX media equipment control and WATCHOUT integration at IMPEACH.",
         "Python/Qt device test apps and TCP/IP/Serial command/response handling.",
         "Connection-state and communication-exception handling, plus field testing."
       ]
